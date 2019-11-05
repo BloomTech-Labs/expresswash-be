@@ -1,6 +1,7 @@
 
 exports.up = function(knex, Promise) {
-    return knex.schema.createTable('washers', washers => {
+    return knex.schema
+    .createTable('washers', washers => {
         washers.increments('washerId');
         washers.string('email', 128)
             .notNullable()
@@ -9,7 +10,7 @@ exports.up = function(knex, Promise) {
         washers.string('firstName', 128).notNullable();
         washers.string('lastName', 128).notNullable();
         washers.string('phoneNumber', 12).notNullable();
-        washers.string('billingAddress', 12).notNullable();
+        washers.string('billingAddress', 400).notNullable();
         washers.string('stripeUUID', 128).unique();
     })
     .createTable('clients', clients => {
@@ -21,7 +22,7 @@ exports.up = function(knex, Promise) {
         clients.string('firstName', 128).notNullable();
         clients.string('lastName', 128).notNullable();
         clients.string('phoneNumber', 12).notNullable();
-        clients.string('billingAddress', 12).notNullable();
+        clients.string('billingAddress', 400).notNullable();
         clients.string('stripeUUID', 128).unique();
     })
     .createTable('cars', cars => {
@@ -48,6 +49,7 @@ exports.up = function(knex, Promise) {
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
         clientCars.string('color').notNullable();
+        clientCars.string('licensePlate', 9).notNullable();
     })
     .createTable('jobs', jobs => {
         jobs.increments('jobId');
@@ -77,7 +79,7 @@ exports.up = function(knex, Promise) {
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
     })
-    .createTable('ratingsOfWashers', ratingsOW => {
+    .createTable('ratingsOW', ratingsOW => {
         ratingsOW.increments('ratingOWId');
         ratingsOW.integer('rating', 2).notNullable();
         ratingsOW.string('notes', 400);
@@ -85,7 +87,7 @@ exports.up = function(knex, Promise) {
             .unsigned()
             .notNullable()
             .references('clientId')
-            .intable('clients')
+            .inTable('clients')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
         ratingsOW.integer('washerId')
@@ -96,10 +98,17 @@ exports.up = function(knex, Promise) {
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
     })
-    .createTable('ratingsOfClients', ratingsOC => {
+    .createTable('ratingsOC', ratingsOC => {
         ratingsOC.increments('ratingOCId');
         ratingsOC.integer('rating', 2).notNullable();
         ratingsOC.string('notes', 400);
+        ratingsOC.integer('clientId')
+            .unsigned()
+            .notNullable()
+            .references('clientId')
+            .inTable('clients')
+            .onDelete('RESTRICT')
+            .onUpdate('RESTRICT');
         ratingsOC.integer('washerId')
             .unsigned()
             .notNullable()
@@ -107,20 +116,13 @@ exports.up = function(knex, Promise) {
             .inTable('washers')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
-        ratingsOC.integer('clientId')
-            .unsigned()
-            .notNullable()
-            .references('clientId')
-            .intable('clients')
-            .onDelete('RESTRICT')
-            .onUpdate('RESTRICT');
     });
 };
 
 exports.down = function(knex, Promise) {
     return knex.schema
-        .dropTableIfExists('ratingsOfClients')
-        .dropTableIfExists('ratingsOfWashers')
+        .dropTableIfExists('ratingsOC')
+        .dropTableIfExists('ratingsOW')
         .dropTableIfExists('jobs')
         .dropTableIfExists('clientCars')
         .dropTableIfExists('cars')
