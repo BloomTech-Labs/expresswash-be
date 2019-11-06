@@ -9,8 +9,12 @@ exports.up = function(knex, Promise) {
         washers.string('password', 128).notNullable();
         washers.string('firstName', 128).notNullable();
         washers.string('lastName', 128).notNullable();
-        washers.string('phoneNumber', 12).notNullable();
-        washers.string('billingAddress', 400).notNullable();
+        washers.string('phoneNumber', 25).notNullable();
+        washers.string('streetAddress', 400).notNullable();
+        washers.string('streetAddress2', 400);
+        washers.string('city', 400).notNullable();
+        washers.string('state', 400).notNullable();
+        washers.string('zip', 400).notNullable();
         washers.string('stripeUUID', 128).unique();
     })
     .createTable('clients', clients => {
@@ -22,7 +26,11 @@ exports.up = function(knex, Promise) {
         clients.string('firstName', 128).notNullable();
         clients.string('lastName', 128).notNullable();
         clients.string('phoneNumber', 12).notNullable();
-        clients.string('billingAddress', 400).notNullable();
+        clients.string('streetAddress', 400).notNullable();
+        clients.string('streetAddress2', 400);
+        clients.string('city', 400).notNullable();
+        clients.string('state', 400).notNullable();
+        clients.string('zip', 400).notNullable();
         clients.string('stripeUUID', 128).unique();
     })
     .createTable('cars', cars => {
