@@ -1,37 +1,22 @@
 
 exports.up = function(knex, Promise) {
     return knex.schema
-    .createTable('washers', washers => {
-        washers.increments('washerId');
-        washers.string('email', 128)
+    .createTable('users', user => {
+        user.increments('id');
+        user.string('accountType',128).notNullable();
+        user.string('email', 128)
             .notNullable()
             .unique();
-        washers.string('password', 128).notNullable();
-        washers.string('firstName', 128).notNullable();
-        washers.string('lastName', 128).notNullable();
-        washers.string('phoneNumber', 25).notNullable();
-        washers.string('streetAddress', 400).notNullable();
-        washers.string('streetAddress2', 400);
-        washers.string('city', 400).notNullable();
-        washers.string('state', 400).notNullable();
-        washers.string('zip', 400).notNullable();
-        washers.string('stripeUUID', 128).unique();
-    })
-    .createTable('clients', clients => {
-        clients.increments('clientId');
-        clients.string('email', 128)
-            .notNullable()
-            .unique();
-        clients.string('password', 128).notNullable();
-        clients.string('firstName', 128).notNullable();
-        clients.string('lastName', 128).notNullable();
-        clients.string('phoneNumber', 12).notNullable();
-        clients.string('streetAddress', 400).notNullable();
-        clients.string('streetAddress2', 400);
-        clients.string('city', 400).notNullable();
-        clients.string('state', 400).notNullable();
-        clients.string('zip', 400).notNullable();
-        clients.string('stripeUUID', 128).unique();
+        user.string('password', 128).notNullable();
+        user.string('firstName', 128).notNullable();
+        user.string('lastName', 128).notNullable();
+        user.string('phoneNumber', 25).notNullable();
+        user.string('stripeUUID', 128).unique();
+        user.string('streetAddress', 400).notNullable();
+        user.string('streetAddress2', 400);
+        user.string('city', 400).notNullable();
+        user.string('state', 400).notNullable();
+        user.string('zip', 400).notNullable();
     })
     .createTable('cars', cars => {
         cars.increments('carId');
@@ -134,7 +119,6 @@ exports.down = function(knex, Promise) {
         .dropTableIfExists('jobs')
         .dropTableIfExists('clientCars')
         .dropTableIfExists('cars')
-        .dropTableIfExists('clients')
-        .dropTableIfExists('washers');
+        .dropTableIfExists('users');
 };
 
