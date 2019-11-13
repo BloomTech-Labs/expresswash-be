@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
     development: {
       client: 'sqlite3',
@@ -5,11 +7,13 @@ module.exports = {
       connection: {
         filename: './database/database.db3',
       },
+      // connection: process.env.DATABASE_URL,
       pool: {
         afterCreate: (conn, done) => {
           conn.run('PRAGMA foreign_keys = ON', done);
         },
       },
+      useNullAsDefault: true,
       migrations: {
         directory: './database/migrations',
       },
@@ -22,12 +26,28 @@ module.exports = {
       connection: {
         filename: './database/test.db3',
       },
+      // connection: process.env.DATABASE_URL,
       useNullAsDefault: true,
       migrations: {
         directory: './database/migrations',
       },
+      useNullAsDefault: true,
       seeds: {
         directory: './database/seeds',
+      },
+    },
+    production: {
+      client: 'sqlite3',
+      connection: {
+        filename: './database/database.db3',
+      },
+      // connection: process.env.DB_URL,
+      useNullAsDefault: true,
+      migrations: {
+        directory: './database/migrations',
+      },
+      seeds: { 
+        directory: './database/seeds' 
       },
     },
   };

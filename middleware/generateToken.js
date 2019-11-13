@@ -8,6 +8,7 @@ function generateToken(user) {
     const payload = {
       sub: user.id,
       username: user.username,
+      accountType: user.accountType,
     };
     
     const options = {

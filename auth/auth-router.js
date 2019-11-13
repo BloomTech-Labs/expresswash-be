@@ -7,10 +7,13 @@ const generateToken = require('../middleware/generateToken.js')
 
 authRouter.post('/registerClient', async (req, res) => {
     let client = req.body;
+    const accountType = "client";
     const hash = bcrypt.hashSync(client.password, 10); // 2 ^ n
+    console.log(client);
     client.password = hash;
-  
-    return db('clients').insert(client)
+    client = { ...client, "accountType":"client" };
+    console.log(client);
+    return db('users').insert(client)
       .then(saved => {
         // a jwt should be generated
         const token = generateToken(saved);
@@ -27,10 +30,13 @@ authRouter.post('/registerClient', async (req, res) => {
   
   authRouter.post('/registerWasher', async (req, res) => {
     let washer = req.body;
+    const accountType = "washer";
     const hash = bcrypt.hashSync(washer.password, 10); // 2 ^ n
+    console.log(washer);
     washer.password = hash;
-  
-    return db('washers').insert(washer)
+    washer = { ...washer, "accountType":"washer" };
+    console.log(washer);
+    return db('users').insert(washer)
       .then(saved => {
         // a jwt should be generated
         const token = generateToken(saved);
@@ -49,7 +55,7 @@ authRouter.post('/registerClient', async (req, res) => {
     let { email, password } = req.body;
     // console.log('username', username, 'password', password)
     // console.log('req.body', req.body)
-    return db('clients').where({email: req.body.email})
+    return db('users').where({email: req.body.email})
       .first()
       .then(user => {
         if (user && bcrypt.compareSync(password, user.password)) {
@@ -74,7 +80,7 @@ authRouter.post('/registerClient', async (req, res) => {
     let { email, password } = req.body;
     // console.log('username', username, 'password', password)
     // console.log('req.body', req.body)
-    return db('washers').where({email: req.body.email})
+    return db('users').where({email: req.body.email})
       .first()
       .then(user => {
         if (user && bcrypt.compareSync(password, user.password)) {
