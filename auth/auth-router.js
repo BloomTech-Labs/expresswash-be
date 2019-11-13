@@ -76,7 +76,7 @@ authRouter.post('/registerClient', async (req, res) => {
       });
   });
 
-  authRouter.post('/loginWasher', (req, res) => {
+  authRouter.post('/login', (req, res) => {
     let { email, password } = req.body;
     // console.log('username', username, 'password', password)
     // console.log('req.body', req.body)
@@ -89,6 +89,7 @@ authRouter.post('/registerClient', async (req, res) => {
           // console.log('token', token);
           res.status(200).json({
             message: `Welcome ${user.email}!`,
+            userType:`${user.accountType}`,
             token
           });
         } else {
