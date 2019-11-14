@@ -4,6 +4,10 @@ const bcrypt = require('bcryptjs');
 const db = require('../database/dbConfig.js');
 const generateToken = require('../middleware/generateToken.js')
 
+authRouter.get('/users', async (req, res) => {
+  const users = await db('users').select('email');
+  return res.status(200).json(users);
+});
 
 authRouter.post('/registerClient', async (req, res) => {
     let client = req.body;
