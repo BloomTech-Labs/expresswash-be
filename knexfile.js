@@ -23,26 +23,25 @@ module.exports = {
     },
     testing: {
       client: 'sqlite3',
+      useNullAsDefault: true,
       connection: {
         filename: './database/test.db3',
       },
       // connection: process.env.DATABASE_URL,
-      useNullAsDefault: true,
       migrations: {
         directory: './database/migrations',
       },
-      useNullAsDefault: true,
       seeds: {
         directory: './database/seeds',
       },
     },
     production: {
       client: 'sqlite3',
+      useNullAsDefault: true,
       connection: {
         filename: './database/database.db3',
       },
       // connection: process.env.DB_URL,
-      useNullAsDefault: true,
       migrations: {
         directory: './database/migrations',
       },

@@ -13,10 +13,10 @@ authRouter.post('/registerClient', async (req, res) => {
     let client = req.body;
     const accountType = "client";
     const hash = bcrypt.hashSync(client.password, 10); // 2 ^ n
-    console.log(client);
+    // console.log(client);
     client.password = hash;
     client = { ...client, "accountType":"client" };
-    console.log(client);
+    // console.log(client);
     return db('users').insert(client)
       .then(saved => {
         // a jwt should be generated
@@ -36,10 +36,10 @@ authRouter.post('/registerClient', async (req, res) => {
     let washer = req.body;
     const accountType = "washer";
     const hash = bcrypt.hashSync(washer.password, 10); // 2 ^ n
-    console.log(washer);
+    // console.log(washer);
     washer.password = hash;
     washer = { ...washer, "accountType":"washer" };
-    console.log(washer);
+    // console.log(washer);
     return db('users').insert(washer)
       .then(saved => {
         // a jwt should be generated
