@@ -17,13 +17,14 @@ exports.up = function(knex, Promise) {
         user.string('city', 400).notNullable();
         user.string('state', 400).notNullable();
         user.string('zip', 400).notNullable();
+        user.boolean('workStatus').notNullable().defaultTo(false);
     })
     .createTable('cars', cars => {
         cars.increments('carId');
-        cars.integer('year', 5).notNullable();
         cars.string('make', 128).notNullable();
         cars.string('model', 128).notNullable();
-        cars.decimal('baseWashCost', 8).notNullable();
+        cars.string('category', 128).notNullable();
+        cars.string('size', 128).notNullable();
     })
     .createTable('clientCars', clientCars => {
         clientCars.increments('clientCarId');
@@ -34,11 +35,11 @@ exports.up = function(knex, Promise) {
             .inTable('cars')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
-        clientCars.integer('clientId')
+        clientCars.integer('id')
             .unsigned()
             .notNullable()
-            .references('clientId')
-            .inTable('clients')
+            .references('id')
+            .inTable('users')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
         clientCars.string('color').notNullable();

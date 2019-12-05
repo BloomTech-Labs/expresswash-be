@@ -15,7 +15,7 @@ authRouter.post('/registerClient', async (req, res) => {
     const hash = bcrypt.hashSync(client.password, 10); // 2 ^ n
     // console.log(client);
     client.password = hash;
-    client = { ...client, "accountType":"client" };
+    client = { ...client, accountType };
     // console.log(client);
     return db('users').insert(client)
       .then(saved => {
@@ -38,7 +38,7 @@ authRouter.post('/registerClient', async (req, res) => {
     const hash = bcrypt.hashSync(washer.password, 10); // 2 ^ n
     // console.log(washer);
     washer.password = hash;
-    washer = { ...washer, "accountType":"washer" };
+    washer = { ...washer, accountType };
     // console.log(washer);
     return db('users').insert(washer)
       .then(saved => {
