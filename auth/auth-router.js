@@ -84,7 +84,7 @@ authRouter.post('/registerClient', async (req, res) => {
     let { email, password } = req.body;
     // console.log('username', username, 'password', password)
     // console.log('req.body', req.body)
-    return db('users').where({email: req.body.email})
+    return db('users').where({email})
       .first()
       .then(user => {
         if (user && bcrypt.compareSync(password, user.password)) {
