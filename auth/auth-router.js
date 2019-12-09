@@ -94,6 +94,9 @@ authRouter.post('/registerClient', async (req, res) => {
           res.status(200).json({
             message: `Welcome ${user.email}!`,
             userType:`${user.accountType}`,
+            firstName:`${user.firstName}`,
+            lastName:`${user.lastName}`,
+            id:`${user.id}`,
             token
           });
         } else {
