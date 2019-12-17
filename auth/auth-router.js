@@ -12,10 +12,12 @@ authRouter.get('/users', async (req, res) => {
 authRouter.post('/registerClient', async (req, res) => {
     let client = req.body;
     const accountType = "client";
+    const date = new Date();
+    const creationDate = date.getUTCDate()
     const hash = bcrypt.hashSync(client.password, 10); // 2 ^ n
     // console.log(client);
     client.password = hash;
-    client = { ...client, accountType };
+    client = { ...client, accountType, creationDate };
     // console.log(client);
     return db('users').insert(client)
       .then(saved => {
@@ -35,10 +37,12 @@ authRouter.post('/registerClient', async (req, res) => {
   authRouter.post('/registerWasher', async (req, res) => {
     let washer = req.body;
     const accountType = "washer";
+    const date = new Date();
+    const creationDate = date.getUTCDate()
     const hash = bcrypt.hashSync(washer.password, 10); // 2 ^ n
     // console.log(washer);
     washer.password = hash;
-    washer = { ...washer, accountType };
+    washer = { ...washer, accountType, creationDate };
     // console.log(washer);
     return db('users').insert(washer)
       .then(saved => {
@@ -96,7 +100,9 @@ authRouter.post('/registerClient', async (req, res) => {
             userType:`${user.accountType}`,
             firstName:`${user.firstName}`,
             lastName:`${user.lastName}`,
+            profilePicture:`${user.profilePicture}`,
             id:`${user.id}`,
+            creationDate:`${user.creationDate}`,
             token
           });
         } else {

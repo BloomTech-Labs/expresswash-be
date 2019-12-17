@@ -18,6 +18,8 @@ exports.up = function(knex, Promise) {
         user.string('state', 400).notNullable();
         user.string('zip', 400).notNullable();
         user.boolean('workStatus').notNullable().defaultTo(false);
+        user.string('profilePicture', 400).defaultTo('');
+        user.date('creationDate', 128).notNullable();
     })
     .createTable('cars', cars => {
         cars.increments('carId');
