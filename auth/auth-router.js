@@ -38,7 +38,7 @@ authRouter.post('/registerClient', async (req, res) => {
     let washer = req.body;
     const accountType = "washer";
     const date = new Date();
-    const creationDate = date.getUTCDate()
+    const creationDate = date
     const hash = bcrypt.hashSync(washer.password, 10); // 2 ^ n
     // console.log(washer);
     washer.password = hash;
@@ -103,6 +103,7 @@ authRouter.post('/registerClient', async (req, res) => {
             profilePicture:`${user.profilePicture}`,
             id:`${user.id}`,
             creationDate:`${user.creationDate}`,
+            workStatus:`${user.workStatus}`,
             token
           });
         } else {
