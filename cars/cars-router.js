@@ -8,7 +8,7 @@ carsRouter.get('/makes', async (req, res) => {
     return res.status(200).json(counts);
 });
 
-carsRouter.post('/carsByManufacturer', async (req, res) => {
+carsRouter.post('/models', async (req, res) => {
     const { make } = req.body;
     const cars = await db('cars').where({make}).select('carId', 'model',);
     return res.status(200).json(cars);
