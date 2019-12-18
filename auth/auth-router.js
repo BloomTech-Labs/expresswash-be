@@ -13,7 +13,7 @@ authRouter.post('/registerClient', async (req, res) => {
     let client = req.body;
     const accountType = "client";
     const date = new Date();
-    const creationDate = date.getUTCDate()
+    const creationDate = date
     const hash = bcrypt.hashSync(client.password, 10); // 2 ^ n
     // console.log(client);
     client.password = hash;

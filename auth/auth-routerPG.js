@@ -1,4 +1,6 @@
 const authRouterPG = require('express').Router();
+const bcrypt = require('bcryptjs');
+const generateToken = require('../middleware/generateToken.js')
 
 const queries = require('../database/queries.js');
 
@@ -7,5 +9,9 @@ authRouterPG.get('/', (req, res) => {
         res.json(users);
     });
 });
+
+// authRouterPG.post('/registerClient', async (req, res) => {
+
+// });
 
 module.exports = authRouterPG;
