@@ -34,18 +34,29 @@ module.exports = {
       },
     },
     production: {
-      client: 'sqlite3',
-      useNullAsDefault: true,
-      connection: {
-        filename: './database/database.db3',
-      },
+      client: 'pg',
+      // useNullAsDefault: true,
+      connection: process.env.DATABASE_URL,
       // connection: process.env.DB_URL,
       migrations: {
-        directory: './database/migrations',
+        directory: './database/migrationsPG',
       },
       seeds: { 
-        directory: './database/seeds' 
+        directory: './database/seedsPG' 
       },
+      // production: {
+      //   client: 'sqlite3',
+      //   useNullAsDefault: true,
+      //   connection: {
+      //     filename: './database/database.db3',
+      //   },
+      //   // connection: process.env.DB_URL,
+      //   migrations: {
+      //     directory: './database/migrations',
+      //   },
+      //   seeds: { 
+      //     directory: './database/seeds' 
+      //   },
     },
   };
   
