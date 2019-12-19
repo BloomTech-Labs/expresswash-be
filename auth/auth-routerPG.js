@@ -49,7 +49,7 @@ authRouterPG.post('/registerWasher', async (req, res) => {
     return insertUserPG(user)
       .then(saved => {
         // a jwt should be generated
-        console.log(saved)
+        // console.log(saved)
         const token = generateToken(saved);
         res.status(201).json({
         //   user: saved,
