@@ -5,6 +5,10 @@ module.exports = {
         return knex('users');
     },
 
+    getNewUser(){
+        return knex('users')
+    },
+
     insertUserPG(user){
         return knex('users').insert(user);
     },

@@ -26,7 +26,7 @@ authRouterPG.post('/registerClient', async (req, res) => {
             // a jwt should be generated
             const token = generateToken(saved);
             res.status(201).json({
-                user: saved,
+                message:'user saved successfully',
                 token
             });
         })
@@ -49,9 +49,11 @@ authRouterPG.post('/registerWasher', async (req, res) => {
     return insertUserPG(user)
       .then(saved => {
         // a jwt should be generated
+        console.log(saved)
         const token = generateToken(saved);
         res.status(201).json({
-          user: saved,
+        //   user: saved,
+          message:'user saved successfully',
           token
         });
       })
