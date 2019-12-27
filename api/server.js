@@ -7,6 +7,8 @@ require('dotenv').config();
 const authRouter = require('../auth/auth-router.js');
 const carsRouter = require('../cars/cars-router.js');
 const authRouterPG = require('../auth/auth-routerPG.js');
+const carsRouterPG = require('../cars/cars-routerPG.js');
+
 
 const server = express();
 
@@ -18,6 +20,7 @@ server.use(express.json());
 server.use('/auth/', authRouter);
 server.use('/cars/', carsRouter);
 server.use('/authPG/', authRouterPG);
+server.use('/carsPG/', carsRouterPG);
 
 server.get('/', (req, res) => {
     res.status(200).json({message: 'Backend is up and running'});
