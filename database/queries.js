@@ -42,7 +42,7 @@ module.exports = {
     },
 
     getLatestJobClient(clientId){
-        return knex('jobs').first().where({ clientId })
+        return knex('jobs').where({ clientId }).orderBy('creationDate', 'desc').first()
     },
 
     addNewJob(newJob){
@@ -50,7 +50,15 @@ module.exports = {
     },
 
     seeAvailableJobs(){
-        return knex('jobs')
+        return knex('jobs').where( "washerId", null )
+    },
+
+    getWasherInfo(id){
+        return knex('users').where({ id })
+    },
+
+    selectJobById(jobId, washerId){
+        return knex('jobs').where({ jobId })
     }
 
 

@@ -98,6 +98,8 @@ exports.up = function(knex, Promise) {
             .inTable('users')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
+        jobs.string('creationDate', 128).notNullable();
+
     })
     .createTable('ratingsOW', ratingsOW => {
         ratingsOW.increments('ratingOWId');
