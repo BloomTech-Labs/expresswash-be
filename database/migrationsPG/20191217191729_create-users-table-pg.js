@@ -1,4 +1,30 @@
 
+// exports.up = function(knex, Promise) {
+//   return knex.schema.createTable('users', (table) => {
+//       table.increments('id');
+//       table.text('accountType');
+//       table.text('email');
+//       table.text('password');
+//       table.text('firstName');
+//       table.text('lastName');
+//       table.text('phoneNumber');
+//       table.text('stripeUUID');
+//       table.text('streetAddress');
+//       table.text('streetAddress2');
+//       table.text('city');
+//       table.text('state');
+//       table.text('zip');
+//       table.text('workStatus');
+//       table.text('profilePicture');
+//       table.text('creationDate');
+//   })
+// };
+
+// exports.down = function(knex, Promise) {
+//   return knex.schema.dropTable('users');
+// };
+
+
 exports.up = function(knex, Promise) {
     return knex.schema
     .createTable('users', user => {
@@ -56,62 +82,62 @@ exports.up = function(knex, Promise) {
         jobs.integer('clientId')
             .unsigned()
             .notNullable()
-            .references('clientId')
-            .inTable('clients')
+            .references('id')
+            .inTable('users')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
         jobs.integer('clientCarId')
             .unsigned()
-            .notNullable()
             .references('clientCarId')
             .inTable('clientCars')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
         jobs.integer('washerId')
             .unsigned()
-            .notNullable()
-            .references('washerId')
-            .inTable('washers')
+            .references('id')
+            .inTable('users')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
+        jobs.string('creationDate', 128).notNullable();
+
     })
     .createTable('ratingsOW', ratingsOW => {
         ratingsOW.increments('ratingOWId');
         ratingsOW.integer('rating', 2).notNullable();
         ratingsOW.string('notes', 400);
-        ratingsOW.integer('clientId')
+        ratingsOW.integer('id')
             .unsigned()
             .notNullable()
-            .references('clientId')
-            .inTable('clients')
+            .references('id')
+            .inTable('users')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
-        ratingsOW.integer('washerId')
-            .unsigned()
-            .notNullable()
-            .references('washerId')
-            .inTable('washers')
-            .onDelete('RESTRICT')
-            .onUpdate('RESTRICT');
+        // ratingsOW.integer('clientId')
+        //     .unsigned()
+        //     .notNullable()
+        //     .references('id')
+        //     .inTable('users')
+        //     .onDelete('RESTRICT')
+        //     .onUpdate('RESTRICT');
     })
     .createTable('ratingsOC', ratingsOC => {
         ratingsOC.increments('ratingOCId');
         ratingsOC.integer('rating', 2).notNullable();
         ratingsOC.string('notes', 400);
-        ratingsOC.integer('clientId')
+        ratingsOC.integer('id')
             .unsigned()
             .notNullable()
-            .references('clientId')
-            .inTable('clients')
+            .references('id')
+            .inTable('users')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
-        ratingsOC.integer('washerId')
-            .unsigned()
-            .notNullable()
-            .references('washerId')
-            .inTable('washers')
-            .onDelete('RESTRICT')
-            .onUpdate('RESTRICT');
+        // ratingsOC.integer('washerId')
+        //     .unsigned()
+        //     .notNullable()
+        //     .references('id')
+        //     .inTable('users')
+        //     .onDelete('RESTRICT')
+        //     .onUpdate('RESTRICT');
     });
 };
 

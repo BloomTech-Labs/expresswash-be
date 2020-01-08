@@ -2,23 +2,21 @@ require('dotenv').config();
 
 module.exports = {
     development: {
-      client: 'sqlite3',
-      useNullAsDefault: true,
-      connection: {
-        filename: './database/database.db3',
-      },
+      client: 'pg',
+      // useNullAsDefault: true,
+      connection: 'postgres://localhost/databasePG',
       // connection: process.env.DATABASE_URL,
-      pool: {
-        afterCreate: (conn, done) => {
-          conn.run('PRAGMA foreign_keys = ON', done);
-        },
-      },
-      useNullAsDefault: true,
+      // pool: {
+      //   afterCreate: (conn, done) => {
+      //     conn.run('PRAGMA foreign_keys = ON', done);
+      //   },
+      // },
+      // useNullAsDefault: true,
       migrations: {
-        directory: './database/migrations',
+        directory: './database/migrationsPG',
       },
       seeds: {
-        directory: './database/seeds',
+        directory: './database/seedsPG',
       },
     },
     testing: {
@@ -36,18 +34,34 @@ module.exports = {
       },
     },
     production: {
-      client: 'sqlite3',
-      useNullAsDefault: true,
-      connection: {
-        filename: './database/database.db3',
-      },
+      client: 'pg',
+      // useNullAsDefault: true,
+      connection: process.env.DATABASE_URL,
+        
+        // user: `${process.env.DB_USER}`, 
+        // password: `${process.env.DB_PW}`,
+        // host:`${process.env.DB_HOST}`,
+        // port:`${process.env.DB_PORT}`
       // connection: process.env.DB_URL,
       migrations: {
-        directory: './database/migrations',
+        directory: './database/migrationsPG',
       },
       seeds: { 
-        directory: './database/seeds' 
+        directory: './database/seedsPG' 
       },
+      // production: {
+      //   client: 'sqlite3',
+      //   useNullAsDefault: true,
+      //   connection: {
+      //     filename: './database/database.db3',
+      //   },
+      //   // connection: process.env.DB_URL,
+      //   migrations: {
+      //     directory: './database/migrations',
+      //   },
+      //   seeds: { 
+      //     directory: './database/seeds' 
+      //   },
     },
   };
   

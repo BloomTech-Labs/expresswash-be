@@ -9,24 +9,29 @@ authRouter.get("/users", async (req, res) => {
   return res.status(200).json(users);
 });
 
-authRouter.post("/registerClient", async (req, res) => {
-  let client = req.body;
-  const accountType = "client";
-  const date = new Date();
-  const creationDate = date.getUTCDate();
-  const hash = bcrypt.hashSync(client.password, 10); // 2 ^ n
-  // console.log(client);
-  client.password = hash;
-  client = { ...client, accountType, creationDate };
-  // console.log(client);
-  return db("users")
-    .insert(client)
-    .then(saved => {
-      // a jwt should be generated
-      const token = generateToken(saved);
-      res.status(201).json({
-        user: saved,
-        token
+authRouter.post('/registerClient', async (req, res) => {
+    let client = req.body;
+    const accountType = "client";
+    const date = new Date();
+    const creationDate = date
+    const hash = bcrypt.hashSync(client.password, 10); // 2 ^ n
+    // console.log(client);
+    client.password = hash;
+    client = { ...client, accountType, creationDate };
+    // console.log(client);
+    return db('users').insert(client)
+      .then(saved => {
+        // a jwt should be generated
+        const token = generateToken(saved);
+        res.status(201).json({
+          user: saved,
+          token
+        });
+      })
+      .catch(error => {
+        console.log(error);
+        res.status(500).json(error);
+
       });
     })
     .catch(error => {
