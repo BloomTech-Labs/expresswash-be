@@ -33,13 +33,9 @@ authRouter.post('/registerClient', async (req, res) => {
         res.status(500).json(error);
 
       });
-    })
-    .catch(error => {
-      console.log(error);
-      res.status(500).json(error);
     });
-});
 
+  
 authRouter.post("/registerWasher", async (req, res) => {
   let washer = req.body;
   const accountType = "washer";
