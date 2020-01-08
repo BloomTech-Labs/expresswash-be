@@ -88,14 +88,12 @@ exports.up = function(knex, Promise) {
             .onUpdate('RESTRICT');
         jobs.integer('clientCarId')
             .unsigned()
-            .notNullable()
             .references('clientCarId')
             .inTable('clientCars')
             .onDelete('RESTRICT')
             .onUpdate('RESTRICT');
         jobs.integer('washerId')
             .unsigned()
-            .notNullable()
             .references('id')
             .inTable('users')
             .onDelete('RESTRICT')

@@ -33,5 +33,25 @@ module.exports = {
         return knex('clientCars').insert(clientCar)
     },
 
+    getLatestReviewOfWasher(id){
+        return knex('ratingsOW').first().where({ id })
+    },
+
+    getLatestReviewOfClient(id){
+        return knex('ratingsOC').first().where({ id })
+    },
+
+    getLatestJobClient(clientId){
+        return knex('jobs').first().where({ clientId })
+    },
+
+    addNewJob(newJob){
+        return knex('jobs').insert(newJob)
+    },
+
+    seeAvailableJobs(){
+        return knex('jobs')
+    }
+
 
 }
