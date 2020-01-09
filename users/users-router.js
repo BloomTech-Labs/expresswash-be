@@ -40,6 +40,7 @@ function checkId(req, res, next) {
   const { id } = req.params;
   Users.findById(id)
     .then(user => {
+      console.log(user)
       if (user) {
         req.user = user;
         next();

@@ -1,4 +1,4 @@
-const db = require("../database/dbConfig.js");
+const db = require('../database/knex');
 
 module.exports = {
   find,
@@ -7,18 +7,18 @@ module.exports = {
 };
 
 function find() {
-  return db("Users").select("*");
+  return db("users").select("*");
 }
 
 function findById(id) {
-  return db("Users")
+  return db("users")
     .select("firstName", "lastName", "email", "phoneNumber")
     .where({ id })
     .first();
 }
 
 function update(id, changes) {
-  return db("Users")
+  return db("users")
     .where({ id })
     .update(changes, "*");
 }
