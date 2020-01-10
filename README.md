@@ -48,6 +48,7 @@ The endpoints currently operational on the server are RegisterWasher, RegisterCl
 
 The Register Washer and Client Endpoints need the following JSON information (with the exception of streetAddress2, which is not required):
 
+```
 {
 	"email":"test@test.con",
 	"firstName":"Test",
@@ -60,51 +61,72 @@ The Register Washer and Client Endpoints need the following JSON information (wi
 	"State":"California", 
 	"zip":"94103"
 }
+```
+
 
 The Login User Endpoint needs the following JSON information:
 
+```
 {
 	"email":"test@test.con",
 	"password":"1234"
 }
+```
+
 
 The Car Models Endpoint needs the following JSON information:
 
+```
 {
 	"make":"Acura"
 }
+```
+
 
 The GetCarId Endpoint needs the following JSON information:
 
+```
 {
 	"make":"Acura",
 	"model":"Integra"
 }
+```
+
 
 The AddACar Endpoint needs the following JSON information:
 
+```
 {
 	"id":1,
 	"carId":42,
   "color":"beige",
   "licensePlate":"542-EXF"
 }
+```
+
 
 The GetLatestJobClient Endpoint needs the following JSON information:
 
+```
 {
 	"clientId":1
 }
+```
+
 
 The GetLatestWasherClient Endpoint needs the following JSON information:
 
+```
 {
 	"email":"test@test.con",
 	"password":"1234"
 }
+```
+
 
 The Add New Job Endpoint needs the following JSON information:
 
+```
 {
 	"washAddress":"2nd 123 Test St, City of SF, CA",
 	"washerId":null,
@@ -114,73 +136,105 @@ The Add New Job Endpoint needs the following JSON information:
   "clientId": 3,
   "clientCarId": 1
 }
+```
+
 
 The Job Info Endpoint needs the following JSON information:
 
+```
 {
 	"jobId":3
 }
+```
+
 
 The GetWorkStatus Endpoint needs the following JSON information:
 
+```
 {
 	"id":2
 }
+```
+
 
 The SetWorkStatus Endpoint needs the following JSON information:
 
+```
 {
 	"id":2,
 	"workStatus":true
 }
+```
+
 
 OR
 
+```
 {
   "id":2,
   "workStatus":false
 }
+```
+
 
 The SelectJob Endpoint needs the following JSON information:
 
+```
 {
 	"jobId":4,
 	"id":2
 }
+```
+
 
 The HowManyCompleted Jobs Endpoint needs the following JSON information:
 
+```
 {
 	"id":2
 }
+```
+
 
 The WasherAverage Endpoint needs the following JSON information:
 
+```
 {
 	"id":2
 }
+```
+
 
 The ClientAverage Endpoint needs the following JSON information:
 
+```
 {
 	"id":1
 }
+```
+
 
 The RateWasher Endpoint needs the following JSON information:
 
+```
 {
 	"id":2,
 	"rating":5,
   "notes":"This field is optional and takes a string >400 characters in length"
 }
+```
+
 
 The RateClient Endpoint needs the following JSON information:
 
+```
 {
 	"id":1,
 	"rating":5,
   "notes":"This field is optional and takes a string >400 characters in length"
 }
+```
+
 
 #### USERS
 
@@ -202,6 +256,7 @@ The RateClient Endpoint needs the following JSON information:
   userType: STRING [ 'admin', 'washer', 'client' ],
 }
 ```
+
 
 ## 2️⃣ Actions
 
