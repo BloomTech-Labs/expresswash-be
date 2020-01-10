@@ -117,7 +117,7 @@ jobsRouter.post('/howManyCompleted', async (req, res) => {
     const washerId = id;
     return countWasherOnJobs(washerId)
     .then(result => {
-        console.log(result)
+        // console.log(result)
         res.status(200).json(result)
     })
     .catch(err => res.status(500).json(err))
