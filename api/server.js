@@ -10,7 +10,8 @@ const carsRouter = require('../cars/cars-router.js');
 const authRouterPG = require('../auth/auth-routerPG.js');
 const carsRouterPG = require('../cars/cars-routerPG.js');
 const jobsRouter = require('../jobs/jobs-router.js');
-const usersRouter = require('../users/users-router.js')
+const usersRouter = require('../users/users-router.js');
+const ratingsRouter = require('../ratings/ratings-router.js');
 
 const server = express();
 
@@ -24,6 +25,7 @@ server.use('/authPG/', authRouterPG);
 server.use('/carsPG/', carsRouterPG);
 server.use('/jobs/', jobsRouter);
 server.use('/users/', usersRouter);
+server.use('/ratings/', ratingsRouter);
 
 server.get('/', (req, res) => {
     res.status(200).json({message: 'Backend is up and running'});

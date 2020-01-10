@@ -59,7 +59,38 @@ module.exports = {
 
     selectJobById(jobId, washerId){
         return knex('jobs').where({ jobId })
-    }
+    },
 
+    getWorkStatus(id){
+        return knex('users').where({ id }).select('id', 'workStatus')
+    },
+
+    setWorkStatus(id, workStatus){
+        return knex('users').where({ id }).update({ workStatus })
+    },
+
+    setWasherOnJob(jobId, washerId){
+        return knex('jobs').where({ jobId }).update({ washerId })
+    },
+
+    getWasherRatings(id){
+        return knex('ratingsOW').where({ id }).select('rating')
+    },
+
+    getClientRatings(id){
+        return knex('ratingsOC').where({ id }).select('rating')
+    },
+
+    rateWasher(washerRating){
+        return knex('ratingsOW').insert(washerRating)
+    },
+
+    rateClient(clientRating){
+        return knex('ratingsOC').insert(clientRating)
+    },
+
+    countWasherOnJobs(washerId){
+        return knex('jobs').where({ washerId }).count()
+    }
 
 }

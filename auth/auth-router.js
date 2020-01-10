@@ -4,11 +4,12 @@ const bcrypt = require("bcryptjs");
 const db = require("../database/dbConfig.js");
 const generateToken = require("../middleware/generateToken.js");
 
-authRouter.get("/users", async (req, res) => {
-  const users = await db("users").select("email");
-  return res.status(200).json(users);
-});
+// authRouter.get("/users", async (req, res) => {
+//   const users = await db("users").select("email");
+//   return res.status(200).json(users);
+// });
 
+// create a new client account
 authRouter.post('/registerClient', async (req, res) => {
     let client = req.body;
     const accountType = "client";
@@ -35,7 +36,7 @@ authRouter.post('/registerClient', async (req, res) => {
       });
     });
 
-  
+// create a new washer account
 authRouter.post("/registerWasher", async (req, res) => {
   let washer = req.body;
   const accountType = "washer";
@@ -87,6 +88,7 @@ authRouter.post("/registerWasher", async (req, res) => {
 //     });
 // });
 
+// login a user
 authRouter.post("/login", (req, res) => {
   let { email, password } = req.body;
   // console.log('username', username, 'password', password)
