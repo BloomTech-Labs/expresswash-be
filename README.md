@@ -263,7 +263,7 @@ The RateClient Endpoint needs the following JSON information (with the exception
 
 Currently no actions are coded for the server.
 
-Tests are coded using Jest and Supertest for all of the endpoints.
+Tests are on the way and will be coded using Jest and Supertest for all of the endpoints, coming soon.
 
 ## 3️⃣ Environment Variables
 
