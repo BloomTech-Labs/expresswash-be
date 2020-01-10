@@ -131,10 +131,10 @@ The Add New Job Endpoint needs the following JSON information:
 	"washAddress":"2nd 123 Test St, City of SF, CA",
 	"washerId":null,
 	"scheduled": true,
-  "completed": false,
-  "paid": false,
-  "clientId": 3,
-  "clientCarId": 1
+	"completed": false,
+	"paid": false,
+	"clientId": 3,
+	"clientCarId": 1
 }
 ```
 
