@@ -99,8 +99,8 @@ The AddACar Endpoint needs the following JSON information:
 {
 	"id":1,
 	"carId":42,
-  "color":"beige",
-  "licensePlate":"542-EXF"
+	"color":"beige",
+	"licensePlate":"542-EXF"
 }
 ```
 
@@ -171,8 +171,8 @@ OR
 
 ```
 {
-  "id":2,
-  "workStatus":false
+	"id":2,
+	"workStatus":false
 }
 ```
 
@@ -220,7 +220,7 @@ The RateWasher Endpoint needs the following JSON information:
 {
 	"id":2,
 	"rating":5,
-  "notes":"This field is optional and takes a string >400 characters in length"
+	"notes":"This field is optional and takes a string >400 characters in length"
 }
 ```
 
@@ -231,7 +231,7 @@ The RateClient Endpoint needs the following JSON information:
 {
 	"id":1,
 	"rating":5,
-  "notes":"This field is optional and takes a string >400 characters in length"
+	"notes":"This field is optional and takes a string >400 characters in length"
 }
 ```
 
@@ -242,18 +242,18 @@ The RateClient Endpoint needs the following JSON information:
 
 ```
 {
-  id: UUID,
-  email: STRING,
-  first_name: STRING,
-  last_name: STRING,
-  password: STRING,
-  phoneNumber: STRING,
-  streetAddress: STRING,
-  streetAddress2: STRING,
-  city: STRING,
-  state: STRING,
-  zip: STRING,
-  userType: STRING [ 'admin', 'washer', 'client' ],
+	id: UUID,
+	email: STRING,
+	first_name: STRING,
+	last_name: STRING,
+	password: STRING,
+	phoneNumber: STRING,
+	streetAddress: STRING,
+	streetAddress2: STRING,
+	city: STRING,
+	state: STRING,
+	zip: STRING,
+	userType: STRING [ 'admin', 'washer', 'client' ],
 }
 ```
 
