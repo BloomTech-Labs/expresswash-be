@@ -4,7 +4,7 @@ const queries = require('../database/queries.js');
 const { getCarMakes, getCarModelsForMake, myCars } = require('../database/queries.js')
 
 
-
+// returns array of car makes
 carsRouterPG.get('/makes', async (req, res) => {
     // const counts = await db('cars').select('make').count().groupBy('make');
     // const makes = await db('cars').distinct('make');
@@ -17,6 +17,7 @@ carsRouterPG.get('/makes', async (req, res) => {
     .catch(err => res.status(500).json(error))
 });
 
+//returns array of car models for a car make
 carsRouterPG.post('/models', async (req, res) => {
     const { make } = req.body;
     return getCarModelsForMake(make)
