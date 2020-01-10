@@ -1,23 +1,24 @@
 # API Documentation
 
-#### 1️⃣ Backend delpoyed at [Heroku](https://pt6-wowo.herokuapp.com/) <br>
+####  Backend deployed at [Heroku](https://pt6-wowo.herokuapp.com/) <br>
 
 ## 1️⃣ Getting started
 
 To get the server running locally:
 
 - Clone this repo
+- Install PostgresSQL then **createdb databasePG**
 - **npm install** to install all required dependencies
 - **npm run server** to start the local server
 - **npm run test** to start server using testing environment
 
-### Backend framework goes here
+### Backend Framework:
 
 Server Uses PostgresSQL, Express and Knex.
 
 ## 2️⃣ Endpoints
 
-The endpoints currently operational on the server are RegisterWasher, RegisterClient, and Login (located on the branch /auth/).
+The endpoints currently operational on the server are listed below.
 
 #### All Routes
 
@@ -214,7 +215,7 @@ The ClientAverage Endpoint needs the following JSON information:
 ```
 
 
-The RateWasher Endpoint needs the following JSON information:
+The RateWasher Endpoint needs the following JSON information (with the exception of notes, which is not required):
 
 ```
 {
@@ -225,7 +226,7 @@ The RateWasher Endpoint needs the following JSON information:
 ```
 
 
-The RateClient Endpoint needs the following JSON information:
+The RateClient Endpoint needs the following JSON information (with the exception of notes, which is not required):
 
 ```
 {
@@ -262,7 +263,7 @@ The RateClient Endpoint needs the following JSON information:
 
 Currently no actions are coded for the server.
 
-Tests are coded using Jest and Supertest for all of the endpoints.
+Tests are on the way and will be coded using Jest and Supertest for all of the endpoints, coming soon.
 
 ## 3️⃣ Environment Variables
 
