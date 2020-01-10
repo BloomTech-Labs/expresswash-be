@@ -13,33 +13,42 @@ To get the server running locally:
 
 ### Backend framework goes here
 
-Server Uses SQLite3, Express and Knex.
-
--    Postgres Migration in process
+Server Uses PostgresSQL, Express and Knex.
 
 ## 2️⃣ Endpoints
 
 The endpoints currently operational on the server are RegisterWasher, RegisterClient, and Login (located on the branch /auth/).
 
-#### Organization Routes
+#### All Routes
 
 | Method | Endpoint                | Access Control | Description                                  |
 | ------ | ----------------------- | -------------- | -------------------------------------------- |
-| POST   | `/auth/RegisterClient`  | all users      | Register for a client account.               |
-| POST   | `/auth/RegisterWasher`  | all users      | Register for a washer account.               |
-| POST   | `/auth/login`           | all users      | Login to an existing account.                |
-
-#### User Routes
-
-| Method | Endpoint                | Access Control      | Description                                        |
-| ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| GET    | `/auth/users/`          | all users           | Returns list of user accounts by email.            |
-|        |                         |                     |                                                    |
+| POST   | `/authPG/RegisterClient`  | all users      | Register for a client account.               |
+| POST   | `/authPG/RegisterWasher`  | all users      | Register for a washer account.               |
+| POST   | `/authPG/login`           | all users      | Login to an existing account.                |
+| GET   | `/carsPG/makes`           | all users      | Returns all car makes.                |
+| POST   | `/carsPG/models`           | all users      | Returns all car models for a given make.                |
+| POST   | `/carsPG/getCarId`           | all users      | Takes in make and model and returns carId.                |
+| POST   | `/carsPG/addACar`           | all users      | Takes in userId, carId, color and license plate, ties car to user profile.                |
+| POST   | `/jobs/getLatestJobClient`           | all users      | Returns info on the latest job a client had done.                |
+| POST   | `/jobs/getLatestWasherClient`           | all users      | Returns info on the last washer on a client's job.                |
+| POST   | `/jobs/new`           | all users      | Creates a new job.                |
+| GET   | `/jobs/available`           | all users      | Returns all jobs with washerId null (new available jobs).                |
+| POST   | `/jobs/jobInfo`           | all users      | Returns all job info for given jobId                |
+| POST   | `/jobs/getWorkStatus`           | all users      | Returns the workStatus of a washer                |
+| PUT   | `/jobs/setWorkStatus`           | all users      | Boolean, id in req.body sets washer work status                |
+| POST   | `/jobs/selectJob`           | all users      | Adds the washer to a job.                |
+| POST   | `/jobs/howManyCompleted`           | all users      | Returns a count of how many jobs the washer is on.                |
+| POST   | `/ratings/washerAverage`           | all users      | Returns average rating for a washer.                |
+| POST   | `/ratings/clientAverage`           | all users      | Returns average rating for a client.                |
+| POST   | `/ratings/rateWasher`           | all users      | Add a washer rating.                |
+| POST   | `/ratings/rateClient`           | all users      | Add a client rating.                |
 
 # Data Model
 
 The Register Washer and Client Endpoints need the following JSON information (with the exception of streetAddress2, which is not required):
 
+```
 {
 	"email":"test@test.con",
 	"firstName":"Test",
@@ -52,13 +61,179 @@ The Register Washer and Client Endpoints need the following JSON information (wi
 	"State":"California", 
 	"zip":"94103"
 }
+```
+
 
 The Login User Endpoint needs the following JSON information:
 
+```
 {
 	"email":"test@test.con",
 	"password":"1234"
 }
+```
+
+
+The Car Models Endpoint needs the following JSON information:
+
+```
+{
+	"make":"Acura"
+}
+```
+
+
+The GetCarId Endpoint needs the following JSON information:
+
+```
+{
+	"make":"Acura",
+	"model":"Integra"
+}
+```
+
+
+The AddACar Endpoint needs the following JSON information:
+
+```
+{
+	"id":1,
+	"carId":42,
+	"color":"beige",
+	"licensePlate":"542-EXF"
+}
+```
+
+
+The GetLatestJobClient Endpoint needs the following JSON information:
+
+```
+{
+	"clientId":1
+}
+```
+
+
+The GetLatestWasherClient Endpoint needs the following JSON information:
+
+```
+{
+	"email":"test@test.con",
+	"password":"1234"
+}
+```
+
+
+The Add New Job Endpoint needs the following JSON information:
+
+```
+{
+	"washAddress":"2nd 123 Test St, City of SF, CA",
+	"washerId":null,
+	"scheduled": true,
+	"completed": false,
+	"paid": false,
+	"clientId": 3,
+	"clientCarId": 1
+}
+```
+
+
+The Job Info Endpoint needs the following JSON information:
+
+```
+{
+	"jobId":3
+}
+```
+
+
+The GetWorkStatus Endpoint needs the following JSON information:
+
+```
+{
+	"id":2
+}
+```
+
+
+The SetWorkStatus Endpoint needs the following JSON information:
+
+```
+{
+	"id":2,
+	"workStatus":true
+}
+```
+
+
+OR
+
+```
+{
+	"id":2,
+	"workStatus":false
+}
+```
+
+
+The SelectJob Endpoint needs the following JSON information:
+
+```
+{
+	"jobId":4,
+	"id":2
+}
+```
+
+
+The HowManyCompleted Jobs Endpoint needs the following JSON information:
+
+```
+{
+	"id":2
+}
+```
+
+
+The WasherAverage Endpoint needs the following JSON information:
+
+```
+{
+	"id":2
+}
+```
+
+
+The ClientAverage Endpoint needs the following JSON information:
+
+```
+{
+	"id":1
+}
+```
+
+
+The RateWasher Endpoint needs the following JSON information:
+
+```
+{
+	"id":2,
+	"rating":5,
+	"notes":"This field is optional and takes a string >400 characters in length"
+}
+```
+
+
+The RateClient Endpoint needs the following JSON information:
+
+```
+{
+	"id":1,
+	"rating":5,
+	"notes":"This field is optional and takes a string >400 characters in length"
+}
+```
 
 
 #### USERS
@@ -67,20 +242,21 @@ The Login User Endpoint needs the following JSON information:
 
 ```
 {
-  id: UUID,
-  email: STRING,
-  first_name: STRING,
-  last_name: STRING,
-  password: STRING,
-  phoneNumber: STRING,
-  streetAddress: STRING,
-  streetAddress2: STRING,
-  city: STRING,
-  state: STRING,
-  zip: STRING,
-  userType: STRING [ 'admin', 'washer', 'client' ],
+	id: UUID,
+	email: STRING,
+	first_name: STRING,
+	last_name: STRING,
+	password: STRING,
+	phoneNumber: STRING,
+	streetAddress: STRING,
+	streetAddress2: STRING,
+	city: STRING,
+	state: STRING,
+	zip: STRING,
+	userType: STRING [ 'admin', 'washer', 'client' ],
 }
 ```
+
 
 ## 2️⃣ Actions
 
