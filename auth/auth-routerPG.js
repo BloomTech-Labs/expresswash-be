@@ -83,7 +83,7 @@ authRouterPG.post('/registerWasher', async (req, res) => {
             profilePicture:`${user.profilePicture}`,
             id:`${user.id}`,
             creationDate:`${user.creationDate}`,
-            workStatus:`${user.workStatus}`,
+            workStatus: Boolean(`${user.workStatus}`),
             token
           });
         } else {
