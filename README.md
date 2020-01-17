@@ -1,6 +1,6 @@
 # API Documentation
 
-####  Backend deployed at [Heroku](https://pt6-wowo.herokuapp.com/) <br>
+#### Backend deployed at [Heroku](https://pt6-wowo.herokuapp.com/) <br>
 
 ## 1️⃣ Getting started
 
@@ -22,28 +22,37 @@ The endpoints currently operational on the server are listed below.
 
 #### All Routes
 
-| Method | Endpoint                | Access Control | Description                                  |
-| ------ | ----------------------- | -------------- | -------------------------------------------- |
-| POST   | `/authPG/RegisterClient`  | all users      | Register for a client account.               |
-| POST   | `/authPG/RegisterWasher`  | all users      | Register for a washer account.               |
-| POST   | `/authPG/login`           | all users      | Login to an existing account.                |
-| GET   | `/carsPG/makes`           | all users      | Returns all car makes.                |
-| POST   | `/carsPG/models`           | all users      | Returns all car models for a given make.                |
-| POST   | `/carsPG/getCarId`           | all users      | Takes in make and model and returns carId.                |
-| POST   | `/carsPG/addACar`           | all users      | Takes in userId, carId, color and license plate, ties car to user profile.                |
-| POST   | `/jobs/getLatestJobClient`           | all users      | Returns info on the latest job a client had done.                |
-| POST   | `/jobs/getLatestWasherClient`           | all users      | Returns info on the last washer on a client's job.                |
-| POST   | `/jobs/new`           | all users      | Creates a new job.                |
-| GET   | `/jobs/available`           | all users      | Returns all jobs with washerId null (new available jobs).                |
-| POST   | `/jobs/jobInfo`           | all users      | Returns all job info for given jobId                |
-| POST   | `/jobs/getWorkStatus`           | all users      | Returns the workStatus of a washer                |
-| PUT   | `/jobs/setWorkStatus`           | all users      | Boolean, id in req.body sets washer work status                |
-| POST   | `/jobs/selectJob`           | all users      | Adds the washer to a job.                |
-| POST   | `/jobs/howManyCompleted`           | all users      | Returns a count of how many jobs the washer is on.                |
-| POST   | `/ratings/washerAverage`           | all users      | Returns average rating for a washer.                |
-| POST   | `/ratings/clientAverage`           | all users      | Returns average rating for a client.                |
-| POST   | `/ratings/rateWasher`           | all users      | Add a washer rating.                |
-| POST   | `/ratings/rateClient`           | all users      | Add a client rating.                |
+| Method | Endpoint                      | Access Control | Description                                                                |
+| ------ | ----------------------------- | -------------- | -------------------------------------------------------------------------- |
+| POST   | `/authPG/RegisterClient`      | all users      | Register for a client account.                                             |
+| POST   | `/authPG/RegisterWasher`      | all users      | Register for a washer account.                                             |
+| POST   | `/authPG/login`               | all users      | Login to an existing account.                                              |
+| GET    | `/carsPG/makes`               | all users      | Returns all car makes.                                                     |
+| POST   | `/carsPG/models`              | all users      | Returns all car models for a given make.                                   |
+| POST   | `/carsPG/getCarId`            | all users      | Takes in make and model and returns carId.                                 |
+| POST   | `/carsPG/addACar`             | all users      | Takes in userId, carId, color and license plate, ties car to user profile. |
+| POST   | `/jobs/getLatestJobClient`    | all users      | Returns info on the latest job a client had done.                          |
+| POST   | `/jobs/getLatestWasherClient` | all users      | Returns info on the last washer on a client's job.                         |
+| POST   | `/jobs/new`                   | all users      | Creates a new job.                                                         |
+| GET    | `/jobs/available`             | all users      | Returns all jobs with washerId null (new available jobs).                  |
+| POST   | `/jobs/jobInfo`               | all users      | Returns all job info for given jobId                                       |
+| POST   | `/jobs/getWorkStatus`         | all users      | Returns the workStatus of a washer                                         |
+| PUT    | `/jobs/setWorkStatus`         | all users      | Boolean, id in req.body sets washer work status                            |
+| POST   | `/jobs/selectJob`             | all users      | Adds the washer to a job.                                                  |
+| POST   | `/jobs/howManyCompleted`      | all users      | Returns a count of how many jobs the washer is on.                         |
+| POST   | `/ratings/washerAverage`      | all users      | Returns average rating for a washer.                                       |
+| POST   | `/ratings/clientAverage`      | all users      | Returns average rating for a client.                                       |
+| POST   | `/ratings/rateWasher`         | all users      | Add a washer rating.                                                       |
+| POST   | `/ratings/rateClient`         | all users      | Add a client rating.                                                       |
+
+| GET | `/users/`
+users | Returns a list of all current users |
+
+| GET | `/users/${id}`
+users | Returns {firstName, lastName, email, and phone Number of specific user} |
+
+| POST | `/users/${id}`
+users | updates current user information |
 
 # Data Model
 
@@ -59,11 +68,10 @@ The Register Washer and Client Endpoints need the following JSON information (wi
 	"streetAddress":"1051 Market St",
 	"streetAddress2":"APT 240",
 	"city":"San Francisco",
-	"State":"California", 
+	"State":"California",
 	"zip":"94103"
 }
 ```
-
 
 The Login User Endpoint needs the following JSON information:
 
@@ -74,7 +82,6 @@ The Login User Endpoint needs the following JSON information:
 }
 ```
 
-
 The Car Models Endpoint needs the following JSON information:
 
 ```
@@ -82,7 +89,6 @@ The Car Models Endpoint needs the following JSON information:
 	"make":"Acura"
 }
 ```
-
 
 The GetCarId Endpoint needs the following JSON information:
 
@@ -92,7 +98,6 @@ The GetCarId Endpoint needs the following JSON information:
 	"model":"Integra"
 }
 ```
-
 
 The AddACar Endpoint needs the following JSON information:
 
@@ -105,7 +110,6 @@ The AddACar Endpoint needs the following JSON information:
 }
 ```
 
-
 The GetLatestJobClient Endpoint needs the following JSON information:
 
 ```
@@ -113,7 +117,6 @@ The GetLatestJobClient Endpoint needs the following JSON information:
 	"clientId":1
 }
 ```
-
 
 The GetLatestWasherClient Endpoint needs the following JSON information:
 
@@ -123,7 +126,6 @@ The GetLatestWasherClient Endpoint needs the following JSON information:
 	"password":"1234"
 }
 ```
-
 
 The Add New Job Endpoint needs the following JSON information:
 
@@ -139,7 +141,6 @@ The Add New Job Endpoint needs the following JSON information:
 }
 ```
 
-
 The Job Info Endpoint needs the following JSON information:
 
 ```
@@ -148,7 +149,6 @@ The Job Info Endpoint needs the following JSON information:
 }
 ```
 
-
 The GetWorkStatus Endpoint needs the following JSON information:
 
 ```
@@ -156,7 +156,6 @@ The GetWorkStatus Endpoint needs the following JSON information:
 	"id":2
 }
 ```
-
 
 The SetWorkStatus Endpoint needs the following JSON information:
 
@@ -167,7 +166,6 @@ The SetWorkStatus Endpoint needs the following JSON information:
 }
 ```
 
-
 OR
 
 ```
@@ -176,7 +174,6 @@ OR
 	"workStatus":false
 }
 ```
-
 
 The SelectJob Endpoint needs the following JSON information:
 
@@ -187,7 +184,6 @@ The SelectJob Endpoint needs the following JSON information:
 }
 ```
 
-
 The HowManyCompleted Jobs Endpoint needs the following JSON information:
 
 ```
@@ -195,7 +191,6 @@ The HowManyCompleted Jobs Endpoint needs the following JSON information:
 	"id":2
 }
 ```
-
 
 The WasherAverage Endpoint needs the following JSON information:
 
@@ -205,7 +200,6 @@ The WasherAverage Endpoint needs the following JSON information:
 }
 ```
 
-
 The ClientAverage Endpoint needs the following JSON information:
 
 ```
@@ -213,7 +207,6 @@ The ClientAverage Endpoint needs the following JSON information:
 	"id":1
 }
 ```
-
 
 The RateWasher Endpoint needs the following JSON information (with the exception of notes, which is not required):
 
@@ -225,7 +218,6 @@ The RateWasher Endpoint needs the following JSON information (with the exception
 }
 ```
 
-
 The RateClient Endpoint needs the following JSON information (with the exception of notes, which is not required):
 
 ```
@@ -236,28 +228,45 @@ The RateClient Endpoint needs the following JSON information (with the exception
 }
 ```
 
+The findUser end point must receive the following json information:
+
+```
+{
+  "id": 'any number corresponding to a specific users id
+}
+```
+
+The updateUser end point must receive the following json information:
+
+```
+{
+  "id": 'any number corresponding to a specific users id,
+  "changes" : "information that is being updated"
+}
+```
 
 #### USERS
 
 ---
 
 ```
-{
-	id: UUID,
-	email: STRING,
-	first_name: STRING,
-	last_name: STRING,
-	password: STRING,
-	phoneNumber: STRING,
-	streetAddress: STRING,
-	streetAddress2: STRING,
-	city: STRING,
-	state: STRING,
-	zip: STRING,
-	userType: STRING [ 'admin', 'washer', 'client' ],
-}
-```
 
+{
+id: UUID,
+email: STRING,
+first_name: STRING,
+last_name: STRING,
+password: STRING,
+phoneNumber: STRING,
+streetAddress: STRING,
+streetAddress2: STRING,
+city: STRING,
+state: STRING,
+zip: STRING,
+userType: STRING [ 'admin', 'washer', 'client' ],
+}
+
+```
 
 ## 2️⃣ Actions
 
@@ -270,10 +279,10 @@ Tests are on the way and will be coded using Jest and Supertest for all of the e
 In order for the app to function correctly, the user must set up their own environment variables.
 
 create a .env file that includes the following:
-    
-    *  PORT - set the port you wish the server to run on on your local machine
-    *  JWT_SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;*(-*=+)') for i in range(50)])
-    
+
+_ PORT - set the port you wish the server to run on on your local machine
+_ JWT_SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;*(-*=+)') for i in range(50)])
+
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -282,11 +291,12 @@ Please note we have a [code of conduct](./code_of_conduct.md). Please follow it 
 
 ### Issue/Bug Request
 
- **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
- - Check first to see if your issue has already been reported.
- - Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
- - Create a live example of the problem.
- - Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
+**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
 
 ### Feature Requests
 
@@ -314,3 +324,6 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 See [Frontend Documentation](https://github.com/Lambda-School-Labs/wowo-fe/blob/master/README.md) for details on the frontend of our project.
 
+```
+
+```
