@@ -1,9 +1,9 @@
+# API Documentation
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
 
-# API Documentation
-
-####  Backend deployed at [Heroku](https://pt6-wowo.herokuapp.com/) <br>
+## Backend deployed at [Heroku](https://pt6-wowo.herokuapp.com/)
 
 ## 1️⃣ Getting started
 
@@ -15,7 +15,7 @@ To get the server running locally:
 - **npm run server** to start the local server
 - **npm run test** to start server using testing environment
 
-### Backend Framework:
+### Backend Framework
 
 Server Uses PostgresSQL, Express and Knex.
 
@@ -23,7 +23,7 @@ Server Uses PostgresSQL, Express and Knex.
 
 The endpoints currently operational on the server are listed below.
 
-#### All Routes
+### All Routes
 
 | Method | Endpoint                | Access Control | Description                                  |
 | ------ | ----------------------- | -------------- | -------------------------------------------- |
@@ -48,219 +48,200 @@ The endpoints currently operational on the server are listed below.
 | POST   | `/ratings/rateWasher`           | all users      | Add a washer rating.                |
 | POST   | `/ratings/rateClient`           | all users      | Add a client rating.                |
 
-# Data Model
+## Data Model
 
 The Register Washer and Client Endpoints need the following JSON information (with the exception of streetAddress2, which is not required):
 
-```
+```#! json
 {
-	"email":"test@test.con",
-	"firstName":"Test",
-	"lastName":"Testerson",
-	"password":"1234",
-	"phoneNumber":"1234567890",
-	"streetAddress":"1051 Market St",
-	"streetAddress2":"APT 240",
-	"city":"San Francisco",
-	"State":"California", 
-	"zip":"94103"
+  "email":"test@test.con",
+  "firstName":"Test",
+  "lastName":"Testerson",
+  "password":"1234",
+  "phoneNumber":"1234567890",
+  "streetAddress":"1051 Market St",
+  "streetAddress2":"APT 240",
+  "city":"San Francisco",
+  "State":"California",
+  "zip":"94103"
 }
 ```
-
 
 The Login User Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"email":"test@test.con",
-	"password":"1234"
+  "email":"test@test.con",
+  "password":"1234"
 }
 ```
-
 
 The Car Models Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"make":"Acura"
+  "make":"Acura"
 }
 ```
-
 
 The GetCarId Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"make":"Acura",
-	"model":"Integra"
+  "make":"Acura",
+  "model":"Integra"
 }
 ```
-
 
 The AddACar Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"id":1,
-	"carId":42,
-	"color":"beige",
-	"licensePlate":"542-EXF"
+  "id":1,
+  "carId":42,
+  "color":"beige",
+  "licensePlate":"542-EXF"
 }
 ```
-
 
 The GetLatestJobClient Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"clientId":1
+  "clientId":1
 }
 ```
-
 
 The GetLatestWasherClient Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"email":"test@test.con",
-	"password":"1234"
+  "email":"test@test.con",
+  "password":"1234"
 }
 ```
-
 
 The Add New Job Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"washAddress":"2nd 123 Test St, City of SF, CA",
-	"washerId":null,
-	"scheduled": true,
-	"completed": false,
-	"paid": false,
-	"clientId": 3,
-	"clientCarId": 1
+  "washAddress":"2nd 123 Test St, City of SF, CA",
+  "washerId":null,
+  "scheduled": true,
+  "completed": false,
+  "paid": false,
+  "clientId": 3,
+  "clientCarId": 1
 }
 ```
-
 
 The Job Info Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"jobId":3
+  "jobId":3
 }
 ```
-
 
 The GetWorkStatus Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"id":2
+  "id":2
 }
 ```
-
 
 The SetWorkStatus Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"id":2,
-	"workStatus":true
+  "id":2,
+  "workStatus":true
 }
 ```
-
 
 OR
 
-```
+```#! json
 {
-	"id":2,
-	"workStatus":false
+  "id":2,
+  "workStatus":false
 }
 ```
-
 
 The SelectJob Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"jobId":4,
-	"id":2
+  "jobId":4,
+  "id":2
 }
 ```
-
 
 The HowManyCompleted Jobs Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"id":2
+  "id":2
 }
 ```
-
 
 The WasherAverage Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"id":2
+  "id":2
 }
 ```
-
 
 The ClientAverage Endpoint needs the following JSON information:
 
-```
+```#! json
 {
-	"id":1
+  "id":1
 }
 ```
-
 
 The RateWasher Endpoint needs the following JSON information (with the exception of notes, which is not required):
 
-```
+```#! json
 {
-	"id":2,
-	"rating":5,
-	"notes":"This field is optional and takes a string >400 characters in length"
+  "id":2,
+  "rating":5,
+  "notes":"This field is optional and takes a string >400 characters in length"
 }
 ```
-
 
 The RateClient Endpoint needs the following JSON information (with the exception of notes, which is not required):
 
-```
+```#! json
 {
-	"id":1,
-	"rating":5,
-	"notes":"This field is optional and takes a string >400 characters in length"
+  "id":1,
+  "rating":5,
+  "notes":"This field is optional and takes a string >400 characters in length"
 }
 ```
 
-
-#### USERS
+### USERS
 
 ---
 
-```
+```#! json
 {
-	id: UUID,
-	email: STRING,
-	first_name: STRING,
-	last_name: STRING,
-	password: STRING,
-	phoneNumber: STRING,
-	streetAddress: STRING,
-	streetAddress2: STRING,
-	city: STRING,
-	state: STRING,
-	zip: STRING,
-	userType: STRING [ 'admin', 'washer', 'client' ],
+  id: UUID,
+  email: STRING,
+  first_name: STRING,
+  last_name: STRING,
+  password: STRING,
+  phoneNumber: STRING,
+  streetAddress: STRING,
+  streetAddress2: STRING,
+  city: STRING,
+  state: STRING,
+  zip: STRING,
+  userType: STRING [ 'admin', 'washer', 'client' ],
 }
 ```
-
 
 ## 2️⃣ Actions
 
@@ -273,10 +254,10 @@ Tests are on the way and will be coded using Jest and Supertest for all of the e
 In order for the app to function correctly, the user must set up their own environment variables.
 
 create a .env file that includes the following:
-    
-    *  PORT - set the port you wish the server to run on on your local machine
-    *  JWT_SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;*(-*=+)') for i in range(50)])
-    
+
+- PORT - set the port you wish the server to run on on your local machine
+- JWT_SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;*(-*=+)') for i in range(50)])
+
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -286,10 +267,11 @@ Please note we have a [code of conduct](./code_of_conduct.md). Please follow it 
 ### Issue/Bug Request
 
  **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
- - Check first to see if your issue has already been reported.
- - Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
- - Create a live example of the problem.
- - Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
+
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
 
 ### Feature Requests
 
@@ -316,4 +298,3 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 ## Documentation
 
 See [Frontend Documentation](https://github.com/Lambda-School-Labs/wowo-fe/blob/master/README.md) for details on the frontend of our project.
-
