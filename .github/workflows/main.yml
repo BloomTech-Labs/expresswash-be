@@ -30,9 +30,26 @@ jobs:
         with:
           node-version: '12'
       - run: npm install
-      - uses: paambaati/codeclimate-action@v2.5.4
-        env:
-          CC_TEST_REPORTER_ID: b4946cc9670a7efb590bd86a74d03bb077af95feeb64d78eced94b0c34a66cae
-        with: 
-          coverageCommand: npm coverage          
+#       - uses: paambaati/codeclimate-action@v2.5.4
+#         env:
+#           CC_TEST_REPORTER_ID: b4946cc9670a7efb590bd86a74d03bb077af95feeb64d78eced94b0c34a66cae
+#         with: 
+#           coverageCommand: npm coverage          
+#   name: Code Climate Test Reporter
+  uses: aktions/codeclimate-test-reporter@v1.1.0
+  with:
+    # The test reporter ID. This is a write-only ID that can only post test 
+reports.
 
+    codeclimate-test-reporter-id: b4946cc9670a7efb590bd86a74d03bb077af95feeb64d78eced94b0c34a66cae
+    # The test reporter version. By default "latest" is used. If not explicitly
+set in semver format, caching will not work.
+
+    codeclimate-test-reporter-version: # optional, default is latest
+    # Test reporter download URL. If supplied, it will override the version 
+input.
+
+    codeclimate-test-reporter-url: # optional
+    # The command to execute using the codeclimate test reporter.
+
+    command: # optional, default is after-build
