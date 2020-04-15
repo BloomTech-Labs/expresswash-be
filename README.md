@@ -1,7 +1,7 @@
 # API Documentation
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d9d450333b0f06f4ceca/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/wowo-be/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/d9d450333b0f06f4ceca/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/wowo-be/test_coverage)
 
 ## Backend deployed at [Heroku](https://pt6-wowo.herokuapp.com/)
 
@@ -25,28 +25,28 @@ The endpoints currently operational on the server are listed below.
 
 ### All Routes
 
-| Method | Endpoint                | Access Control | Description                                  |
-| ------ | ----------------------- | -------------- | -------------------------------------------- |
-| POST   | `/authPG/RegisterClient`  | all users      | Register for a client account.               |
-| POST   | `/authPG/RegisterWasher`  | all users      | Register for a washer account.               |
-| POST   | `/authPG/login`           | all users      | Login to an existing account.                |
-| GET   | `/carsPG/makes`           | all users      | Returns all car makes.                |
-| POST   | `/carsPG/models`           | all users      | Returns all car models for a given make.                |
-| POST   | `/carsPG/getCarId`           | all users      | Takes in make and model and returns carId.                |
-| POST   | `/carsPG/addACar`           | all users      | Takes in userId, carId, color and license plate, ties car to user profile.                |
-| POST   | `/jobs/getLatestJobClient`           | all users      | Returns info on the latest job a client had done.                |
-| POST   | `/jobs/getLatestWasherClient`           | all users      | Returns info on the last washer on a client's job.                |
-| POST   | `/jobs/new`           | all users      | Creates a new job.                |
-| GET   | `/jobs/available`           | all users      | Returns all jobs with washerId null (new available jobs).                |
-| POST   | `/jobs/jobInfo`           | all users      | Returns all job info for given jobId                |
-| POST   | `/jobs/getWorkStatus`           | all users      | Returns the workStatus of a washer                |
-| PUT   | `/jobs/setWorkStatus`           | all users      | Boolean, id in req.body sets washer work status                |
-| POST   | `/jobs/selectJob`           | all users      | Adds the washer to a job.                |
-| POST   | `/jobs/howManyCompleted`           | all users      | Returns a count of how many jobs the washer is on.                |
-| POST   | `/ratings/washerAverage`           | all users      | Returns average rating for a washer.                |
-| POST   | `/ratings/clientAverage`           | all users      | Returns average rating for a client.                |
-| POST   | `/ratings/rateWasher`           | all users      | Add a washer rating.                |
-| POST   | `/ratings/rateClient`           | all users      | Add a client rating.                |
+| Method | Endpoint                      | Access Control | Description                                                                |
+| ------ | ----------------------------- | -------------- | -------------------------------------------------------------------------- |
+| POST   | `/authPG/RegisterClient`      | all users      | Register for a client account.                                             |
+| POST   | `/authPG/RegisterWasher`      | all users      | Register for a washer account.                                             |
+| POST   | `/authPG/login`               | all users      | Login to an existing account.                                              |
+| GET    | `/carsPG/makes`               | all users      | Returns all car makes.                                                     |
+| POST   | `/carsPG/models`              | all users      | Returns all car models for a given make.                                   |
+| POST   | `/carsPG/getCarId`            | all users      | Takes in make and model and returns carId.                                 |
+| POST   | `/carsPG/addACar`             | all users      | Takes in userId, carId, color and license plate, ties car to user profile. |
+| POST   | `/jobs/getLatestJobClient`    | all users      | Returns info on the latest job a client had done.                          |
+| POST   | `/jobs/getLatestWasherClient` | all users      | Returns info on the last washer on a client's job.                         |
+| POST   | `/jobs/new`                   | all users      | Creates a new job.                                                         |
+| GET    | `/jobs/available`             | all users      | Returns all jobs with washerId null (new available jobs).                  |
+| POST   | `/jobs/jobInfo`               | all users      | Returns all job info for given jobId                                       |
+| POST   | `/jobs/getWorkStatus`         | all users      | Returns the workStatus of a washer                                         |
+| PUT    | `/jobs/setWorkStatus`         | all users      | Boolean, id in req.body sets washer work status                            |
+| POST   | `/jobs/selectJob`             | all users      | Adds the washer to a job.                                                  |
+| POST   | `/jobs/howManyCompleted`      | all users      | Returns a count of how many jobs the washer is on.                         |
+| POST   | `/ratings/washerAverage`      | all users      | Returns average rating for a washer.                                       |
+| POST   | `/ratings/clientAverage`      | all users      | Returns average rating for a client.                                       |
+| POST   | `/ratings/rateWasher`         | all users      | Add a washer rating.                                                       |
+| POST   | `/ratings/rateClient`         | all users      | Add a client rating.                                                       |
 
 ## Data Model
 
@@ -266,12 +266,12 @@ Please note we have a [code of conduct](./code_of_conduct.md). Please follow it 
 
 ### Issue/Bug Request
 
- **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
+**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
 
 - Check first to see if your issue has already been reported.
 - Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
 - Create a live example of the problem.
-- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
 
 ### Feature Requests
 
