@@ -85,6 +85,7 @@ exports.up = function (knex, Promise) {
       washer.string("aboutMe", 200);
       washer.string("currentLocation");
       washer.boolean("available").defaultTo(false);
+      washer.integer("washerRating");
     });
 };
 
