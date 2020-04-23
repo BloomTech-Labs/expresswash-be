@@ -32,7 +32,7 @@ exports.up = function (knex, Promise) {
         .onUpdate("CASCADE");
       cars.string("make", 128).notNullable();
       cars.string("model", 128).notNullable();
-      cars.int("year").notNullable();
+      cars.integer("year").notNullable();
       cars.string("color", 60).notNullable();
       cars.string("licensePlate", 10).notNullable();
       cars.string("photo", 400);
