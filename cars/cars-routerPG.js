@@ -8,6 +8,8 @@ const {
   myCars,
 } = require("../database/queries.js");
 
+//get the list of all cars
+
 carsRouterPG.get("/", (req, res) => {
   cars
     .getAll()
@@ -22,6 +24,23 @@ carsRouterPG.get("/", (req, res) => {
     });
 });
 
+carsRouterPG.get("/:carId", (req, res) => {
+  const { carId } = req.params;
+
+  cars
+    .findBy(carId)
+    .then((car) => res.status(200).json(car))
+    .catch(({ name, code, message, stack }) => {
+      res.status(500).json({
+        name,
+        code,
+        message,
+        stack,
+      });
+    });
+});
+
+//add a car to the list of cars
 carsRouterPG.post("/", (req, res) => {
   cars
     .addCar(req.body)
@@ -35,6 +54,43 @@ carsRouterPG.post("/", (req, res) => {
       });
     });
 });
+// updates a car by its carId
+carsRouterPG.put("/:carId", (req, res) => {
+  const { carId } = req.params;
+  const body = req.body;
+
+  cars
+    .update(body, carId)
+    .then((updatedCar) => res.status(200).json(updatedCar))
+    .catch(({ name, code, message, stack }) => {
+      res.status(500).json({
+        name,
+        code,
+        message,
+        stack,
+      });
+    });
+});
+carsRouterPG.delete("/:carId", (req, res) => {
+  const { carId } = req.params;
+
+  cars
+    .remove(carId)
+    .then((deletedCar) =>
+      res
+        .status(200)
+        .json({ message: `Successfully deleted ${deletedCar} car` })
+    )
+    .catch(({ name, code, message, stack }) => {
+      res.status(500).json({
+        name,
+        code,
+        message,
+        stack,
+      });
+    });
+});
+
 // // returns array of car makes
 // carsRouterPG.get('/makes', async (req, res) => {
 //     // const counts = await db('cars').select('make').count().groupBy('make');
