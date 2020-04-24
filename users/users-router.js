@@ -1,5 +1,5 @@
 const usersRouter = require("express").Router();
-const bcrypt = require("bcryptjs");
+
 const Users = require("../users/users-model.js");
 
 // Return all users
@@ -26,7 +26,7 @@ usersRouter.delete("/:id", checkId, (req, res) => {
   Users.del(id)
     .then((removed) => {
       res.status(200).json({
-        message: `The following user has been removed from the database: ${user}`,
+        message: `The user has been successfully removed from the database`,
       });
     })
     .catch((error) => {
@@ -34,6 +34,7 @@ usersRouter.delete("/:id", checkId, (req, res) => {
     });
 });
 
+// Update user data by id
 usersRouter.put("/:id", checkId, (req, res) => {
   Users.update(req.params.id, req.body)
     .then((user) => {
@@ -63,7 +64,7 @@ function checkId(req, res, next) {
         next();
       } else {
         res.status(404).json({
-          message: `there is no user with the given id: ${id}`,
+          message: `there is no user with id of ${id}`,
         });
       }
     })
