@@ -12,6 +12,8 @@ const {
   countWasherOnJobs,
 } = require("../database/queries.js");
 
+// DELETE EVERYTHING
+
 // returns info on the latest job a client had done
 jobsRouter.post("/getLatestJobClient", async (req, res) => {
   const { clientId } = req.body;
