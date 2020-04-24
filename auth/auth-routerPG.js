@@ -35,32 +35,29 @@ authRouterPG.post("/registerClient", async (req, res) => {
     });
 });
 
-authRouterPG.post("/registerWasher", async (req, res) => {
-  let user = req.body;
-  const accountType = "washer";
-  const date = new Date();
-  const creationDate = date;
-  const hash = bcrypt.hashSync(user.password, 10); // 2 ^ n
-  // console.log(washer);
-  user.password = hash;
-  user = { ...user, accountType, creationDate };
-  // console.log(washer);
-  return insertUserPG(user)
-    .then((saved) => {
-      // a jwt should be generated
-      // console.log(saved)
-      const token = generateToken(saved);
-      res.status(201).json({
-        //   user: saved,
-        message: "user saved successfully",
-        token,
+authRouterPG.post(
+  "/registerWasher/:id",
+  [validateUserId, ifWasherExists],
+  (req, res) => {
+    const id = req.user.id;
+    const newWasher = { ...req.body, userId: Number(id) };
+    Users.insertWasher(newWasher)
+      .then((id) => {
+        Users.findWasherId(id)
+          .then((washer) => {
+            res.status(201).json({ user: req.user, washer: washer });
+          })
+          .catch((err) => {
+            res
+              .status(500)
+              .json({ message: "unable to find new washer in database" });
+          });
+      })
+      .catch((err) => {
+        res.status(500).json({ message: "unable to add washer" });
       });
-    })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json(error);
-    });
-});
+  }
+);
 
 authRouterPG.post("/login", (req, res) => {
   let { email, password } = req.body;
@@ -93,5 +90,27 @@ authRouterPG.post("/login", (req, res) => {
       res.status(500).json(error);
     });
 });
+
+function validateUserId(req, res, next) {
+  Users.findById(req.params.id).then((user) => {
+    if (user) {
+      delete user.password;
+      req.user = user;
+      next();
+    } else {
+      res.status(400).json({ message: "invalid user id" });
+    }
+  });
+}
+
+function ifWasherExists(req, res, next) {
+  Users.findWasherId(req.params.id).then((washer) => {
+    if (washer) {
+      res.status(400).json({ message: "user already registered as a washer" });
+    } else {
+      next();
+    }
+  });
+}
 
 module.exports = authRouterPG;
