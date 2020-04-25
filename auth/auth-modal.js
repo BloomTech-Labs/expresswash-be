@@ -4,9 +4,14 @@ module.exports = {
   find,
   insert,
   findById,
+  findByEmail,
   insertWasher,
   findWasherId,
+  findWasher,
 };
+function findWasher() {
+  return db("washers");
+}
 
 function find() {
   return db("users");
@@ -15,6 +20,12 @@ function find() {
 function findById(id) {
   return db("users")
     .where({ id })
+    .then(([user]) => user);
+}
+
+function findByEmail(email) {
+  return db("users")
+    .where({ email })
     .then(([user]) => user);
 }
 

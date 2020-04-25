@@ -58,39 +58,47 @@ authRouterPG.post(
       });
   }
 );
-
-authRouterPG.post("/login", (req, res) => {
-  let { email, password } = req.body;
-  // console.log('username', username, 'password', password)
-  // console.log('req.body', req.body)
-  return singleUserForLogin(req.body.email)
-    .first()
-    .then((user) => {
-      if (user && bcrypt.compareSync(password, user.password)) {
-        // a jwt should be generated
-        const token = generateToken(user);
-        // console.log('token', token);
-        res.status(200).json({
-          message: `Welcome ${user.email}!`,
-          userType: `${user.accountType}`,
-          firstName: `${user.firstName}`,
-          lastName: `${user.lastName}`,
-          profilePicture: `${user.profilePicture}`,
-          id: `${user.id}`,
-          creationDate: `${user.creationDate}`,
-          workStatus: `${user.workStatus}`,
-          token,
-        });
-      } else {
-        res.status(401).json({ message: "Invalid Credentials" });
-      }
+authRouterPG.get("/washers", (req, res) => {
+  Users.findWasher()
+    .then((washer) => {
+      res.status(200).json(washer);
     })
-    .catch((error) => {
-      console.log(error);
-      res.status(500).json(error);
-    });
+    .catch((err) => res.status(500).json({ message: "unable to get washers" }));
+});
+authRouterPG.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  !email || !password
+    ? res.status(403).json({ message: "please povide email and password" })
+    : Users.findByEmail(email)
+        .then((user) => {
+          if (user && bcrypt.compareSync(password, user.password)) {
+            delete user.password;
+            const token = generateToken(user);
+            console.log(user);
+            if (user.accountType === "washer") {
+              Users.findWasherId(user.id)
+                .then((washer) => {
+                  console.log(washer);
+                  res.status(200).json({ token, user, washer });
+                })
+                .catch((err) => {
+                  res
+                    .status(500)
+                    .json({ message: "unable to find washer data" });
+                });
+            } else {
+              res.status(200).json({ token, user });
+            }
+          } else {
+            res.status(403).json({ message: "invalid password" });
+          }
+        })
+        .catch((err) => {
+          res.status(403).json({ message: "email not registered to user" });
+        });
 });
 
+// Middleware for auth routes
 function validateUserId(req, res, next) {
   Users.findById(req.params.id).then((user) => {
     if (user) {
