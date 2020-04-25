@@ -23,7 +23,7 @@ carsRouterPG.get("/", (req, res) => {
       });
     });
 });
-
+//gets a car specified by carId
 carsRouterPG.get("/:carId", (req, res) => {
   const { carId } = req.params;
 
@@ -40,7 +40,7 @@ carsRouterPG.get("/:carId", (req, res) => {
     });
 });
 
-//add a car to the list of cars
+//adds a car to the list of cars
 carsRouterPG.post("/", (req, res) => {
   cars
     .addCar(req.body)
@@ -54,7 +54,7 @@ carsRouterPG.post("/", (req, res) => {
       });
     });
 });
-// updates a car by its carId
+// updates a car by carId
 carsRouterPG.put("/:carId", (req, res) => {
   const { carId } = req.params;
   const body = req.body;
@@ -71,6 +71,8 @@ carsRouterPG.put("/:carId", (req, res) => {
       });
     });
 });
+
+// deletes a car by carId
 carsRouterPG.delete("/:carId", (req, res) => {
   const { carId } = req.params;
 
