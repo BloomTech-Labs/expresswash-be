@@ -23,7 +23,7 @@ server.use(express.json());
 // server.use('/cars/', carsRouter);
 
 server.use("/auth/", authRouterPG);
-server.use("/carsPG/", carsRouterPG);
+server.use("/cars/", carsRouterPG);
 server.use("/jobs/", jobsRouter);
 server.use("/users/", usersRouter);
 server.use("/ratings/", ratingsRouter);
