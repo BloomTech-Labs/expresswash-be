@@ -14,7 +14,7 @@ exports.up = function (knex, Promise) {
       user.string("city", 400);
       user.string("state", 400);
       user.string("zip", 400);
-      user.boolean("workStatus").defaultTo(false);
+
       user.string("profilePicture", 400).defaultTo("");
       user.string("bannerImage", 400).defaultTo("");
       user.string("creationDate", 128);
@@ -80,6 +80,7 @@ exports.up = function (knex, Promise) {
         .inTable("users")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
+      washer.boolean("workStatus").defaultTo(false);
       washer.integer("rateSmall");
       washer.integer("rateMedium").notNullable();
       washer.integer("rateLarge");
