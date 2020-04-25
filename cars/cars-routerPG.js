@@ -23,7 +23,7 @@ carsRouterPG.get("/", (req, res) => {
       });
     });
 });
-
+// gets a car specified by carId
 carsRouterPG.get("/:carId", (req, res) => {
   const { carId } = req.params;
 
@@ -71,6 +71,8 @@ carsRouterPG.put("/:carId", (req, res) => {
       });
     });
 });
+
+//deletes a car by carId
 carsRouterPG.delete("/:carId", (req, res) => {
   const { carId } = req.params;
 
