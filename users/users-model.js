@@ -1,9 +1,10 @@
-const db = require('../database/knex');
+const db = require("../database/dbConfig");
 
 module.exports = {
+  del,
   find,
   findById,
-  update
+  update,
 };
 
 function find() {
@@ -17,8 +18,10 @@ function findById(id) {
     .first();
 }
 
+function del(id) {
+  return db("users").where({ id }).del();
+}
+
 function update(id, changes) {
-  return db("users")
-    .where({ id })
-    .update(changes, "*");
+  return db("users").where({ id }).update(changes, "*");
 }
