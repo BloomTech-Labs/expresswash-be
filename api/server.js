@@ -21,8 +21,9 @@ server.use(express.json());
 
 // server.use('/auth/', authRouter);
 // server.use('/cars/', carsRouter);
-server.use("/authPG/", authRouterPG);
-server.use("/cars/", carsRouterPG);
+
+server.use("/auth/", authRouterPG);
+server.use("/carsPG/", carsRouterPG);
 server.use("/jobs/", jobsRouter);
 server.use("/users/", usersRouter);
 server.use("/ratings/", ratingsRouter);

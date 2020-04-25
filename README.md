@@ -47,6 +47,10 @@ The endpoints currently operational on the server are listed below.
 | POST   | `/ratings/clientAverage`      | all users      | Returns average rating for a client.                                       |
 | POST   | `/ratings/rateWasher`         | all users      | Add a washer rating.                                                       |
 | POST   | `/ratings/rateClient`         | all users      | Add a client rating.                                                       |
+| GET    | `/users/`                     | all users      | View all users.                                                            |
+| GET    | `/users/:id`                  | all users      | View a user by id.                                                         |
+| DELETE | `/users/:id`                  | all users      | Remove a user.                                                             |
+| PUT    | `/users/:id`                  | all users      | Update a user.                                                             |
 
 ## Data Model
 

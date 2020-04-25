@@ -73,6 +73,7 @@ exports.up = function (knex, Promise) {
       washer.increments("washerId");
       washer
         .integer("userId")
+        .unique()
         .unsigned()
         .notNullable()
         .references("id")
