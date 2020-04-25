@@ -86,10 +86,10 @@ The `auth/registerWasher` Endpoint needs the following JSON information. Must be
 
 ```#! json
 {
-  "userId": 1,                        --Required
-  "workStatus": true,                 --Defaults to false
+  "userId": 1,              --Required
+  "workStatus": true,       --Defaults to false
   "rateSmall": 30,
-  "rateMedium": 50,                   --Required
+  "rateMedium": 50,         --Required
   "rateLarge": 80,
   "aboutMe": "washer bio",
   "currentLoaction":"lat/lon string",

@@ -7,7 +7,8 @@
     "test": "cross-env DB_ENV=testing jest --verbose --watch",
     "start": "node index.js",
     "server": "nodemon index.js",
-    "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
+    "coverage": "jest --coverage --detectOpenHandles --forceExit || true",
+    "unit-test": "jest --verbose --watch"
   },
   "jest": {
     "collectCoverageFrom": [

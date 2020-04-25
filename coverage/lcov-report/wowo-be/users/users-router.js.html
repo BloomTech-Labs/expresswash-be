@@ -24,7 +24,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
@@ -38,14 +38,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/31</span>
             </div>
         
             
@@ -117,9 +117,28 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -132,8 +151,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -179,38 +215,56 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const usersRouter = <span class="cstat-no" title="statement not covered" >require("express").Router();</span>
-const bcrypt = <span class="cstat-no" title="statement not covered" >require("bcryptjs");</span>
+&nbsp;
 const Users = <span class="cstat-no" title="statement not covered" >require("../users/users-model.js");</span>
 &nbsp;
+// Return all users
 <span class="cstat-no" title="statement not covered" >usersRouter.get("/", <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  Users.find()</span>
-    .then(<span class="fstat-no" title="function not covered" >us</span>ers =&gt; {
+    .then(<span class="fstat-no" title="function not covered" >(u</span>sers) =&gt; {
 <span class="cstat-no" title="statement not covered" >      res.status(200).json(users);</span>
     })
-    .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+    .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
 <span class="cstat-no" title="statement not covered" >      console.log("this is get users err", err);</span>
 <span class="cstat-no" title="statement not covered" >      res.status(500).send(err);</span>
     });
 });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >usersRouter.get("/:id", [checkId], <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {</span>
+// Return user by id - firstName, lastName, email, phoneNumber
+<span class="cstat-no" title="statement not covered" >usersRouter.get("/:id", checkId, <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  res.status(200).json(req.user);</span>
 });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >usersRouter.put("/:id", [checkId], <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {</span>
+// Delete User by Id
+<span class="cstat-no" title="statement not covered" >usersRouter.delete("/:id", checkId, <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {</span>
+  const { id } = <span class="cstat-no" title="statement not covered" >req.params;</span>
+  const { user } = <span class="cstat-no" title="statement not covered" >req.user;</span>
+<span class="cstat-no" title="statement not covered" >  Users.del(id)</span>
+    .then(<span class="fstat-no" title="function not covered" >(r</span>emoved) =&gt; {
+<span class="cstat-no" title="statement not covered" >      res.status(200).json({</span>
+        message: `The user has been successfully removed from the database`,
+      });
+    })
+    .catch(<span class="fstat-no" title="function not covered" >(e</span>rror) =&gt; {
+<span class="cstat-no" title="statement not covered" >      res.status(500).json({ message: error.message });</span>
+    });
+});
+&nbsp;
+// Update user data by id
+<span class="cstat-no" title="statement not covered" >usersRouter.put("/:id", checkId, <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >  Users.update(req.params.id, req.body)</span>
-    .then(<span class="fstat-no" title="function not covered" >us</span>er =&gt; {
+    .then(<span class="fstat-no" title="function not covered" >(u</span>ser) =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (user) {</span>
 <span class="cstat-no" title="statement not covered" >        res.status(200).json(user);</span>
       } else {
 <span class="cstat-no" title="statement not covered" >        res.status(404).json({</span>
-          message: "the user could not be updated"
+          message: "the user could not be updated",
         });
       }
     })
-    .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+    .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
 <span class="cstat-no" title="statement not covered" >      res.status(500).json({</span>
-        message: "there was an error processing the request"
+        message: "there was an error processing the request",
       });
     });
 });
@@ -219,21 +273,21 @@ const Users = <span class="cstat-no" title="statement not covered" >require("../
 function <span class="fstat-no" title="function not covered" >checkId(</span>req, res, next) {
   const { id } = <span class="cstat-no" title="statement not covered" >req.params;</span>
 <span class="cstat-no" title="statement not covered" >  Users.findById(id)</span>
-    .then(<span class="fstat-no" title="function not covered" >us</span>er =&gt; {
-<span class="cstat-no" title="statement not covered" >      console.log(user)</span>
+    .then(<span class="fstat-no" title="function not covered" >(u</span>ser) =&gt; {
+<span class="cstat-no" title="statement not covered" >      console.log(user);</span>
 <span class="cstat-no" title="statement not covered" >      if (user) {</span>
 <span class="cstat-no" title="statement not covered" >        req.user = user;</span>
 <span class="cstat-no" title="statement not covered" >        next();</span>
       } else {
 <span class="cstat-no" title="statement not covered" >        res.status(404).json({</span>
-          message: "there is no user with the given id"
+          message: `there is no user with id of ${id}`,
         });
       }
     })
-    .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+    .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
 <span class="cstat-no" title="statement not covered" >      console.log("this is err on findbyid", err);</span>
 <span class="cstat-no" title="statement not covered" >      res.status(500).json({</span>
-        message: "there was an error processing the request"
+        message: "there was an error processing the request",
       });
     });
 }
@@ -246,7 +300,7 @@ function <span class="fstat-no" title="function not covered" >checkId(</span>req
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Apr 24 2020 12:06:37 GMT-0400 (Eastern Daylight Time)
+                at Sat Apr 25 2020 15:40:03 GMT-0400 (Eastern Daylight Time)
             </div>
         </div>
         <script src="..\..\prettify.js"></script>

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for wowo-be/users/users-model.js</title>
+    <title>Code coverage report for wowo-be/auth/auth-middleware.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\..\prettify.css" />
     <link rel="stylesheet" href="..\..\base.css" />
@@ -18,34 +18,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="..\..\index.html">All files</a> / <a href="index.html">wowo-be/users</a> users-model.js</h1>
+        <h1><a href="..\..\index.html">All files</a> / <a href="index.html">wowo-be/auth</a> auth-middleware.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>10/12</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">50% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>10/12</span>
             </div>
         
             
@@ -54,7 +54,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -83,7 +83,18 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -91,51 +102,40 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const db = <span class="cstat-no" title="statement not covered" >require("../database/dbConfig");</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >module.exports = {</span>
-  del,
-  find,
-  findById,
-  update,
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// Middleware for auth routes
+const Users = require("./auth-modal");
+module.exports = {
+  validateUserId,
+  ifWasherExists,
 };
-&nbsp;
-function <span class="fstat-no" title="function not covered" >find(</span>) {
-<span class="cstat-no" title="statement not covered" >  return db("users").select("*");</span>
+function validateUserId(req, res, next) {
+  Users.findById(req.params.id).then((user) =&gt; {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (user) {
+      delete user.password;
+      req.user = user;
+      next();
+    } else {
+<span class="cstat-no" title="statement not covered" >      res.status(400).json({ message: "invalid user id" });</span>
+    }
+  });
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >findById(</span>id) {
-<span class="cstat-no" title="statement not covered" >  return db("users")</span>
-    .select("firstName", "lastName", "email", "phoneNumber")
-    .where({ id })
-    .first();
-}
-&nbsp;
-function <span class="fstat-no" title="function not covered" >del(</span>id) {
-<span class="cstat-no" title="statement not covered" >  return db("users").where({ id }).del();</span>
-}
-&nbsp;
-function <span class="fstat-no" title="function not covered" >update(</span>id, changes) {
-<span class="cstat-no" title="statement not covered" >  return db("users").where({ id }).update(changes, "*");</span>
+function ifWasherExists(req, res, next) {
+  Users.findWasherId(req.params.id).then((washer) =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (washer) {
+<span class="cstat-no" title="statement not covered" >      res.status(401).json({ message: "user already registered as a washer" });</span>
+    } else {
+      next();
+    }
+  });
 }
 &nbsp;</pre></td></tr></table></pre>
 
