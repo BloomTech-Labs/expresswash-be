@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1587859895686" clover="3.2.0">
-  <project timestamp="1587859895686" name="All files">
+<coverage generated="1587868071853" clover="3.2.0">
+  <project timestamp="1587868071853" name="All files">
     <metrics statements="616" coveredstatements="73" conditionals="365" coveredconditionals="16" methods="233" coveredmethods="25" elements="1214" coveredelements="114" complexity="0" loc="616" ncloc="616" packages="14" files="42" classes="42"/>
     <package name="wowo-be">
       <metrics statements="7" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
@@ -56,8 +56,8 @@
       <metrics statements="74" coveredstatements="62" conditionals="14" coveredconditionals="14" methods="36" coveredmethods="24"/>
       <file name="auth-middleware.js" path="E:\lambdaschool\labs\wowo-be\auth\auth-middleware.js">
         <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
         <line num="8" count="5" type="stmt"/>
         <line num="9" count="5" type="cond" truecount="2" falsecount="0"/>
         <line num="10" count="4" type="stmt"/>
@@ -88,16 +88,16 @@
       </file>
       <file name="auth-routerPG.js" path="E:\lambdaschool\labs\wowo-be\auth\auth-routerPG.js">
         <metrics statements="48" coveredstatements="48" conditionals="10" coveredconditionals="10" methods="20" coveredmethods="20"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="2" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
         <line num="18" count="2" type="stmt"/>
         <line num="19" count="2" type="stmt"/>
         <line num="20" count="2" type="stmt"/>
@@ -110,7 +110,7 @@
         <line num="28" count="1" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
         <line num="37" count="1" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
         <line num="45" count="3" type="stmt"/>
         <line num="46" count="3" type="stmt"/>
         <line num="48" count="3" type="stmt"/>
@@ -118,11 +118,11 @@
         <line num="52" count="1" type="stmt"/>
         <line num="55" count="1" type="stmt"/>
         <line num="61" count="1" type="stmt"/>
-        <line num="65" count="1" type="stmt"/>
+        <line num="65" count="2" type="stmt"/>
         <line num="66" count="2" type="stmt"/>
         <line num="68" count="1" type="stmt"/>
         <line num="70" count="1" type="stmt"/>
-        <line num="72" count="1" type="stmt"/>
+        <line num="72" count="2" type="stmt"/>
         <line num="73" count="6" type="stmt"/>
         <line num="74" count="6" type="cond" truecount="4" falsecount="0"/>
         <line num="78" count="4" type="cond" truecount="4" falsecount="0"/>
@@ -135,7 +135,7 @@
         <line num="92" count="1" type="stmt"/>
         <line num="95" count="1" type="stmt"/>
         <line num="99" count="1" type="stmt"/>
-        <line num="126" count="1" type="stmt"/>
+        <line num="103" count="2" type="stmt"/>
       </file>
     </package>
     <package name="wowo-be.cars">
@@ -673,11 +673,11 @@
       <metrics statements="16" coveredstatements="5" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="1"/>
       <file name="generateToken.js" path="E:\lambdaschool\labs\wowo-be\middleware\generateToken.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="1" type="stmt"/>
+        <line num="1" count="2" type="stmt"/>
         <line num="8" count="4" type="stmt"/>
         <line num="15" count="4" type="stmt"/>
         <line num="19" count="4" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
       </file>
       <file name="restricted.js" path="E:\lambdaschool\labs\wowo-be\middleware\restricted.js">
         <metrics statements="11" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
