@@ -9,7 +9,9 @@ authRouterPG.get("/", (req, res) => {
     .then((users) => {
       res.status(200).json(users);
     })
-    .catch((err) => console.log("ERROR"));
+    .catch((err) => {
+      res.status(500).json({ message: "unable to get all users" });
+    });
 });
 
 authRouterPG.post("/registerClient", async (req, res) => {
@@ -32,8 +34,7 @@ authRouterPG.post("/registerClient", async (req, res) => {
       });
     })
     .catch((error) => {
-      console.log(error);
-      res.status(500).json(error);
+      res.status(500).json({ message: "unable to register new user" });
     });
 });
 

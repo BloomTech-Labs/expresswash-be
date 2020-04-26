@@ -19,7 +19,7 @@ function validateUserId(req, res, next) {
 function ifWasherExists(req, res, next) {
   Users.findWasherId(req.params.id).then((washer) => {
     if (washer) {
-      res.status(401).json({ message: "user already registered as a washer" });
+      res.status(400).json({ message: "user already registered as a washer" });
     } else {
       next();
     }
