@@ -22,9 +22,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">35.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>10/28</span>
             </div>
         
             
@@ -43,9 +43,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">35.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>10/28</span>
             </div>
         
             
@@ -112,28 +112,18 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -142,14 +132,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,7 +142,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -168,14 +168,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const carsRouterPG = <span class="cstat-no" title="statement not covered" >require('express').Router();</span>
-const db = <span class="cstat-no" title="statement not covered" >require('../database/dbConfig.js');</span>
-const queries = <span class="cstat-no" title="statement not covered" >require('../database/queries.js');</span>
-const { getCarMakes, getCarModelsForMake, myCars } = <span class="cstat-no" title="statement not covered" >require('../database/queries.js')</span>
+<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">const carsRouterPG = require('express').Router();
+const db = require('../database/dbConfig.js');
+const queries = require('../database/queries.js');
+const { getCarMakes, getCarModelsForMake, myCars } = require('../database/queries.js')
 &nbsp;
 &nbsp;
 // returns array of car makes
-<span class="cstat-no" title="statement not covered" >carsRouterPG.get('/makes', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {</span>
+carsRouterPG.get('/makes', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
     // const counts = await db('cars').select('make').count().groupBy('make');
     // const makes = await db('cars').distinct('make');
     // const both = {...counts, makes} 
@@ -188,7 +188,7 @@ const { getCarMakes, getCarModelsForMake, myCars } = <span class="cstat-no" titl
 });
 &nbsp;
 //returns array of car models for a car make
-<span class="cstat-no" title="statement not covered" >carsRouterPG.post('/models', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {</span>
+carsRouterPG.post('/models', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
     const { make } = <span class="cstat-no" title="statement not covered" >req.body;</span>
 <span class="cstat-no" title="statement not covered" >    return getCarModelsForMake(make)</span>
     .then(<span class="fstat-no" title="function not covered" >mo</span>dels =&gt; {
@@ -198,14 +198,14 @@ const { getCarMakes, getCarModelsForMake, myCars } = <span class="cstat-no" titl
 });
 &nbsp;
 // takes in make and model and returns car id
-<span class="cstat-no" title="statement not covered" >carsRouterPG.post('/getCarId', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {</span>
+carsRouterPG.post('/getCarId', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
     const { make, model } = <span class="cstat-no" title="statement not covered" >req.body;</span>
     const carId = <span class="cstat-no" title="statement not covered" >await db('cars').where({make} &amp;&amp; {model}).select('carId');</span>
 <span class="cstat-no" title="statement not covered" >    return res.status(200).json(carId);</span>
 })
 &nbsp;
 // mycars takes in userid and returns make and model and clientcarid for each (using a join statement)
-<span class="cstat-no" title="statement not covered" >carsRouterPG.post('/myCars', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {</span>
+carsRouterPG.post('/myCars', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
     const { id } = <span class="cstat-no" title="statement not covered" >req.body</span>
 <span class="cstat-no" title="statement not covered" >    return myCars(id)</span>
     .then(<span class="fstat-no" title="function not covered" >al</span>lMyCars =&gt; { 
@@ -215,7 +215,7 @@ const { getCarMakes, getCarModelsForMake, myCars } = <span class="cstat-no" titl
 })
 &nbsp;
 //addacar takes in id and carid and color and licenseplate 
-<span class="cstat-no" title="statement not covered" >carsRouterPG.post('/addACar', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {</span>
+carsRouterPG.post('/addACar', <span class="fstat-no" title="function not covered" >as</span>ync (req, res) =&gt; {
     const { id, carId, color, licensePlate } = <span class="cstat-no" title="statement not covered" >req.body;</span>
     const clientCarId = <span class="cstat-no" title="statement not covered" >await db('clientCars').insert({ id, carId, color, licensePlate });</span>
     const clientCar = <span class="cstat-no" title="statement not covered" >await db('clientCars')</span>
@@ -224,14 +224,14 @@ const { getCarMakes, getCarModelsForMake, myCars } = <span class="cstat-no" titl
 })
 &nbsp;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >module.exports = carsRouterPG;</span></pre></td></tr></table></pre>
+module.exports = carsRouterPG;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Apr 25 2020 22:27:51 GMT-0400 (Eastern Daylight Time)
+                at Sat Apr 25 2020 22:53:11 GMT-0400 (Eastern Daylight Time)
             </div>
         </div>
         <script src="..\..\prettify.js"></script>
