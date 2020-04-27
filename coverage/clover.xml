@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1587869591855" clover="3.2.0">
-  <project timestamp="1587869591855" name="All files">
-    <metrics statements="610" coveredstatements="143" conditionals="363" coveredconditionals="17" methods="233" coveredmethods="28" elements="1206" coveredelements="188" complexity="0" loc="610" ncloc="610" packages="14" files="42" classes="42"/>
+<coverage generated="1587952852556" clover="3.2.0">
+  <project timestamp="1587952852556" name="All files">
+    <metrics statements="610" coveredstatements="155" conditionals="363" coveredconditionals="17" methods="233" coveredmethods="40" elements="1206" coveredelements="212" complexity="0" loc="610" ncloc="610" packages="14" files="42" classes="42"/>
     <package name="wowo-be">
       <metrics statements="7" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="index.js" path="E:\lambdaschool\labs\wowo-be\index.js">
@@ -14,8 +14,8 @@
       </file>
       <file name="knexfile.js" path="E:\lambdaschool\labs\wowo-be\knexfile.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
       </file>
     </package>
     <package name="wowo-be.api">
@@ -53,7 +53,7 @@
       </file>
     </package>
     <package name="wowo-be.auth">
-      <metrics statements="74" coveredstatements="62" conditionals="14" coveredconditionals="14" methods="36" coveredmethods="24"/>
+      <metrics statements="74" coveredstatements="74" conditionals="14" coveredconditionals="14" methods="36" coveredmethods="36"/>
       <file name="auth-middleware.js" path="E:\lambdaschool\labs\wowo-be\auth\auth-middleware.js">
         <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
         <line num="2" count="4" type="stmt"/>
@@ -70,21 +70,21 @@
         <line num="24" count="3" type="stmt"/>
       </file>
       <file name="auth-modal.js" path="E:\lambdaschool\labs\wowo-be\auth\auth-modal.js">
-        <metrics statements="14" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="12" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="3" count="4" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
+        <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="12" coveredmethods="12"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="3" count="5" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
       </file>
       <file name="auth-routerPG.js" path="E:\lambdaschool\labs\wowo-be\auth\auth-routerPG.js">
         <metrics statements="48" coveredstatements="48" conditionals="10" coveredconditionals="10" methods="20" coveredmethods="20"/>
@@ -326,10 +326,10 @@
       </file>
       <file name="dbConfig.js" path="E:\lambdaschool\labs\wowo-be\database\dbConfig.js">
         <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="0" coveredmethods="0"/>
-        <line num="1" count="4" type="stmt"/>
-        <line num="2" count="4" type="stmt"/>
-        <line num="4" count="4" type="cond" truecount="2" falsecount="0"/>
-        <line num="8" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
+        <line num="2" count="5" type="stmt"/>
+        <line num="4" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="5" type="stmt"/>
       </file>
       <file name="knex.js" path="E:\lambdaschool\labs\wowo-be\database\knex.js">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
