@@ -58,7 +58,8 @@ exports.up = function (knex, Promise) {
       jobs.integer("carId").notNullable();
       jobs.string("address").notNullable();
       jobs.string("address2");
-      jobs.string("jobLocation");
+      jobs.decimal("jobLocationLat", 8, 2);
+      jobs.decimal("jobLocationLon", 8, 2);
       jobs.string("city").notNullable();
       jobs.string("state").notNullable();
       jobs.string("zip").notNullable();
@@ -81,11 +82,12 @@ exports.up = function (knex, Promise) {
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       washer.boolean("workStatus").defaultTo(false);
-      washer.integer("rateSmall");
-      washer.integer("rateMedium").notNullable();
-      washer.integer("rateLarge");
+      washer.decimal("rateSmall", 8, 2);
+      washer.decimal("rateMedium", 8, 2).notNullable();
+      washer.decimal("rateLarge", 8, 2);
       washer.string("aboutMe", 200);
-      washer.string("currentLocation");
+      washer.decimal("currentLocationLat", 8, 6);
+      washer.decimal("currentLocationLon", 8, 6);
       washer.boolean("available").defaultTo(false);
       washer.integer("washerRating");
     });

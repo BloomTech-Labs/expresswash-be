@@ -1,10 +1,7 @@
-// const db = require("../database/dbConfig");
-// const knex = require("knex");
 const mockDb = require("mock-knex");
 const knex = require("knex")({ client: "pg" });
 const model = require("./auth-modal");
 mockDb.mock(knex);
-// jest.mock("../database/dbconfig");
 
 test("testing auth model find", async () => {
   const res = await model.find();
@@ -35,6 +32,7 @@ test("testing auth model findWasherId", async () => {
   const res = await model.findWasherId(1);
   expect(res).toHaveProperty("name");
 });
+// tracker for incoming sql queries and sets response
 const tracker = require("mock-knex").getTracker();
 tracker.install();
 tracker.on("query", (query) => {
