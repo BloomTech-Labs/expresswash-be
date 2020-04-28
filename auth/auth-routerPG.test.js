@@ -4,6 +4,7 @@ const request = require("supertest");
 const bcrypt = require("bcryptjs");
 const Users = require("./auth-modal");
 const authRouter = require("./auth-routerPG");
+
 server.use(express.json());
 server.use("/", authRouter);
 
@@ -65,6 +66,7 @@ test("Gets all users from the /auth endpoint", async () => {
   expect(res.type).toBe("application/json");
   mock.mockRestore();
 });
+
 test("error on get all users", async () => {
   const mock = jest.spyOn(Users, "find");
   mock.mockImplementationOnce(() => Promise.reject());
@@ -73,6 +75,7 @@ test("error on get all users", async () => {
   expect(res.body).toMatchObject({ message: "unable to get all users" });
   mock.mockRestore();
 });
+
 test("Posts a new User to the /auth/registerClient endpoint", async () => {
   const mock = jest.spyOn(Users, "insert");
   const mockFind = jest.spyOn(Users, "findById");
@@ -87,6 +90,7 @@ test("Posts a new User to the /auth/registerClient endpoint", async () => {
   mock.mockRestore();
   mockFind.mockRestore();
 });
+
 test("Error on insert of new user", async () => {
   const mock = jest.spyOn(Users, "insert");
   mock.mockImplementationOnce(() => Promise.reject());
@@ -97,6 +101,7 @@ test("Error on insert of new user", async () => {
   expect(res.body).toMatchObject({ message: "unable to register new user" });
   mock.mockRestore();
 });
+
 test("Posts a new Washer to the /auth/registerWasher/:id endpoint", async () => {
   const mock = jest.spyOn(Users, "insertWasher");
   const mockFind = jest.spyOn(Users, "findWasherId");
@@ -129,6 +134,7 @@ test("Error message on insert washer", async () => {
   mockFindUser.mockRestore();
   mockIfWasherExists.mockRestore();
 });
+
 test("Error message on find washer after insert", async () => {
   const mock = jest.spyOn(Users, "insertWasher");
   const mockFind = jest.spyOn(Users, "findWasherId");
@@ -148,6 +154,7 @@ test("Error message on find washer after insert", async () => {
   mockFindUser.mockRestore();
   mockIfWasherExists.mockRestore();
 });
+
 test("Get list of washers", async () => {
   const mock = jest.spyOn(Users, "findWasher");
   mock.mockImplementationOnce(() => Promise.resolve([newWasher]));
@@ -157,6 +164,7 @@ test("Get list of washers", async () => {
   expect(res.type).toBe("application/json");
   mock.mockRestore();
 });
+
 test("Error on washers get request", async () => {
   const mock = jest.spyOn(Users, "findWasher");
   mock.mockImplementationOnce(() => Promise.reject());
@@ -165,6 +173,7 @@ test("Error on washers get request", async () => {
   expect(res.body).toMatchObject({ message: "unable to get washers" });
   mock.mockRestore();
 });
+
 test("Log user in to the /auth/login endpoint", async () => {
   const mock = jest.spyOn(Users, "findByEmail");
   const mockFindWasher = jest.spyOn(Users, "findWasherId");
@@ -199,6 +208,7 @@ test("error on find a washer on login", async () => {
   mock.mockRestore();
   mockFind.mockRestore();
 });
+
 test("error on password decription on login", async () => {
   const mockEmail = jest.spyOn(Users, "findByEmail");
   mockEmail.mockImplementationOnce(() => Promise.resolve(errorLogin));
@@ -209,6 +219,7 @@ test("error on password decription on login", async () => {
   expect(res.body).toMatchObject({ message: "invalid password" });
   mockEmail.mockRestore();
 });
+
 test("error for miising email or password on login", async () => {
   const res = await request(server).post("/login").send({ email: "someEmail" });
   expect(res.status).toBe(403);
@@ -216,6 +227,7 @@ test("error for miising email or password on login", async () => {
     message: "please povide email and password",
   });
 });
+
 test("Login as user and not a washer", async () => {
   const mockEmail = jest.spyOn(Users, "findByEmail");
   mockEmail.mockImplementationOnce(() => Promise.resolve(errorLogin));
@@ -227,6 +239,7 @@ test("Login as user and not a washer", async () => {
   expect(res.body).not.toHaveProperty("washer");
   mockEmail.mockRestore();
 });
+
 test("error in find by email on login ", async () => {
   const mock = jest.spyOn(Users, "findByEmail");
   mock.mockImplementationOnce(() => Promise.reject());
@@ -237,3 +250,4 @@ test("error in find by email on login ", async () => {
   expect(res.body).toMatchObject({ message: "email not registered to user" });
   mock.mockRestore();
 });
+
