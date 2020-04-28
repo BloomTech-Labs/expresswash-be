@@ -16,20 +16,14 @@ jobsRouter.post("/new", async (req, res) => {
   const {
     clientId,
     washAddress,
-    clientCarId,
-    washerId,
-    scheduled,
-    completed,
-    paid,
+    carId,
+    timeRequested,
   } = req.body;
   const newJob = {
     clientId,
     washAddress,
     clientCarId,
-    washerId,
-    scheduled,
-    completed,
-    paid,
+    timeRequested,
     creationDate,
   };
   console.log(newJob);
