@@ -1,6 +1,6 @@
-const knex = require("./knex");
+const knex = require("../database/dbConfig.js");
 
-module.exports() = {
+module.exports = {
   //add new job
   addNewJob(newJob) {
     return knex("jobs").insert(newJob);

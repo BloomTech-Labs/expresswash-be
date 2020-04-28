@@ -1,4 +1,4 @@
-const knex = require("./knex");
+const knex = require("./dbConfig.js");
 
 module.exports = {
   getAllUsers() {

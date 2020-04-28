@@ -17,41 +17,67 @@ jobsRouter.post("/new", async (req, res) => {
     clientId,
     washAddress,
     carId,
+    address,
+    address2,
+    jobLocationLat,
+    jobLocationLon,
+    city,
+    state,
+    zip,
+    notes,
+    jobType,
     timeRequested,
   } = req.body;
   const newJob = {
     clientId,
     washAddress,
-    clientCarId,
+    carId,
+    address,
+    address2,
+    jobLocationLat,
+    jobLocationLon,
+    city,
+    state,
+    zip,
+    notes,
+    jobType,
     timeRequested,
     creationDate,
   };
   console.log(newJob);
   addNewJob(newJob)
     .then((newJobRes) => {
-      return res.status(200).json(newJobRes);
+      res.status(200).json(newJobRes);
     })
     .catch((err) => res.status(500).json(error));
 });
 
 // returns all jobs with washerid null (new jobs)
 // change to send city to query
-jobsRouter.get("/available", async (req, res) => {
-  getAvailableJobs()
+jobsRouter.get("/available/:id", async (req, res) => {
+  const id = req.params.id
+  getAvailableJobs(id)
     .then((newJobs) => {
-      return res.status(200).json(newJobs);
+      if (newjobs) {
+      res.status(200).json(newJobs);
+      } else {
+      res.status(403).json({ message: "No available jobs found." });
+      }
     })
     .catch((err) => res.status(500).json(err));
 });
 
 // returns the full job for a given jobid
 // changed to a get from a post didn't make sense before returns an array requires to send a job id in the body? shouldn't this be coming from params?
-jobsRouter.get("/jobInfo", async (req, res) => {
-  const { jobId } = req.body;
+jobsRouter.get("/jobInfo/:id", async (req, res) => {
+  const jobId = req.params.id;
   selectJobById(jobId)
     .then((result) => {
-      // console.log(result)
-      res.status(200).json(result);
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(403).json({ message: "A job with the provided ID does not exist." })
+      }
     })
     .catch((err) => res.status(500).json(err));
 });
@@ -75,7 +101,7 @@ jobsRouter.put("/selectJob", async (req, res) => {
 });
 
 //deletes a job by jobId
-jobsRouter.del("/job/:id", async (req, res) => {
+jobsRouter.delete("/job/:id", async (req, res) => {
   const jobId = req.params.id;
   deleteJob(jobId)
     .then(removed => {
@@ -98,7 +124,7 @@ jobsRouter.put("/job/:id", async (req, res) => {
         res.status(200).json({ message: "Job " + jobId + " has been edited successfully."})
       } else {
         res.status(404).json({ message: "The job with the specified ID does not exist."})
-      }
+      }})
     .catch(err => res.status(500).json(err.message));
 });
 
@@ -111,7 +137,7 @@ jobsRouter.get("/job/:id", async (req, res) => {
         res.status(200).json(jobs)
       } else {
         res.status(404).json({ message: "Jobs for the specified ID does not exist."})
-      }
+      }})
     .catch(err => res.status(500).json(err.message));
 });
 
