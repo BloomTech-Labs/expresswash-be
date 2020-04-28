@@ -1,13 +1,17 @@
 const authRouterPG = require("express").Router();
 const bcrypt = require("bcryptjs");
 const generateToken = require("../middleware/generateToken.js");
-
+const { validateUserId, ifWasherExists } = require("./auth-middleware");
 const Users = require("./auth-modal");
 
 authRouterPG.get("/", (req, res) => {
-  Users.find().then((users) => {
-    res.status(200).json(users);
-  });
+  Users.find()
+    .then((users) => {
+      res.status(200).json(users);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "unable to get all users" });
+    });
 });
 
 authRouterPG.post("/registerClient", async (req, res) => {
@@ -30,8 +34,7 @@ authRouterPG.post("/registerClient", async (req, res) => {
       });
     })
     .catch((error) => {
-      console.log(error);
-      res.status(500).json(error);
+      res.status(500).json({ message: "unable to register new user" });
     });
 });
 
@@ -41,6 +44,7 @@ authRouterPG.post(
   (req, res) => {
     const id = req.user.id;
     const newWasher = { ...req.body, userId: Number(id) };
+
     Users.insertWasher(newWasher)
       .then((id) => {
         Users.findWasherId(id)
@@ -74,11 +78,9 @@ authRouterPG.post("/login", (req, res) => {
           if (user && bcrypt.compareSync(password, user.password)) {
             delete user.password;
             const token = generateToken(user);
-            console.log(user);
             if (user.accountType === "washer") {
               Users.findWasherId(user.id)
                 .then((washer) => {
-                  console.log(washer);
                   res.status(200).json({ token, user, washer });
                 })
                 .catch((err) => {
@@ -97,28 +99,5 @@ authRouterPG.post("/login", (req, res) => {
           res.status(403).json({ message: "email not registered to user" });
         });
 });
-
-// Middleware for auth routes
-function validateUserId(req, res, next) {
-  Users.findById(req.params.id).then((user) => {
-    if (user) {
-      delete user.password;
-      req.user = user;
-      next();
-    } else {
-      res.status(400).json({ message: "invalid user id" });
-    }
-  });
-}
-
-function ifWasherExists(req, res, next) {
-  Users.findWasherId(req.params.id).then((washer) => {
-    if (washer) {
-      res.status(400).json({ message: "user already registered as a washer" });
-    } else {
-      next();
-    }
-  });
-}
 
 module.exports = authRouterPG;
