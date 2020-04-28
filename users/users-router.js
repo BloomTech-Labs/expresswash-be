@@ -9,7 +9,6 @@ usersRouter.get("/", (req, res) => {
       res.status(200).json(users);
     })
     .catch((err) => {
-      console.log("this is get users err", err);
       res.status(500).send(err);
     });
 });
@@ -58,7 +57,6 @@ function checkId(req, res, next) {
   const { id } = req.params;
   Users.findById(id)
     .then((user) => {
-      console.log(user);
       if (user) {
         req.user = user;
         next();
@@ -69,7 +67,6 @@ function checkId(req, res, next) {
       }
     })
     .catch((err) => {
-      console.log("this is err on findbyid", err);
       res.status(500).json({
         message: "there was an error processing the request",
       });
