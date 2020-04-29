@@ -90,7 +90,8 @@ exports.up = function (knex, Promise) {
       washer.decimal("currentLocationLat", 8, 6);
       washer.decimal("currentLocationLon", 8, 6);
       washer.boolean("available").defaultTo(false);
-      washer.integer("washerRating");
+      washer.float("washerRating", 8, 2);
+      washer.integer("washerRatingTotal").defaultTo(1);
     });
 };
 

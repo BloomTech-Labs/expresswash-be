@@ -27,7 +27,48 @@ usersRouter.put("/rating/:id", (req, res) => {
         const total = userRatingTotal * userRating + req.body.userRating;
         const newUserRatingTotal = userRatingTotal + 1;
         const newRating = total / newUserRatingTotal;
-        Users.update(id, { userRating: newRating })
+        Users.update(id, {
+          userRatingTotal: newUserRatingTotal,
+          userRating: newRating,
+        })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(500).json({ message: "error in updating the user" });
+          });
+      } else {
+        Users.update(id, { userRating: req.body.userRating })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(500).json({ message: "error updating the user rating" });
+          });
+      }
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ message: `user with the id ${req.params.id} does not exist` });
+    });
+});
+//Add rating to washer profile
+usersRouter.put("/washer/rating/:id", (req, res) => {
+  const id = req.params.id;
+  Users.findByWasherId(id)
+    .then((washer) => {
+      const { washerRating, washerRatingTotal } = washer;
+      if (washerRatingTotal > 0) {
+        const total = washerRatingTotal * washerRating + req.body.washerRating;
+        const newWasherRatingTotal = washerRatingTotal + 1;
+        const newRating = total / newWasherRatingTotal;
+        Users.updateWasher(id, {
+          washerRatingTotal: newWasherRatingTotal,
+          washerRating: newRating,
+        })
           .then((user) => {
             res.status(201).json(user);
           })
