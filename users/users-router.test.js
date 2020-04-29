@@ -1,7 +1,6 @@
 const express = require("express");
 const server = express();
 const request = require("supertest");
-const bcrypt = require("bcryptjs");
 const Users = require("./users-model");
 const usersRouter = require("./users-router");
 
