@@ -18,7 +18,8 @@ exports.up = function (knex, Promise) {
       user.string("profilePicture", 400).defaultTo("");
       user.string("bannerImage", 400).defaultTo("");
       user.string("creationDate", 128);
-      user.integer("userRating");
+      user.float("userRating", 8, 2);
+      user.integer("userRatingTotal").defaultTo(1);
     })
     .createTable("cars", (cars) => {
       cars.increments("carId");

@@ -1,7 +1,6 @@
 const usersRouter = require("express").Router();
 
 const Users = require("../users/users-model.js");
-
 // Return all users
 usersRouter.get("/", (req, res) => {
   Users.find()
@@ -16,6 +15,42 @@ usersRouter.get("/", (req, res) => {
 // Return user by id - firstName, lastName, email, phoneNumber
 usersRouter.get("/:id", checkId, (req, res) => {
   res.status(200).json(req.user);
+});
+
+// add rating to user
+usersRouter.put("/rating/:id", (req, res) => {
+  const id = req.params.id;
+  Users.findById(id)
+    .then((user) => {
+      const { userRating, userRatingTotal } = user;
+      if (userRatingTotal > 0) {
+        const total = userRatingTotal * userRating + req.body.userRating;
+        const newUserRatingTotal = userRatingTotal + 1;
+        const newRating = total / newUserRatingTotal;
+        Users.update(id, { userRating: newRating })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(500).json({ message: "error in updating the user" });
+          });
+      } else {
+        Users.update(id, { userRating: req.body.userRating })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(500).json({ message: "error updating the user rating" });
+          });
+      }
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ message: `user with the id ${req.params.id} does not exist` });
+    });
 });
 
 // Delete User by Id

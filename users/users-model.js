@@ -12,10 +12,7 @@ function find() {
 }
 
 function findById(id) {
-  return db("users")
-    .select("firstName", "lastName", "email", "phoneNumber")
-    .where({ id })
-    .first();
+  return db("users").where({ id }).first();
 }
 
 function del(id) {
