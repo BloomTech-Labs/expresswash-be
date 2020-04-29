@@ -43,14 +43,11 @@ The endpoints currently operational on the server are listed below.
 | PUT    | `/jobs/setWorkStatus`         | all users                   | Boolean, id in req.body sets washer work status                            |
 | POST   | `/jobs/selectJob`             | all users                   | Adds the washer to a job.                                                  |
 | POST   | `/jobs/howManyCompleted`      | all users                   | Returns a count of how many jobs the washer is on.                         |
-| POST   | `/ratings/washerAverage`      | all users                   | Returns average rating for a washer.                                       |
-| POST   | `/ratings/clientAverage`      | all users                   | Returns average rating for a client.                                       |
-| POST   | `/ratings/rateWasher`         | all users                   | Add a washer rating.                                                       |
-| POST   | `/ratings/rateClient`         | all users                   | Add a client rating.                                                       |
 | GET    | `/users/`                     | all users                   | View all users.                                                            |
 | GET    | `/users/:id`                  | all users                   | View a user by id.                                                         |
 | DELETE | `/users/:id`                  | all users                   | Remove a user.                                                             |
 | PUT    | `/users/:id`                  | all users                   | Update a user.                                                             |
+| PUT    | `/users/rating/:id`           | all users                   | Update rating of a user.                                                   |
 
 ## Data Model
 
@@ -207,45 +204,17 @@ The HowManyCompleted Jobs Endpoint needs the following JSON information:
 }
 ```
 
-The WasherAverage Endpoint needs the following JSON information:
-
-```#! json
-{
-  "id":2
-}
-```
-
-The ClientAverage Endpoint needs the following JSON information:
-
-```#! json
-{
-  "id":1
-}
-```
-
-The RateWasher Endpoint needs the following JSON information (with the exception of notes, which is not required):
-
-```#! json
-{
-  "id":2,
-  "rating":5,
-  "notes":"This field is optional and takes a string >400 characters in length"
-}
-```
-
-The RateClient Endpoint needs the following JSON information (with the exception of notes, which is not required):
-
-```#! json
-{
-  "id":1,
-  "rating":5,
-  "notes":"This field is optional and takes a string >400 characters in length"
-}
-```
-
 ### USERS
 
 ---
+
+The `/users/rating/:id` Endpoint needs the following information:
+
+```#! json
+{
+  userRating: 3
+}
+```
 
 ```#! json
 {
