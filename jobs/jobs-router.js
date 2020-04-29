@@ -44,12 +44,11 @@ jobsRouter.post("/new", async (req, res) => {
     timeRequested,
     creationDate,
   };
-  console.log(newJob);
   addNewJob(newJob)
     .then((newJobRes) => {
-      res.status(200).json(newJobRes);
+      res.status(201).json(newJobRes);
     })
-    .catch((err) => res.status(500).json(error));
+    .catch((err) => res.status(500).json(err.message));
 });
 
 // returns all jobs with washerid null (new jobs)
@@ -64,7 +63,7 @@ jobsRouter.get("/available/:id", async (req, res) => {
         res.status(403).json({ message: "No available jobs found." });
       }
     })
-    .catch((err) => res.status(500).json(err));
+    .catch((err) => res.status(500).json(err.message));
 });
 
 // returns the full job for a given jobid

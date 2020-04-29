@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const knex = require("./knex");
-=======
 const knex = require("./dbConfig.js");
->>>>>>> e535f72877005bd7725fbf6a08a48ecb72390463
 
 module.exports = {
   getAllUsers() {
