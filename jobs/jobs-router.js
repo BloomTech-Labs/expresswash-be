@@ -107,9 +107,7 @@ jobsRouter.delete("/job/:id", async (req, res) => {
   deleteJob(jobId)
     .then((removed) => {
       if (removed) {
-        res
-          .status(204)
-          .json({ message: "Job " + jobId + " has been deleted." });
+        res.status(204).json({ message: "Job  has been deleted." });
       } else {
         res
           .status(404)

@@ -112,3 +112,17 @@ test("Hits last catch error the job by adding a washer to it from the /selectJob
   expect(res.status).toBe(500);
   mock.mockRestore();
 });
+
+test("Deletes a job by jobId from the /job/:id endpoint", async () => {
+  const mock = jest.spyOn(Jobs, "deleteJob");
+  mock.mockImplementation(() => Promise.resolve(newJob.jobId));
+  const res = await request(server).delete("/job/1");
+  expect(res.status).toBe(204);
+});
+
+test("Fails to find id to delete a job by jobId from the /job/:id endpoint", async () => {
+  const mock = jest.spyOn(Jobs, "deleteJob");
+  mock.mockImplementation(() => Promise.resolve());
+  const res = await request(server).delete("/job/1");
+  expect(res.status).toBe(404);
+});
