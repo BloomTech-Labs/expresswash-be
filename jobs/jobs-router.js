@@ -87,7 +87,7 @@ jobsRouter.get("/jobInfo/:id", async (req, res) => {
 //working??? needs to be refactored probably, We need to seed users for further testing.
 jobsRouter.put("/selectJob/:id", async (req, res) => {
   const { jobId } = req.params;
-  const washerId = red.body;
+  const washerId = req.body;
   addWasherToJob(jobId, washerId)
     .then((result) => {
       if (result === 1) {

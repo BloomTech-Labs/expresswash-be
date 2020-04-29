@@ -70,8 +70,45 @@ test("Gets Job info from a job by id fromt he route /jobInfo/:id", async () => {
 //needs work unable to trigger the 403
 test("Fail to Get Job info from a job by id fromt he route /jobInfo/:id", async () => {
   const mock = jest.spyOn(Jobs, "selectJobById");
+  mock.mockImplementation(() => Promise.resolve());
+  const res = await request(server).get("/jobInfo/1");
+  expect(res.status).toBe(403);
+  mock.mockRestore();
+});
+
+test("Fail to Get Job info from a job by id fromt he route /jobInfo/:id", async () => {
+  const mock = jest.spyOn(Jobs, "selectJobById");
   mock.mockImplementation(() => Promise.reject(newJob.jobId));
   const res = await request(server).get("/jobInfo/1");
+  expect(res.status).toBe(500);
+  mock.mockRestore();
+});
+
+test("Updates the job by adding a washer to it from the /selectJob/:id end point", async () => {
+  const mock = jest.spyOn(Jobs, "addWasherToJob");
+  const mockFind = jest.spyOn(Jobs, "selectJobById");
+  mock.mockImplementation(() => Promise.resolve(newJob.jobId, newJob.washerId));
+  mockFind.mockImplementation(() => Promise.resolve(newJob.jobId));
+  const res = await request(server).put("/selectJob/1").send(newJob.washerId);
+  expect(res.status).toBe(200);
+  mock.mockRestore();
+});
+
+test("Fails to Update the job by adding a washer to it from the /selectJob/:id end point", async () => {
+  const mock = jest.spyOn(Jobs, "addWasherToJob");
+  mock.mockImplementation(() => Promise.resolve());
+  const res = await request(server).put("/selectJob/1").send(newJob.washerId);
+  expect(res.status).toBe(500);
+  expect(res.body).toMatchObject({ message: "Error setting washer on job" });
+  mock.mockRestore();
+});
+
+test("Hits last catch error the job by adding a washer to it from the /selectJob/:id end point", async () => {
+  const mock = jest.spyOn(Jobs, "addWasherToJob");
+  const mockFind = jest.spyOn(Jobs, "selectJobById");
+  mock.mockImplementation(() => Promise.reject(newJob.jobId, newJob.washerId));
+  mockFind.mockImplementation(() => Promise.reject(newJob.jobId));
+  const res = await request(server).put("/selectJob/1").send(newJob.washerId);
   expect(res.status).toBe(500);
   mock.mockRestore();
 });
