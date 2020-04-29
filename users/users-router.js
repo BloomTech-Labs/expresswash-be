@@ -35,7 +35,6 @@ usersRouter.put("/rating/:id", (req, res) => {
             res.status(201).json(user);
           })
           .catch((err) => {
-            console.log(err);
             res.status(500).json({ message: "error in updating the user" });
           });
       } else {
@@ -73,24 +72,25 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
             res.status(201).json(user);
           })
           .catch((err) => {
-            console.log(err);
-            res.status(500).json({ message: "error in updating the user" });
+            res.status(500).json({ message: "error in updating the washer" });
           });
       } else {
-        Users.update(id, { userRating: req.body.userRating })
+        Users.updateWasher(id, { userRating: req.body.userRating })
           .then((user) => {
             res.status(201).json(user);
           })
           .catch((err) => {
             console.log(err);
-            res.status(500).json({ message: "error updating the user rating" });
+            res
+              .status(500)
+              .json({ message: "error updating the washer rating" });
           });
       }
     })
     .catch((err) => {
-      res
-        .status(500)
-        .json({ message: `user with the id ${req.params.id} does not exist` });
+      res.status(500).json({
+        message: `washer with the id ${req.params.id} does not exist`,
+      });
     });
 });
 
