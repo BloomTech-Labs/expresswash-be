@@ -17,7 +17,7 @@ usersRouter.get("/:id", checkId, (req, res) => {
   res.status(200).json(req.user);
 });
 
-// add rating to user
+// Add rating to user profile
 usersRouter.put("/rating/:id", (req, res) => {
   const id = req.params.id;
   Users.findById(id)

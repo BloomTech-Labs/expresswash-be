@@ -73,6 +73,7 @@ test("/users/:id PUT request - return response status 200 when user successfully
   const res = await request(server).put("/1");
   expect(res.status).toBe(200);
   mock.mockRestore();
+  mockUpdate.mockRestore();
 });
 
 test("/users/:id PUT request - return response status 404 no user to be updated", async () => {
@@ -83,6 +84,7 @@ test("/users/:id PUT request - return response status 404 no user to be updated"
   const res = await request(server).put("/1");
   expect(res.status).toBe(404);
   mock.mockRestore();
+  mockUpdate.mockRestore();
 });
 
 test("/users/:id PUT request - return response status 500 when server error occurs", async () => {
@@ -93,4 +95,82 @@ test("/users/:id PUT request - return response status 500 when server error occu
   const res = await request(server).put("/1");
   expect(res.status).toBe(404);
   mock.mockRestore();
+  mockUpdate.mockRestore();
+});
+
+test("/users/rating:id PUT request add rating to new user", async () => {
+  const mock = jest.spyOn(Users, "findById");
+  const mockUpdate = jest.spyOn(Users, "update");
+  mock.mockImplementationOnce(() =>
+    Promise.resolve({ userRatingTotal: 0, userRating: 4 })
+  );
+  mockUpdate.mockImplementationOnce(() =>
+    Promise.resolve({ id: 1, userRating: 4 })
+  );
+  const res = await request(server).put("/rating/1").send({
+    userRating: 4,
+  });
+  expect(res.status).toBe(201);
+  expect(res.body).toHaveProperty("id");
+  mock.mockRestore();
+  mockUpdate.mockRestore();
+});
+test("/users/rating:id PUT request update rating on existing user", async () => {
+  const mock = jest.spyOn(Users, "findById");
+  const mockUpdate = jest.spyOn(Users, "update");
+  mock.mockImplementationOnce(() =>
+    Promise.resolve({ userRatingTotal: 1, userRating: 4 })
+  );
+  mockUpdate.mockImplementationOnce(() =>
+    Promise.resolve({ id: 1, userRating: 4 })
+  );
+  const res = await request(server).put("/rating/1").send({
+    userRating: 4,
+  });
+  expect(res.status).toBe(201);
+  expect(res.body).toHaveProperty("id");
+  mock.mockRestore();
+  mockUpdate.mockRestore();
+});
+test("/users/rating:id PUT error on findById in rating endpoint", async () => {
+  const mock = jest.spyOn(Users, "findById");
+  mock.mockImplementationOnce(() => Promise.reject());
+  const res = await request(server).put("/rating/1").send({
+    userRating: 4,
+  });
+  expect(res.status).toBe(500);
+  expect(res.body).toMatchObject({
+    message: `user with the id 1 does not exist`,
+  });
+  mock.mockRestore();
+});
+test("/users/rating:id PUT error in update existing user", async () => {
+  const mock = jest.spyOn(Users, "findById");
+  const mockUpdate = jest.spyOn(Users, "update");
+  mock.mockImplementationOnce(() =>
+    Promise.resolve({ userRatingTotal: 1, userRating: 4 })
+  );
+  mockUpdate.mockImplementationOnce(() => Promise.reject());
+  const res = await request(server).put("/rating/1").send({
+    userRating: 4,
+  });
+  expect(res.status).toBe(500);
+  expect(res.body).toMatchObject({ message: "error in updating the user" });
+  mock.mockRestore();
+  mockUpdate.mockRestore();
+});
+test("/users/rating:id PUT error in update new user", async () => {
+  const mock = jest.spyOn(Users, "findById");
+  const mockUpdate = jest.spyOn(Users, "update");
+  mock.mockImplementationOnce(() =>
+    Promise.resolve({ userRatingTotal: 0, userRating: 4 })
+  );
+  mockUpdate.mockImplementationOnce(() => Promise.reject());
+  const res = await request(server).put("/rating/1").send({
+    userRating: 4,
+  });
+  expect(res.status).toBe(500);
+  expect(res.body).toMatchObject({ message: "error updating the user rating" });
+  mock.mockRestore();
+  mockUpdate.mockRestore();
 });
