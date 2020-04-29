@@ -1,4 +1,4 @@
-const knex = require("./dbConfig");
+const knex = require("./dbConfig.js");
 
 module.exports = {
   getAllUsers() {
@@ -47,6 +47,7 @@ module.exports = {
     return knex("ratingsOC").first().where({ id });
   },
 
+<<<<<<< HEAD
   getLatestJobClient(clientId) {
     return knex("jobs")
       .where({ clientId })
@@ -62,14 +63,19 @@ module.exports = {
     return knex("jobs").where("washerId", null);
   },
 
+=======
+>>>>>>> 920188c3572402d23bfc426565a8b61f068d4042
   getWasherInfo(id) {
     return knex("users").where({ id });
   },
 
+<<<<<<< HEAD
   selectJobById(jobId, washerId) {
     return knex("jobs").where({ jobId });
   },
 
+=======
+>>>>>>> 920188c3572402d23bfc426565a8b61f068d4042
   getWorkStatus(id) {
     return knex("users").where({ id }).select("id", "workStatus");
   },
@@ -78,10 +84,13 @@ module.exports = {
     return knex("users").where({ id }).update({ workStatus });
   },
 
+<<<<<<< HEAD
   setWasherOnJob(jobId, washerId) {
     return knex("jobs").where({ jobId }).update({ washerId });
   },
 
+=======
+>>>>>>> 920188c3572402d23bfc426565a8b61f068d4042
   getWasherRatings(id) {
     return knex("ratingsOW").where({ id }).select("rating");
   },
@@ -93,6 +102,7 @@ module.exports = {
   rateWasher(washerRating) {
     return knex("ratingsOW").insert(washerRating);
   },
+<<<<<<< HEAD
 
   rateClient(clientRating) {
     return knex("ratingsOC").insert(clientRating);
@@ -101,4 +111,6 @@ module.exports = {
   countWasherOnJobs(washerId) {
     return knex("jobs").where({ washerId }).count();
   },
+=======
+>>>>>>> 920188c3572402d23bfc426565a8b61f068d4042
 };
