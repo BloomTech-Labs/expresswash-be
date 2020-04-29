@@ -3,13 +3,13 @@ const knex = require("../database/dbConfig.js");
 module.exports = {
   //add new job
   addNewJob(newJob) {
-    return knex("jobs").insert(newJob);
+    return knex("jobs").insert(newJob, "*");
   },
   // see available jobs in the washer's city
   getAvailableJobs(id) {
-    return knex("user")
+    return knex("users")
       .where({ id })
-      .join("jobs", { "user.city": "jobs.city" })
+      .join("jobs", { "users.city": "jobs.city" })
       .where({ washerId: null });
   },
   //view jobs by jobId
@@ -26,10 +26,14 @@ module.exports = {
   },
   //update job by id
   editJob(jobId, changes) {
-    return knex("jobs").where({ jobId }).update(changes);
+    return knex("jobs").where({ jobId }).update(changes, "*");
   },
   //get all jobs by userId
-  getJobsByUserId(userId) {
-    return knex("jobs").where({ userId });
+  getJobsByUserId(clientId) {
+    return knex("jobs").where({ clientId });
+  },
+
+  find() {
+    return knex("jobs");
   },
 };

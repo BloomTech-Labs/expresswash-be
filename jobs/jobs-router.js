@@ -7,6 +7,7 @@ const {
   deleteJob,
   editJob,
   getJobsByUserId,
+  find,
 } = require("./jobs-model.js");
 
 // creates a job
@@ -57,8 +58,12 @@ jobsRouter.get("/available/:id", async (req, res) => {
   const id = req.params.id;
   getAvailableJobs(id)
     .then((newJobs) => {
-      if (newjobs) {
-        res.status(200).json(newJobs);
+      if (newJobs) {
+        const returnJobs = newJobs.map((item) => {
+          delete item.pawssword;
+          return item;
+        });
+        res.status(200).json(returnJobs);
       } else {
         res.status(403).json({ message: "No available jobs found." });
       }
@@ -86,7 +91,7 @@ jobsRouter.get("/jobInfo/:id", async (req, res) => {
 // adds the washer to new job
 //working??? needs to be refactored probably, We need to seed users for further testing.
 jobsRouter.put("/selectJob/:id", async (req, res) => {
-  const { jobId } = req.params;
+  const jobId = req.params.id;
   const washerId = req.body;
   addWasherToJob(jobId, washerId)
     .then((result) => {
@@ -109,9 +114,7 @@ jobsRouter.delete("/job/:id", async (req, res) => {
       if (removed) {
         res.status(204).json({ message: "Job  has been deleted." });
       } else {
-        res
-          .status(404)
-          .json({ message: "The job with the specified ID does not exist." });
+        res.status(404).json(edited);
       }
     })
     .catch((err) => res.status(500).json(err.message));
@@ -137,7 +140,7 @@ jobsRouter.put("/job/:id", async (req, res) => {
 });
 
 //returns all jobs associated with given userId
-jobsRouter.get("/job/:id", async (req, res) => {
+jobsRouter.get("/user/:id", async (req, res) => {
   const userId = req.params.id;
   getJobsByUserId(userId)
     .then((jobs) => {
@@ -150,6 +153,12 @@ jobsRouter.get("/job/:id", async (req, res) => {
       }
     })
     .catch((err) => res.status(500).json(err.message));
+});
+
+jobsRouter.get("/", (req, res) => {
+  find().then((jobs) => {
+    res.status(200).json(jobs);
+  });
 });
 
 module.exports = jobsRouter;
