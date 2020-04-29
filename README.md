@@ -48,6 +48,7 @@ The endpoints currently operational on the server are listed below.
 | DELETE | `/users/:id`                  | all users                   | Remove a user.                                                             |
 | PUT    | `/users/:id`                  | all users                   | Update a user.                                                             |
 | PUT    | `/users/rating/:id`           | all users                   | Update rating of a user.                                                   |
+| PUT    | `/users/washer/rating/:id`    | all users                   | Update rating of a washer.                                                 |
 
 ## Data Model
 
@@ -213,6 +214,14 @@ The `/users/rating/:id` Endpoint needs the following information:
 ```#! json
 {
   userRating: 3
+}
+```
+
+The `/users/washer/rating/:id` Endpoint needs the following information:
+
+```#! json
+{
+  washerRating: 3
 }
 ```
 
