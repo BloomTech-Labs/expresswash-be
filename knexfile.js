@@ -57,7 +57,7 @@ module.exports = {
       port: process.env.DB_PORT,
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
-      database: "postgres",
+      database: process.env.DB_DATABASE,
     },
     pool: {
       min: 2,
