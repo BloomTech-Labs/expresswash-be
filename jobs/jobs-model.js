@@ -1,6 +1,6 @@
-const knex = require("./knex");
+const knex = require("../database/dbConfig.js");
 
-module.exports() = {
+module.exports = {
   //add new job
   addNewJob(newJob) {
     return knex("jobs").insert(newJob);
@@ -18,7 +18,7 @@ module.exports() = {
   },
   //add washer to job
   addWasherToJob(jobId, washerId) {
-    return knex("jobs").where({ jobId }).update({ washerId });
+    return knex("jobs").where({ jobId }).update(washerId);
   },
 
   deleteJob(jobId) {
