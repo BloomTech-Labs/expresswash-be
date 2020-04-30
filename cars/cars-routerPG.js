@@ -1,12 +1,5 @@
 const carsRouterPG = require("express").Router();
-const db = require("../database/dbConfig.js");
-const queries = require("../database/queries.js");
 const cars = require("./cars-model");
-const {
-  getCarMakes,
-  getCarModelsForMake,
-  myCars,
-} = require("../database/queries.js");
 
 //get the list of all cars
 
