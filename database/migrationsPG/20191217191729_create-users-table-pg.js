@@ -82,6 +82,7 @@ exports.up = function (knex, Promise) {
         .inTable("users")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
+      washer.boolean("available").notNullable().defaultTo(false);
       washer.boolean("workStatus").defaultTo(false);
       washer.decimal("rateSmall", 8, 2);
       washer.decimal("rateMedium", 8, 2).notNullable();
@@ -89,7 +90,6 @@ exports.up = function (knex, Promise) {
       washer.string("aboutMe", 200);
       washer.decimal("currentLocationLat", 8, 6);
       washer.decimal("currentLocationLon", 8, 6);
-      washer.boolean("available").defaultTo(false);
       washer.float("washerRating", 8, 2);
       washer.integer("washerRatingTotal").defaultTo(1);
     });
