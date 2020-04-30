@@ -32,7 +32,4 @@ module.exports = {
   getJobsByUserId(clientId) {
     return knex("jobs").where({ clientId });
   },
-  find() {
-    return knex("jobs");
-  },
 };

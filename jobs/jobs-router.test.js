@@ -49,7 +49,7 @@ test("Fail to Post a new Job to the /new endpoint", async () => {
   mock.mockRestore();
 });
 
-test("Gets Job info from a job by id fromt he route /jobInfo/:id", async () => {
+test("Gets Job info from a job by id from the route /jobInfo/:id", async () => {
   const mock = jest.spyOn(Jobs, "selectJobById");
   mock.mockImplementation(() => Promise.resolve(newJob.jobId));
   const res = await request(server).get("/jobInfo/1");
@@ -57,7 +57,7 @@ test("Gets Job info from a job by id fromt he route /jobInfo/:id", async () => {
   mock.mockRestore();
 });
 
-test("Fail to Get Job info from a job by id fromt he route /jobInfo/:id", async () => {
+test("Fail to Get Job info from a job by id from the route /jobInfo/:id", async () => {
   const mock = jest.spyOn(Jobs, "selectJobById");
   mock.mockImplementation(() => Promise.resolve());
   const res = await request(server).get("/jobInfo/1");
@@ -65,7 +65,7 @@ test("Fail to Get Job info from a job by id fromt he route /jobInfo/:id", async 
   mock.mockRestore();
 });
 
-test("Fail to Get Job info from a job by id fromt he route /jobInfo/:id", async () => {
+test("Hits Catch Error at Get Job info from a job by id from the route /jobInfo/:id", async () => {
   const mock = jest.spyOn(Jobs, "selectJobById");
   mock.mockImplementation(() => Promise.reject(newJob.jobId));
   const res = await request(server).get("/jobInfo/1");
@@ -150,14 +150,14 @@ test(" Hits Catch Error on update a job by jobId from the /job/:id endpoint", as
 test("Gets all jobs by userId", async () => {
   const mock = jest.spyOn(Jobs, "getJobsByUserId");
   mock.mockImplementation(() => Promise.resolve(newJob));
-  const res = await request(server).get("/job/1");
+  const res = await request(server).get("/user/1");
   expect(res.status).toBe(200);
 });
 
 test("Fail to provide correct id to Get all jobs by userId", async () => {
   const mock = jest.spyOn(Jobs, "getJobsByUserId");
   mock.mockImplementation(() => Promise.resolve());
-  const res = await request(server).get("/job/1");
+  const res = await request(server).get("/user/1");
   expect(res.status).toBe(404);
   expect(res.body).toMatchObject({
     message: "Jobs for the specified ID does not exist.",
@@ -167,6 +167,6 @@ test("Fail to provide correct id to Get all jobs by userId", async () => {
 test("Hit Catch Error on Get all jobs by userId", async () => {
   const mock = jest.spyOn(Jobs, "getJobsByUserId");
   mock.mockImplementation(() => Promise.reject(newJob));
-  const res = await request(server).get("/job/1");
+  const res = await request(server).get("/user/1");
   expect(res.status).toBe(500);
 });
