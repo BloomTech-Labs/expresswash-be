@@ -25,6 +25,7 @@ The endpoints currently operational on the server are listed below.
 
 ### All Routes
 
+
 | Method | Endpoint                   | Access Control              | Description                                                                |
 | ------ | -------------------------- | --------------------------- | -------------------------------------------------------------------------- |
 | POST   | `/auth/RegisterClient`     | all users                   | Register for a client account.                                             |
@@ -49,6 +50,9 @@ The endpoints currently operational on the server are listed below.
 | GET    | `/users/:id`               | all users                   | View a user by id.                                                         |
 | DELETE | `/users/:id`               | all users                   | Remove a user.                                                             |
 | PUT    | `/users/:id`               | all users                   | Update a user.                                                             |
+| PUT    | `/users/rating/:id`        | all users                   | Update rating of a user.                                                   |
+| PUT    | `/users/washer/rating/:id` | all users                   | Update rating of a washer.                                                 |
+
 
 ## Data Model
 
@@ -180,6 +184,7 @@ PUT Requires changes to the Job
   "washAddress": "updated address"
 }
 ```
+
 
 ### USERS
 
