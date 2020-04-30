@@ -38,6 +38,7 @@ usersRouter.put("/rating/:id", (req, res) => {
             res.status(500).json({ message: "error in updating the user" });
           });
       } else {
+        // adds rating if it is the first one for the user
         Users.update(id, { userRating: req.body.userRating })
           .then((user) => {
             res.status(201).json(user);
@@ -75,6 +76,7 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
             res.status(500).json({ message: "error in updating the washer" });
           });
       } else {
+        // adds rating if it is the first on for the washer
         Users.updateWasher(id, { userRating: req.body.userRating })
           .then((user) => {
             res.status(201).json(user);
