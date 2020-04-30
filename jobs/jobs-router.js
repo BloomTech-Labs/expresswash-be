@@ -60,7 +60,7 @@ jobsRouter.get("/available/:id", async (req, res) => {
     .then((newJobs) => {
       if (newJobs) {
         const returnJobs = newJobs.map((item) => {
-          delete item.pawssword;
+          delete item.password;
           return item;
         });
         res.status(200).json(returnJobs);
@@ -153,12 +153,6 @@ jobsRouter.get("/user/:id", async (req, res) => {
       }
     })
     .catch((err) => res.status(500).json(err.message));
-});
-
-jobsRouter.get("/", (req, res) => {
-  find().then((jobs) => {
-    res.status(200).json(jobs);
-  });
 });
 
 module.exports = jobsRouter;

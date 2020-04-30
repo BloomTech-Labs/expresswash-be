@@ -39,6 +39,11 @@ test("testing jobs model getJobsByUserId", async () => {
   expect(res).toHaveProperty("clientId");
 });
 
+test("testing jobs model find", async () => {
+  const res = await model.find();
+  expect(res).toHaveProperty("zip");
+});
+
 const tracker = require("mock-knex").getTracker();
 tracker.install();
 tracker.on("query", (query) => {
