@@ -31,5 +31,7 @@ module.exports = {
   //get all jobs by userId
   getJobsByUserId(clientId) {
     return knex("jobs").where({ clientId });
+
   },
+
 };
