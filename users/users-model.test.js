@@ -22,6 +22,14 @@ test("testing users model update", async () => {
   const res = await model.update(1, { name: "tom" });
   expect(res).toHaveLength(1);
 });
+test("testing users model updateWasher", async () => {
+  const res = await model.updateWasher(1, { name: "jeff" });
+  expect(res[0]).toHaveProperty("name");
+});
+test("testing users model update", async () => {
+  const res = await model.findByWasherId(1);
+  expect(res).toHaveProperty("email");
+});
 
 // tracker for incoming sql queries and sets response
 const tracker = require("mock-knex").getTracker();

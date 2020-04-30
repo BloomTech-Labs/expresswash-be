@@ -181,45 +181,25 @@ PUT Requires changes to the Job
 }
 ```
 
-The WasherAverage Endpoint needs the following JSON information:
-
-```#! json
-{
-  "id":2
-}
-```
-
-The ClientAverage Endpoint needs the following JSON information:
-
-```#! json
-{
-  "id":1
-}
-```
-
-The RateWasher Endpoint needs the following JSON information (with the exception of notes, which is not required):
-
-```#! json
-{
-  "id":2,
-  "rating":5,
-  "notes":"This field is optional and takes a string >400 characters in length"
-}
-```
-
-The RateClient Endpoint needs the following JSON information (with the exception of notes, which is not required):
-
-```#! json
-{
-  "id":1,
-  "rating":5,
-  "notes":"This field is optional and takes a string >400 characters in length"
-}
-```
-
 ### USERS
 
 ---
+
+The `/users/rating/:id` Endpoint needs the following information:
+
+```#! json
+{
+  userRating: 3
+}
+```
+
+The `/users/washer/rating/:id` Endpoint needs the following information:
+
+```#! json
+{
+  washerRating: 3
+}
+```
 
 ```#! json
 {
