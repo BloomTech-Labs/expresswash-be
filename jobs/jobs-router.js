@@ -7,7 +7,6 @@ const {
   deleteJob,
   editJob,
   getJobsByUserId,
-  find,
 } = require("./jobs-model.js");
 
 // creates a job
