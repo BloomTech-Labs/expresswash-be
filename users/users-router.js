@@ -5,6 +5,10 @@ const Users = require("../users/users-model.js");
 usersRouter.get("/", (req, res) => {
   Users.find()
     .then((users) => {
+      users.map((user) => {
+        delete user.password;
+        return user;
+      });
       res.status(200).json(users);
     })
     .catch((err) => {
@@ -14,6 +18,7 @@ usersRouter.get("/", (req, res) => {
 
 // Return user by id - firstName, lastName, email, phoneNumber
 usersRouter.get("/:id", checkId, (req, res) => {
+  delete req.user.password;
   res.status(200).json(req.user);
 });
 
@@ -116,6 +121,7 @@ usersRouter.put("/:id", checkId, (req, res) => {
   Users.update(req.params.id, req.body)
     .then((user) => {
       if (user) {
+        delete user[0].password;
         res.status(200).json(user);
       } else {
         res.status(404).json({
@@ -147,6 +153,7 @@ function checkId(req, res, next) {
     .catch((err) => {
       res.status(500).json({
         message: "there was an error processing the request",
+        error: err.message,
       });
     });
 }
