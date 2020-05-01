@@ -5,6 +5,10 @@ const Users = require("../users/users-model.js");
 usersRouter.get("/", (req, res) => {
   Users.find()
     .then((users) => {
+      users.map((user) => {
+        delete user.password;
+        return user;
+      });
       res.status(200).json(users);
     })
     .catch((err) => {
@@ -14,6 +18,7 @@ usersRouter.get("/", (req, res) => {
 
 // Return user by id - firstName, lastName, email, phoneNumber
 usersRouter.get("/:id", checkId, (req, res) => {
+  delete req.user.password;
   res.status(200).json(req.user);
 });
 
@@ -35,7 +40,12 @@ usersRouter.put("/rating/:id", (req, res) => {
             res.status(201).json(user);
           })
           .catch((err) => {
-            res.status(500).json({ message: "error in updating the user" });
+            res
+              .status(500)
+              .json({
+                message: "error in updating the user",
+                error: err.message,
+              });
           });
       } else {
         // adds rating if it is the first one for the user
@@ -45,7 +55,12 @@ usersRouter.put("/rating/:id", (req, res) => {
           })
           .catch((err) => {
             console.log(err);
-            res.status(500).json({ message: "error updating the user rating" });
+            res
+              .status(500)
+              .json({
+                message: "error updating the user rating",
+                error: err.message,
+              });
           });
       }
     })
@@ -92,6 +107,7 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
     .catch((err) => {
       res.status(500).json({
         message: `washer with the id ${req.params.id} does not exist`,
+        error: err.message,
       });
     });
 });
@@ -99,7 +115,6 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
 // Delete User by Id
 usersRouter.delete("/:id", checkId, (req, res) => {
   const { id } = req.params;
-  const { user } = req.user;
   Users.del(id)
     .then((removed) => {
       res.status(200).json({
@@ -116,6 +131,7 @@ usersRouter.put("/:id", checkId, (req, res) => {
   Users.update(req.params.id, req.body)
     .then((user) => {
       if (user) {
+        delete user[0].password;
         res.status(200).json(user);
       } else {
         res.status(404).json({
@@ -126,6 +142,7 @@ usersRouter.put("/:id", checkId, (req, res) => {
     .catch((err) => {
       res.status(500).json({
         message: "there was an error processing the request",
+        error: err.message,
       });
     });
 });
@@ -147,6 +164,7 @@ function checkId(req, res, next) {
     .catch((err) => {
       res.status(500).json({
         message: "there was an error processing the request",
+        error: err.message,
       });
     });
 }
