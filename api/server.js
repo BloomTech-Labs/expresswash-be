@@ -24,10 +24,6 @@ server.use(express.json());
 
 server.use("/auth/", authRouterPG);
 server.use("/cars/", carsRouterPG);
-<<<<<<< HEAD
-=======
-
->>>>>>> 7c736b3bffedc6e4e2f9cfe821296c83879337a8
 server.use("/jobs/", jobsRouter);
 server.use("/users/", usersRouter);
 server.use("/ratings/", ratingsRouter);
