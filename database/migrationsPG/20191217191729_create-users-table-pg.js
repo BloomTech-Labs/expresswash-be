@@ -14,11 +14,12 @@ exports.up = function (knex, Promise) {
       user.string("city", 400);
       user.string("state", 400);
       user.string("zip", 400);
-      user.boolean("workStatus").defaultTo(false);
+
       user.string("profilePicture", 400).defaultTo("");
       user.string("bannerImage", 400).defaultTo("");
       user.string("creationDate", 128);
-      user.integer("userRating");
+      user.float("userRating", 8, 2);
+      user.integer("userRatingTotal").defaultTo(1);
     })
     .createTable("cars", (cars) => {
       cars.increments("carId");
@@ -58,7 +59,8 @@ exports.up = function (knex, Promise) {
       jobs.integer("carId").notNullable();
       jobs.string("address").notNullable();
       jobs.string("address2");
-      jobs.string("jobLocation");
+      jobs.decimal("jobLocationLat", 8, 2);
+      jobs.decimal("jobLocationLon", 8, 2);
       jobs.string("city").notNullable();
       jobs.string("state").notNullable();
       jobs.string("zip").notNullable();
@@ -80,13 +82,16 @@ exports.up = function (knex, Promise) {
         .inTable("users")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      washer.integer("rateSmall");
-      washer.integer("rateMedium").notNullable();
-      washer.integer("rateLarge");
+      washer.boolean("available").notNullable().defaultTo(false);
+      washer.boolean("workStatus").defaultTo(false);
+      washer.decimal("rateSmall", 8, 2);
+      washer.decimal("rateMedium", 8, 2).notNullable();
+      washer.decimal("rateLarge", 8, 2);
       washer.string("aboutMe", 200);
-      washer.string("currentLocation");
-      washer.boolean("available").defaultTo(false);
-      washer.integer("washerRating");
+      washer.decimal("currentLocationLat", 8, 6);
+      washer.decimal("currentLocationLon", 8, 6);
+      washer.float("washerRating", 8, 2);
+      washer.integer("washerRatingTotal").defaultTo(1);
     });
 };
 

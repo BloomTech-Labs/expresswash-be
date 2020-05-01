@@ -1,7 +1,6 @@
 const usersRouter = require("express").Router();
 
 const Users = require("../users/users-model.js");
-
 // Return all users
 usersRouter.get("/", (req, res) => {
   Users.find()
@@ -9,7 +8,6 @@ usersRouter.get("/", (req, res) => {
       res.status(200).json(users);
     })
     .catch((err) => {
-      console.log("this is get users err", err);
       res.status(500).send(err);
     });
 });
@@ -17,6 +15,85 @@ usersRouter.get("/", (req, res) => {
 // Return user by id - firstName, lastName, email, phoneNumber
 usersRouter.get("/:id", checkId, (req, res) => {
   res.status(200).json(req.user);
+});
+
+// Add rating to user profile
+usersRouter.put("/rating/:id", (req, res) => {
+  const id = req.params.id;
+  Users.findById(id)
+    .then((user) => {
+      const { userRating, userRatingTotal } = user;
+      if (userRatingTotal > 0) {
+        const total = userRatingTotal * userRating + req.body.userRating;
+        const newUserRatingTotal = userRatingTotal + 1;
+        const newRating = total / newUserRatingTotal;
+        Users.update(id, {
+          userRatingTotal: newUserRatingTotal,
+          userRating: newRating,
+        })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((err) => {
+            res.status(500).json({ message: "error in updating the user" });
+          });
+      } else {
+        // adds rating if it is the first one for the user
+        Users.update(id, { userRating: req.body.userRating })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(500).json({ message: "error updating the user rating" });
+          });
+      }
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ message: `user with the id ${req.params.id} does not exist` });
+    });
+});
+//Add rating to washer profile
+usersRouter.put("/washer/rating/:id", (req, res) => {
+  const id = req.params.id;
+  Users.findByWasherId(id)
+    .then((washer) => {
+      const { washerRating, washerRatingTotal } = washer;
+      if (washerRatingTotal > 0) {
+        const total = washerRatingTotal * washerRating + req.body.washerRating;
+        const newWasherRatingTotal = washerRatingTotal + 1;
+        const newRating = total / newWasherRatingTotal;
+        Users.updateWasher(id, {
+          washerRatingTotal: newWasherRatingTotal,
+          washerRating: newRating,
+        })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((err) => {
+            res.status(500).json({ message: "error in updating the washer" });
+          });
+      } else {
+        // adds rating if it is the first on for the washer
+        Users.updateWasher(id, { userRating: req.body.userRating })
+          .then((user) => {
+            res.status(201).json(user);
+          })
+          .catch((err) => {
+            console.log(err);
+            res
+              .status(500)
+              .json({ message: "error updating the washer rating" });
+          });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: `washer with the id ${req.params.id} does not exist`,
+      });
+    });
 });
 
 // Delete User by Id
@@ -58,7 +135,6 @@ function checkId(req, res, next) {
   const { id } = req.params;
   Users.findById(id)
     .then((user) => {
-      console.log(user);
       if (user) {
         req.user = user;
         next();
@@ -69,7 +145,6 @@ function checkId(req, res, next) {
       }
     })
     .catch((err) => {
-      console.log("this is err on findbyid", err);
       res.status(500).json({
         message: "there was an error processing the request",
       });

@@ -25,58 +25,77 @@ The endpoints currently operational on the server are listed below.
 
 ### All Routes
 
-| Method | Endpoint                      | Access Control | Description                                                                |
-| ------ | ----------------------------- | -------------- | -------------------------------------------------------------------------- |
-| POST   | `/authPG/RegisterClient`      | all users      | Register for a client account.                                             |
-| POST   | `/authPG/RegisterWasher`      | all users      | Register for a washer account.                                             |
-| POST   | `/authPG/login`               | all users      | Login to an existing account.                                              |
-| GET    | `/carsPG/makes`               | all users      | Returns all car makes.                                                     |
-| POST   | `/carsPG/models`              | all users      | Returns all car models for a given make.                                   |
-| POST   | `/carsPG/getCarId`            | all users      | Takes in make and model and returns carId.                                 |
-| POST   | `/carsPG/addACar`             | all users      | Takes in userId, carId, color and license plate, ties car to user profile. |
-| POST   | `/jobs/getLatestJobClient`    | all users      | Returns info on the latest job a client had done.                          |
-| POST   | `/jobs/getLatestWasherClient` | all users      | Returns info on the last washer on a client's job.                         |
-| POST   | `/jobs/new`                   | all users      | Creates a new job.                                                         |
-| GET    | `/jobs/available`             | all users      | Returns all jobs with washerId null (new available jobs).                  |
-| POST   | `/jobs/jobInfo`               | all users      | Returns all job info for given jobId                                       |
-| POST   | `/jobs/getWorkStatus`         | all users      | Returns the workStatus of a washer                                         |
-| PUT    | `/jobs/setWorkStatus`         | all users      | Boolean, id in req.body sets washer work status                            |
-| POST   | `/jobs/selectJob`             | all users      | Adds the washer to a job.                                                  |
-| POST   | `/jobs/howManyCompleted`      | all users      | Returns a count of how many jobs the washer is on.                         |
-| POST   | `/ratings/washerAverage`      | all users      | Returns average rating for a washer.                                       |
-| POST   | `/ratings/clientAverage`      | all users      | Returns average rating for a client.                                       |
-| POST   | `/ratings/rateWasher`         | all users      | Add a washer rating.                                                       |
-| POST   | `/ratings/rateClient`         | all users      | Add a client rating.                                                       |
-| GET    | `/users/`                     | all users      | View all users.                                                            |
-| GET    | `/users/:id`                  | all users      | View a user by id.                                                         |
-| DELETE | `/users/:id`                  | all users      | Remove a user.                                                             |
-| PUT    | `/users/:id`                  | all users      | Update a user.                                                             |
+
+| Method | Endpoint                   | Access Control              | Description                                                                |
+| ------ | -------------------------- | --------------------------- | -------------------------------------------------------------------------- |
+| POST   | `/auth/RegisterClient`     | all users                   | Register for a client account.                                             |
+| POST   | `/auth/RegisterWasher/:id` | users registered as washers | Register for a washer account.                                             |
+| POST   | `/auth/login`              | all users                   | Login to an existing account.                                              |
+| GET    | `/carsPG/makes`            | all users                   | Returns all car makes.                                                     |
+| POST   | `/carsPG/models`           | all users                   | Returns all car models for a given make.                                   |
+| POST   | `/carsPG/getCarId`         | all users                   | Takes in make and model and returns carId.                                 |
+| POST   | `/carsPG/addACar`          | all users                   | Takes in userId, carId, color and license plate, ties car to user profile. |
+| POST   | `/jobs/new`                | all users                   | Creates a new job.                                                         |
+| GET    | `/jobs/available/:id`      | all users                   | Returns all jobs with washerId null (new available jobs).                  |
+| GET    | `/jobs/jobInfo/:id`        | all users                   | Returns all job info for given jobId                                       |
+| PUT    | `/jobs/selectJob/:id`      | all users                   | Adds the washer to a job.                                                  |
+| DELETE | `/jobs/job/:id`            | all users                   | Deletes Job by Job ID                                                      |
+| PUT    | `/jobs/job/:id`            | all users                   | Edits Job by Job ID                                                        |
+| GET    | `/jobs/user/:id`           | all users                   | Gets Jobs by User ID                                                       |
+| POST   | `/ratings/washerAverage`   | all users                   | Returns average rating for a washer.                                       |
+| POST   | `/ratings/clientAverage`   | all users                   | Returns average rating for a client.                                       |
+| POST   | `/ratings/rateWasher`      | all users                   | Add a washer rating.                                                       |
+| POST   | `/ratings/rateClient`      | all users                   | Add a client rating.                                                       |
+| GET    | `/users/`                  | all users                   | View all users.                                                            |
+| GET    | `/users/:id`               | all users                   | View a user by id.                                                         |
+| DELETE | `/users/:id`               | all users                   | Remove a user.                                                             |
+| PUT    | `/users/:id`               | all users                   | Update a user.                                                             |
+| PUT    | `/users/rating/:id`        | all users                   | Update rating of a user.                                                   |
+| PUT    | `/users/washer/rating/:id` | all users                   | Update rating of a washer.                                                 |
+
 
 ## Data Model
 
-The Register Washer and Client Endpoints need the following JSON information (with the exception of streetAddress2, which is not required):
+The `auth/registerClient` Endpoint need the following JSON information:
 
 ```#! json
 {
-  "email":"test@test.con",
-  "firstName":"Test",
-  "lastName":"Testerson",
-  "password":"1234",
+  "email":"test@test.com",  --Required
+  "firstName":"Test",       --Required
+  "lastName":"Testerson",   --Required
+  "password":"1234",        --Required
   "phoneNumber":"1234567890",
   "streetAddress":"1051 Market St",
   "streetAddress2":"APT 240",
   "city":"San Francisco",
   "State":"California",
-  "zip":"94103"
+  "zip":"94103",
+  "profilePicture":"some url",
+  "bannerImage":"some url"
 }
 ```
 
-The Login User Endpoint needs the following JSON information:
+The `auth/login` Endpoint needs the following JSON information:
 
 ```#! json
 {
   "email":"test@test.con",
   "password":"1234"
+}
+```
+
+The `auth/registerWasher` Endpoint needs the following JSON information. Must be registered as a washer to access:
+
+```#! json
+{
+  "userId": 1,              --Required
+  "workStatus": true,       --Defaults to false
+  "rateSmall": 30,
+  "rateMedium": 50,         --Required
+  "rateLarge": 80,
+  "aboutMe": "washer bio",
+  "currentLoaction":"lat/lon string",
+  "available": true,
 }
 ```
 
@@ -108,127 +127,84 @@ The AddACar Endpoint needs the following JSON information:
 }
 ```
 
-The GetLatestJobClient Endpoint needs the following JSON information:
+The `jobs/new` Endpoint needs the following JSON information:
 
 ```#! json
 {
-  "clientId":1
-}
+        "washAddress": "42 Wallaby Way Sydney",      --Required
+        "scheduled": true,                        --Defaults to true
+        "completed": false,                       --Defaults to false
+        "paid": false,                            --Defaults to false
+        "clientId": 4,                            --Represents the user's ID
+        "washerId": null,
+        "creationDate": "2020-04-29T22:59:51.775-04:00",   --Required Auto Generated from Database
+        "carId": 1,                              --Represents the car ID
+        "address": "123 First St",               --Required
+        "address2": "APT 2",
+        "jobLocationLat": null,
+        "jobLocationLon": null,
+        "city": "tampa",                        --Required
+        "state": "FL",                          --Required
+        "zip": "60184",                         --Required
+        "notes": null,
+        "jobType": "basic",                     --Required
+        "photoBeforeJob": null,
+        "photoAfterJob": null,
+        "timeRequested": "12:00 PM",                --Required
+        "timeCompleted": null
+    }
 ```
 
-The GetLatestWasherClient Endpoint needs the following JSON information:
+The `jobs/available/:id` Endpoint needs the following JSON information:
+
+ID in the URL/ URI
+
+The `jobs/jobInfo/:id` Endpoint needs the following JSON information:
+
+ID in the URL/ URI
+
+The `jobs/selectJob/:id` Endpoint needs the following JSON information:
 
 ```#! json
 {
-  "email":"test@test.con",
-  "password":"1234"
+  "washerID": 1  --Required
 }
 ```
 
-The Add New Job Endpoint needs the following JSON information:
+The `jobs/job/:id` Endpoint needs the following JSON information:
+
+GET Requires ID in the URL/ URI
+
+DELETE Requires ID in the URL/ URI
+
+PUT Requires changes to the Job
 
 ```#! json
 {
-  "washAddress":"2nd 123 Test St, City of SF, CA",
-  "washerId":null,
-  "scheduled": true,
-  "completed": false,
-  "paid": false,
-  "clientId": 3,
-  "clientCarId": 1
+  "washAddress": "updated address"
 }
 ```
 
-The Job Info Endpoint needs the following JSON information:
-
-```#! json
-{
-  "jobId":3
-}
-```
-
-The GetWorkStatus Endpoint needs the following JSON information:
-
-```#! json
-{
-  "id":2
-}
-```
-
-The SetWorkStatus Endpoint needs the following JSON information:
-
-```#! json
-{
-  "id":2,
-  "workStatus":true
-}
-```
-
-OR
-
-```#! json
-{
-  "id":2,
-  "workStatus":false
-}
-```
-
-The SelectJob Endpoint needs the following JSON information:
-
-```#! json
-{
-  "jobId":4,
-  "id":2
-}
-```
-
-The HowManyCompleted Jobs Endpoint needs the following JSON information:
-
-```#! json
-{
-  "id":2
-}
-```
-
-The WasherAverage Endpoint needs the following JSON information:
-
-```#! json
-{
-  "id":2
-}
-```
-
-The ClientAverage Endpoint needs the following JSON information:
-
-```#! json
-{
-  "id":1
-}
-```
-
-The RateWasher Endpoint needs the following JSON information (with the exception of notes, which is not required):
-
-```#! json
-{
-  "id":2,
-  "rating":5,
-  "notes":"This field is optional and takes a string >400 characters in length"
-}
-```
-
-The RateClient Endpoint needs the following JSON information (with the exception of notes, which is not required):
-
-```#! json
-{
-  "id":1,
-  "rating":5,
-  "notes":"This field is optional and takes a string >400 characters in length"
-}
-```
 
 ### USERS
 
 ---
+
+The `/users/rating/:id` Endpoint needs the following information:
+
+```#! json
+{
+  userRating: 3
+}
+```
+
+The `/users/washer/rating/:id` Endpoint needs the following information:
+
+```#! json
+{
+  washerRating: 3
+}
+```
 
 ```#! json
 {

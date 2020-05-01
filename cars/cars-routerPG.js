@@ -1,4 +1,5 @@
 const carsRouterPG = require("express").Router();
+<<<<<<< HEAD
 const db = require("../database/dbConfig.js");
 const queries = require("../database/queries.js");
 const cars = require("./cars-model");
@@ -7,6 +8,9 @@ const {
   getCarModelsForMake,
   myCars,
 } = require("../database/queries.js");
+=======
+const cars = require("./cars-model");
+>>>>>>> 7c736b3bffedc6e4e2f9cfe821296c83879337a8
 
 //get the list of all cars
 
@@ -23,7 +27,11 @@ carsRouterPG.get("/", (req, res) => {
       });
     });
 });
+<<<<<<< HEAD
 // gets a car specified by carId
+=======
+//gets a car specified by carId
+>>>>>>> 7c736b3bffedc6e4e2f9cfe821296c83879337a8
 carsRouterPG.get("/:carId", (req, res) => {
   const { carId } = req.params;
 
@@ -40,7 +48,11 @@ carsRouterPG.get("/:carId", (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 //add a car to the list of cars
+=======
+//adds a car to the list of cars
+>>>>>>> 7c736b3bffedc6e4e2f9cfe821296c83879337a8
 carsRouterPG.post("/", (req, res) => {
   cars
     .addCar(req.body)
@@ -54,7 +66,11 @@ carsRouterPG.post("/", (req, res) => {
       });
     });
 });
+<<<<<<< HEAD
 // updates a car by its carId
+=======
+// updates a car by carId
+>>>>>>> 7c736b3bffedc6e4e2f9cfe821296c83879337a8
 carsRouterPG.put("/:carId", (req, res) => {
   const { carId } = req.params;
   const body = req.body;
@@ -72,7 +88,11 @@ carsRouterPG.put("/:carId", (req, res) => {
     });
 });
 
+<<<<<<< HEAD
 //deletes a car by carId
+=======
+// deletes a car by carId
+>>>>>>> 7c736b3bffedc6e4e2f9cfe821296c83879337a8
 carsRouterPG.delete("/:carId", (req, res) => {
   const { carId } = req.params;
 

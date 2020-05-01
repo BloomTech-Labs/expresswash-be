@@ -5,6 +5,8 @@ module.exports = {
   find,
   findById,
   update,
+  updateWasher,
+  findByWasherId,
 };
 
 function find() {
@@ -12,10 +14,7 @@ function find() {
 }
 
 function findById(id) {
-  return db("users")
-    .select("firstName", "lastName", "email", "phoneNumber")
-    .where({ id })
-    .first();
+  return db("users").where({ id }).first();
 }
 
 function del(id) {
@@ -24,4 +23,10 @@ function del(id) {
 
 function update(id, changes) {
   return db("users").where({ id }).update(changes, "*");
+}
+function findByWasherId(washerId) {
+  return db("washers").where({ washerId }).first();
+}
+function updateWasher(washerId, changes) {
+  return db("washers").where({ washerId }).update(changes, "*");
 }
