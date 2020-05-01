@@ -54,6 +54,7 @@ jobsRouter.post("/new", async (req, res) => {
 
 // returns all jobs with washerid null (new jobs)
 // change to send city to query
+// takes user id from params
 jobsRouter.get("/available/:id", async (req, res) => {
   const id = req.params.id;
   getAvailableJobs(id)
@@ -89,7 +90,7 @@ jobsRouter.get("/jobInfo/:id", async (req, res) => {
 });
 
 // adds the washer to new job
-//working??? needs to be refactored probably, We need to seed users for further testing.
+//uses job id
 jobsRouter.put("/selectJob/:id", async (req, res) => {
   const jobId = req.params.id;
   const washerId = req.body;
@@ -155,10 +156,15 @@ jobsRouter.get("/user/:id", async (req, res) => {
     .catch((err) => res.status(500).json(err.message));
 });
 
-jobsRouter.get("/", (req, res) => {
-  find().then((jobs) => {
-    res.status(200).json(jobs);
+function validateJobId(req, res, next) {
+  selectJobById(req.params.id).then((job) => {
+    if (job) {
+      req.job = job;
+      next();
+    } else {
+      res.status(400).json({ message: "invalid job id" });
+    }
   });
-});
+}
 
 module.exports = jobsRouter;
