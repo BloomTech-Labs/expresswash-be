@@ -42,6 +42,7 @@ usersRouter.put("/rating/:id", (req, res) => {
           .catch((err) => {
             res.status(500).json({
               message: "error in updating the user",
+              error: err.message,
             });
           });
       } else {
@@ -54,6 +55,7 @@ usersRouter.put("/rating/:id", (req, res) => {
             console.log(err);
             res.status(500).json({
               message: "error updating the user rating",
+              error: err.message,
             });
           });
       }
