@@ -6,7 +6,6 @@ mockDb.mock(knex);
 test("testing auth model find", async () => {
   const res = await model.find();
   expect(res).toHaveLength(1);
-  console.log(res);
 });
 test("testing auth model findWahser", async () => {
   const res = await model.findWasher();
@@ -22,11 +21,11 @@ test("testing auth model findByEmail", async () => {
 });
 test("testing auth model insert", async () => {
   const res = await model.insert({});
-  expect(res).toHaveProperty("id");
+  expect(res[0]).toHaveProperty("id");
 });
 test("testing auth model insertWasher", async () => {
   const res = await model.insertWasher({});
-  expect(res).toHaveProperty("name");
+  expect(res[0]).toHaveProperty("name");
 });
 test("testing auth model findWasherId", async () => {
   const res = await model.findWasherId(1);
