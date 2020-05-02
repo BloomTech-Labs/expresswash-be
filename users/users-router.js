@@ -51,13 +51,7 @@ usersRouter.put("/rating/:id", (req, res) => {
             res.status(201).json(user);
           })
           .catch((err) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
             console.log(err);
->>>>>>> fixed tests in users router
-=======
->>>>>>> checked all endpoints locally and pass
             res.status(500).json({
               message: "error updating the user rating",
             });
