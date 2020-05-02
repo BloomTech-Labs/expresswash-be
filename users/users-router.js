@@ -51,6 +51,10 @@ usersRouter.put("/rating/:id", (req, res) => {
             res.status(201).json(user);
           })
           .catch((err) => {
+<<<<<<< HEAD
+=======
+            console.log(err);
+>>>>>>> fixed tests in users router
             res.status(500).json({
               message: "error updating the user rating",
             });
