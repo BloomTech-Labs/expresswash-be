@@ -14,7 +14,7 @@ authRouterPG.get("/", (req, res) => {
     });
 });
 
-authRouterPG.post("/registerClient", async (req, res) => {
+authRouterPG.post("/registerClient", (req, res) => {
   let user = req.body;
   const date = new Date();
   const creationDate = date;
