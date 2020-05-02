@@ -30,7 +30,7 @@ carsRouterPG.post("/", (req, res) => {
     .addCar(req.body)
     .then((newCar) => res.status(201).json(newCar))
     .catch((err) => {
-      res.status(500).json(err);
+      res.status(500).json(err.message);
     });
 });
 // updates a car by its carId

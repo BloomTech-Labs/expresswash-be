@@ -1,6 +1,6 @@
 const authRouterPG = require("express").Router();
 const bcrypt = require("bcryptjs");
-const generateToken = require("../middleware/generateToken.js");
+const { generateToken } = require("../middleware/globalMiddleWare");
 const { validateUserId, ifWasherExists } = require("./auth-middleware");
 const Users = require("./auth-modal");
 
@@ -34,7 +34,7 @@ authRouterPG.post("/registerClient", (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({ message: "unable to register new user" });
-    });
+  })
 });
 
 authRouterPG.post(
