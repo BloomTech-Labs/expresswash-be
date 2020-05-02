@@ -18,7 +18,7 @@ module.exports = {
   },
   //add washer to job
   addWasherToJob(jobId, washerId) {
-    return knex("jobs").where({ jobId }).update(washerId);
+    return knex("jobs").where({ jobId }).update(washerId, "*");
   },
 
   deleteJob(jobId) {
