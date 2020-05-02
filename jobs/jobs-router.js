@@ -128,6 +128,7 @@ jobsRouter.get("/user/:id", async (req, res) => {
     .catch((err) => res.status(500).json(err.message));
 });
 
+
 // validates that the Job id does exist
 function validateJobId(req, res, next) {
   selectJobById(req.params.id).then((job) => {

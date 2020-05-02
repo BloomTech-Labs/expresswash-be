@@ -42,7 +42,6 @@ usersRouter.put("/rating/:id", (req, res) => {
           .catch((err) => {
             res.status(500).json({
               message: "error in updating the user",
-              error: err.message,
             });
           });
       } else {
@@ -55,7 +54,6 @@ usersRouter.put("/rating/:id", (req, res) => {
             console.log(err);
             res.status(500).json({
               message: "error updating the user rating",
-              error: err.message,
             });
           });
       }
@@ -93,7 +91,6 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
             res.status(201).json(user);
           })
           .catch((err) => {
-            console.log(err);
             res
               .status(500)
               .json({ message: "error updating the washer rating" });
@@ -103,7 +100,6 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
     .catch((err) => {
       res.status(500).json({
         message: `washer with the id ${req.params.id} does not exist`,
-        error: err.message,
       });
     });
 });
