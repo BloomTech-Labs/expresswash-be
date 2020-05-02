@@ -14,26 +14,28 @@ authRouterPG.get("/", (req, res) => {
     });
 });
 
-authRouterPG.post("/registerClient", (req, res) => {
+authRouterPG.post("/registerClient", async (req, res) => {
   let user = req.body;
   const date = new Date();
   const creationDate = date;
   const hash = bcrypt.hashSync(user.password, 10);
   user.password = hash;
   user = { ...user, creationDate };
-  return Users.insert(user)
-    .then((newUser) => {
-      delete newUser[0].password;
-      const token = generateToken(newUser);
-      res.status(201).json({
-        message: "user created successfully",
-        token,
-        user: newUser,
-      });
-    })
-    .catch((error) => {
-      res.status(500).json({ message: "unable to register new user" });
+  try {
+    // console.log(user);
+    const user2 = await Users.insert(user);
+    const newUser = user2;
+    delete newUser.password;
+    const token = generateToken(newUser);
+    console.log(newUser);
+    res.status(201).json({
+      message: "user created successfully",
+      token,
+      user: newUser,
     });
+  } catch (err) {
+    res.status(500).json({ message: "unable to register new user" });
+  }
 });
 
 authRouterPG.post(
