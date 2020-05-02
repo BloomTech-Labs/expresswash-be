@@ -18,7 +18,8 @@ exports.up = function (knex, Promise) {
       user.string("profilePicture", 400).defaultTo("");
       user.string("bannerImage", 400).defaultTo("");
       user.string("creationDate", 128);
-      user.integer("userRating");
+      user.float("userRating", 8, 2);
+      user.integer("userRatingTotal").defaultTo(1);
     })
     .createTable("cars", (cars) => {
       cars.increments("carId");
@@ -81,6 +82,7 @@ exports.up = function (knex, Promise) {
         .inTable("users")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
+      washer.boolean("available").notNullable().defaultTo(false);
       washer.boolean("workStatus").defaultTo(false);
       washer.decimal("rateSmall", 8, 2);
       washer.decimal("rateMedium", 8, 2).notNullable();
@@ -88,8 +90,8 @@ exports.up = function (knex, Promise) {
       washer.string("aboutMe", 200);
       washer.decimal("currentLocationLat", 8, 6);
       washer.decimal("currentLocationLon", 8, 6);
-      washer.boolean("available").defaultTo(false);
-      washer.integer("washerRating");
+      washer.float("washerRating", 8, 2);
+      washer.integer("washerRatingTotal").defaultTo(1);
     });
 };
 
