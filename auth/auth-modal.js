@@ -18,27 +18,19 @@ function find() {
 }
 
 function findById(id) {
-  return db("users")
-    .where({ id })
-    .then(([user]) => user);
+  return db("users").where({ id }).first();
 }
 
 function findByEmail(email) {
-  return db("users")
-    .where({ email })
-    .then(([user]) => user);
+  return db("users").where({ email }).first();
 }
 
 function insert(user) {
-  return db("users")
-    .insert(user, "id")
-    .then(([id]) => id);
+  return db("users").insert(user, "*");
 }
 
 function insertWasher(washer) {
-  return db("washers")
-    .insert(washer, "washerId")
-    .then(([id]) => id);
+  return db("washers").insert(washer, "*");
 }
 
 function findWasherId(userId) {
