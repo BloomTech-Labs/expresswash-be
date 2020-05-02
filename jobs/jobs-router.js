@@ -73,6 +73,7 @@ jobsRouter.get("/available/:id", async (req, res) => {
 });
 
 // returns the full job for a given jobid
+// changed to a get from a post didn't make sense before returns an array requires to send a job id in the body? shouldn't this be coming from params?
 jobsRouter.get("/jobInfo/:id", [validateJobId], async (req, res) => {
   const jobId = req.params.id;
   selectJobById(jobId)
@@ -84,7 +85,7 @@ jobsRouter.get("/jobInfo/:id", [validateJobId], async (req, res) => {
 
 // adds the washer to new job
 //uses job id
-jobsRouter.put("/selectJob/:id", async (req, res) => {
+jobsRouter.put("/selectJob/:id", [validateJobId], async (req, res) => {
   const jobId = req.params.id;
   const washerId = req.body;
   addWasherToJob(jobId, washerId)
@@ -99,7 +100,7 @@ jobsRouter.delete("/job/:id", [validateJobId], async (req, res) => {
   const jobId = req.params.id;
   deleteJob(jobId)
     .then((removed) => {
-      res.status(204).json({ message: "Job  has been deleted.", removed });
+      res.status(204).json({ message: "Job  has been deleted." }, removed);
     })
     .catch((err) => res.status(500).json(err.message));
 });
@@ -130,7 +131,7 @@ jobsRouter.get("/user/:id", async (req, res) => {
     })
     .catch((err) => res.status(500).json(err.message));
 });
-
+// validates that the Job id does exist
 function validateJobId(req, res, next) {
   selectJobById(req.params.id).then((job) => {
     if (job) {
