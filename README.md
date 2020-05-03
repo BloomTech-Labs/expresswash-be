@@ -3,17 +3,17 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/d9d450333b0f06f4ceca/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/wowo-be/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d9d450333b0f06f4ceca/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/wowo-be/test_coverage)
 
-## Backend deployed at [Heroku](https://pt6-wowo.herokuapp.com/)
+## Backend deployed at [AWS](http://wowo-env.eba-35bhjsem.us-east-1.elasticbeanstalk.com/)
 
 ## 1️⃣ Getting started
 
 To get the server running locally:
 
 - Clone this repo
-- Install PostgresSQL then **createdb databasePG**
+- Install PostgresSQL then **createdb wowo-dev**
 - **npm install** to install all required dependencies
 - **npm run server** to start the local server
-- **npm run test** to start server using testing environment
+- **npm run unit-test** to start server using testing environment
 
 ### Backend Framework
 
@@ -24,7 +24,6 @@ Server Uses PostgresSQL, Express and Knex.
 The endpoints currently operational on the server are listed below.
 
 ### All Routes
-
 
 | Method | Endpoint                   | Access Control              | Description                                                                |
 | ------ | -------------------------- | --------------------------- | -------------------------------------------------------------------------- |
@@ -53,49 +52,163 @@ The endpoints currently operational on the server are listed below.
 | PUT    | `/users/rating/:id`        | all users                   | Update rating of a user.                                                   |
 | PUT    | `/users/washer/rating/:id` | all users                   | Update rating of a washer.                                                 |
 
+## Endpoint Details
 
-## Data Model
+---
 
-The `auth/registerClient` Endpoint need the following JSON information:
+The `auth/registerClient` Endpoint takes the following JSON information:
 
 ```#! json
 {
-  "email":"test@test.com",  --Required
-  "firstName":"Test",       --Required
-  "lastName":"Testerson",   --Required
-  "password":"1234",        --Required
-  "phoneNumber":"1234567890",
-  "streetAddress":"1051 Market St",
-  "streetAddress2":"APT 240",
-  "city":"San Francisco",
-  "State":"California",
-  "zip":"94103",
-  "profilePicture":"some url",
-  "bannerImage":"some url"
+  "accountType":"client"                --Required  --String  --Must be "washer" or "client"
+  "email":"test@test.com",              --Required  --String  --Must be Unique
+  "firstName":"Test",                   --Required  --String
+  "lastName":"Testerson",               --Required  --String
+  "password":"12345678",                    --Required  --String  --Min 8 characters
+  "phoneNumber":"1234567890",                       --String
+  "streetAddress":"1051 Market St",     --Required  --String
+  "streetAddress2":"APT 240",                       --String
+  "city":"San Francisco",               --Required  --String
+  "State":"California",                 --Required  --String
+  "zip":"94103",                        --Required  --String
+  "profilePicture":"some url",                      --String
+  "bannerImage":"some url"                          --String
 }
 ```
+
+The `auth/registerClient` Endpoint returns the following JSON information:
+
+```#! json
+{
+  "message": "user created successfully", --String  --Success Message
+    "token": "Auth token",                --String  --auto generated auth token
+    "user": {                                       --New user Object
+        "id": 1,                          --Int     --User Id
+        "accountType": "client",          --String  --user's account type "washer/client"
+        "email": "test@test.com",         --String  --Users Unique Email
+        "firstName": "Test",              --String  --Users First Name
+        "lastName": "Testerson",          --String  --Users Last Name
+        "phoneNumber": "1234567890",      --String  --Phone Number
+        "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+        "streetAddress": "1051 Market St",--String  --Street Address
+        "streetAddress2": "APT 240",      --String  --Secondary address field
+        "city": "San Francisco",          --String  --City
+        "state": "CA",                    --String  --State --Max Length 2
+        "zip": "94103",                   --String  --Zip code
+        "profilePicture": "some url",     --String  --Url location of profile img
+        "bannerImage": "some url",        --String  --Url location of banner img
+        "creationDate": "date",           --String  --Timestamp auto generated
+        "userRating": 4,                  --Floeat  --Current Users Rating
+        "userRatingTotal": 1              --Int     --Number of ratings for user
+    }
+}
+```
+
+---
 
 The `auth/login` Endpoint needs the following JSON information:
 
 ```#! json
 {
-  "email":"test@test.con",
-  "password":"1234"
+  "email":"test@test.com",              --String  --Registered Email Address
+  "password":"12345678"                 --String  --Users Password
 }
 ```
 
-The `auth/registerWasher` Endpoint needs the following JSON information. Must be registered as a washer to access:
+The `auth/login` Endpoint returns the following JSON information:
+
+```#!json
+{
+  "token": "auth token",                  --String  --Generated Auth Token
+    "user": {                                       --Logged In User Object
+        "id": 26,                                   --User Id
+        "accountType": "washer",                    --user's account type "washer/client"
+        "email": "test@test.com",         --String  --Users Unique Email
+        "firstName": "Test",              --String  --Users First Name
+        "lastName": "Testerson",          --String  --Users Last Name
+        "phoneNumber": "1234567890",      --String  --Phone Number
+        "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+        "streetAddress": "1051 Market St",--String  --Street Address
+        "streetAddress2": "APT 240",      --String  --Secondary address field
+        "city": "San Francisco",          --String  --City
+        "state": "CA",                    --String  --State --Max Length 2
+        "zip": "94103",                   --String  --Zip code
+        "profilePicture": "some url",     --String  --Url location of profile img
+        "bannerImage": "some url",        --String  --Url location of banner img
+        "creationDate": "date",           --String  --Timestamp auto generated
+        "userRating": 4,                  --Floeat  --Current Users Rating
+        "userRatingTotal": 1              --Int     --Number of ratings for user
+    },
+    "washer": {                                     --Washer Object(only if registered as a washer)
+        "userId": 26,                     --Int     --User's Id
+        "available": true,                --Boolean --If washer is available for work
+        "workStatus": true,               --Boolean --If washer is available for work
+        "rateSmall": "30.00",             --Float   --Washer price for small job
+        "rateMedium": "50.00",            --Float   --Washer price for medium job
+        "rateLarge": "75.00",             --Float   --Washer price for large job
+        "aboutMe": "I am a washer",       --String  --Description of washer/Bio
+        "currentLocationLat": "55.777",   --Float   --Current location latitude
+        "currentLocationLon": "35.555",   --Float   --Current location longitude
+        "washerRating": 3,                --Float   --Current washer rating
+        "washerRatingTotal": 1            --Int     --Number of ratings for washer
+    }
+}
+```
+
+---
+
+The `auth/registerWasher/:id` Endpoint needs the following JSON information:
+Takes in a valid user id in the url and must be registered with the account type of "washer"
 
 ```#! json
 {
-  "userId": 1,              --Required
-  "workStatus": true,       --Defaults to false
-  "rateSmall": 30,
-  "rateMedium": 50,         --Required
-  "rateLarge": 80,
-  "aboutMe": "washer bio",
-  "currentLoaction":"lat/lon string",
-  "available": true,
+  "available": true,                            --Boolean --Defaults to false
+  "workStatus": true,                           --Boolean --Defaults to false
+  "rateSmall": "30.00",                         --Float
+  "rateMedium": "50.00",            --Required  --Float
+  "rateLarge": "75.00",                         --Float
+  "aboutMe": "I am a washer",                   --String
+  "currentLocationLat": "55.777",               --Float
+  "currentLocationLon": "35.555",               --Float
+}
+```
+
+The `auth/registerWasher/:id` Endpoint returns the following JSON information:
+
+```@!json
+{
+  "user": {                                       --Logged In User Object
+        "id": 26,                                   --User Id
+        "accountType": "washer",                    --user's account type "washer/client"
+        "email": "test@test.com",         --String  --Users Unique Email
+        "firstName": "Test",              --String  --Users First Name
+        "lastName": "Testerson",          --String  --Users Last Name
+        "phoneNumber": "1234567890",      --String  --Phone Number
+        "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+        "streetAddress": "1051 Market St",--String  --Street Address
+        "streetAddress2": "APT 240",      --String  --Secondary address field
+        "city": "San Francisco",          --String  --City
+        "state": "CA",                    --String  --State --Max Length 2
+        "zip": "94103",                   --String  --Zip code
+        "profilePicture": "some url",     --String  --Url location of profile img
+        "bannerImage": "some url",        --String  --Url location of banner img
+        "creationDate": "date",           --String  --Timestamp auto generated
+        "userRating": 4,                  --Floeat  --Current Users Rating
+        "userRatingTotal": 1              --Int     --Number of ratings for user
+    },
+    "washer": {                                     --Washer Object
+        "userId": 26,                     --Int     --User's Id
+        "available": true,                --Boolean --If washer is available for work
+        "workStatus": true,               --Boolean --If washer is available for work
+        "rateSmall": "30.00",             --Float   --Washer price for small job
+        "rateMedium": "50.00",            --Float   --Washer price for medium job
+        "rateLarge": "75.00",             --Float   --Washer price for large job
+        "aboutMe": "I am a washer",       --String  --Description of washer/Bio
+        "currentLocationLat": "55.777",   --Float   --Current location latitude
+        "currentLocationLon": "35.555",   --Float   --Current location longitude
+        "washerRating": 3,                --Float   --Current washer rating
+        "washerRatingTotal": 1            --Int     --Number of ratings for washer
+    }
 }
 ```
 
@@ -184,7 +297,6 @@ PUT Requires changes to the Job
   "washAddress": "updated address"
 }
 ```
-
 
 ### USERS
 
