@@ -30,20 +30,22 @@ The endpoints currently operational on the server are listed below.
 | POST   | `/auth/RegisterClient`     | all users                   | Register for a client account.                                             |
 | POST   | `/auth/RegisterWasher/:id` | users registered as washers | Register for a washer account.                                             |
 | POST   | `/auth/login`              | all users                   | Login to an existing account.                                              |
-| GET    | `/users/`                  | all users                   | View all users.                                                            |
+| GET    | `/users`                   | all users                   | View all users.                                                            |
 | GET    | `/users/:id`               | all users                   | View a user by id.                                                         |
 | PUT    | `/users/:id`               | all users                   | Update a user.                                                             |
 | DELETE | `/users/:id`               | all users                   | Remove a user.                                                             |
-| PUT    | `/users/rating/:id`        | all users                   | Update rating of a user.                                                   |
+| PUT    | `/users/rating/:id`        | all washers                 | Update rating of a user.                                                   |
 | PUT    | `/users/washer/rating/:id` | all users                   | Update rating of a washer.                                                 |
-| GET    | `/carsPG/makes`            | all users                   | Returns all car makes.                                                     |
-| POST   | `/carsPG/models`           | all users                   | Returns all car models for a given make.                                   |
-| POST   | `/carsPG/getCarId`         | all users                   | Takes in make and model and returns carId.                                 |
-| POST   | `/carsPG/addACar`          | all users                   | Takes in userId, carId, color and license plate, ties car to user profile. |
+| GET    | `/cars`                    | all users                   | Returns all car makes.                                                     |
+| POST   | `/cars`                    | all users                   | Takes in make and model and returns carId.                                 |
+| GET    | `/cars/:id`                | all users                   | Returns all car models for a given make.                                   |
+| PUT    | `/cars/:id`                | all users                   | Takes in userId, carId, color and license plate, ties car to user profile. |
+| PUT    | `/cars/:id`                | all users                   | Takes in userId, carId, color and license plate, ties car to user profile. |
+| DELETE | `/cars/:id`                | all users                   | Takes in userId, carId, color and license plate, ties car to user profile. |
 | POST   | `/jobs/new`                | all users                   | Creates a new job.                                                         |
-| GET    | `/jobs/available/:id`      | all users                   | Returns all jobs with washerId null (new available jobs).                  |
+| GET    | `/jobs/available/:id`      | all washers                 | Returns all jobs with washerId null (new available jobs).                  |
 | GET    | `/jobs/jobInfo/:id`        | all users                   | Returns all job info for given jobId                                       |
-| PUT    | `/jobs/selectJob/:id`      | all users                   | Adds the washer to a job.                                                  |
+| PUT    | `/jobs/selectJob/:id`      | all washers                 | Adds the washer to a job.                                                  |
 | DELETE | `/jobs/job/:id`            | all users                   | Deletes Job by Job ID                                                      |
 | PUT    | `/jobs/job/:id`            | all users                   | Edits Job by Job ID                                                        |
 | GET    | `/jobs/user/:id`           | all users                   | Gets Jobs by User ID                                                       |
@@ -358,7 +360,7 @@ The PUT `users/rating/:id` Endpoint returns the following JSON information:
 
 ---
 
-he PUT `users/washer/rating/:id` Endpoint takes in the following JSON information:
+The PUT `users/washer/rating/:id` Endpoint takes in the following JSON information:
 Takes in a valid washer id in the url.
 
 ```#!json
@@ -386,33 +388,129 @@ The PUT `users/washer/rating/:id` Endpoint returns the following JSON informatio
 }
 ```
 
-The Car Models Endpoint needs the following JSON information:
+---
+
+The GET `cars/` Endpoint returns the following array of JSON information:
+
+```#! json
+[
+  {
+    "carId": 1,                     --Int     --Id of car object
+    "clientId": 6,                  --Int     --Id of user
+    "make": "ford",                 --String  --Make of car
+    "model": "mustang",             --String  --Model of car
+    "year": 1996,                   --Int     --Year of car
+    "color": "blue",                --String  --Color of car
+    "licensePlate": "xyz 123",      --String  --License plate number
+    "photo": "some url",            --String  --Url address of photo of car
+    "category": "car",              --String  --Type of car(car/suv/truck/van/etc.)
+    "size": "small"                 --String  --Size of car(small/medium/large)
+  }
+]
+```
+
+---
+
+The POST `cars/` Endpoint takes in the following JSON information:
 
 ```#! json
 {
-  "make":"Acura"
+  "clientId": 6,                  --Required  --Int     --Id of user
+  "make": "ford",                 --Required  --String  --Make of car
+  "model": "mustang",             --Required  --String  --Model of car
+  "year": 1996,                   --Required  --Int     --Year of car
+  "color": "blue",                --Required  --String  --Color of car
+  "licensePlate": "xyz 123",      --Required  --String  --License plate number
+  "photo": "some url",                        --String  --Url address of photo of car
+  "category": "car",              --Required  --String  --Type of car(car/suv/truck/van/etc.)
+  "size": "small"                 --Required  --String  --Size of car(small/medium/large)
 }
 ```
 
-The GetCarId Endpoint needs the following JSON information:
+The POST `cars/` Endpoint returns the following JSON information:
 
 ```#! json
 {
-  "make":"Acura",
-  "model":"Integra"
+  "carId": 1,                     --Int     --Id of new car object
+  "clientId": 6,                  --Int     --Id of user
+  "make": "ford",                 --String  --Make of car
+  "model": "mustang",             --String  --Model of car
+  "year": 1996,                   --Int     --Year of car
+  "color": "blue",                --String  --Color of car
+  "licensePlate": "xyz 123",      --String  --License plate number
+  "photo": "some url",            --String  --Url address of photo of car
+  "category": "car",              --String  --Type of car(car/suv/truck/van/etc.)
+  "size": "small"                 --String  --Size of car(small/medium/large)
 }
 ```
 
-The AddACar Endpoint needs the following JSON information:
+---
+
+The GET `cars/:id` Endpoint returns the following JSON information:
+Takes in a valid car id in the url.
 
 ```#! json
 {
-  "id":1,
-  "carId":42,
-  "color":"beige",
-  "licensePlate":"542-EXF"
+  "carId": 1,                     --Int     --Id of car object
+  "clientId": 6,                  --Int     --Id of user
+  "make": "ford",                 --String  --Make of car
+  "model": "mustang",             --String  --Model of car
+  "year": 1996,                   --Int     --Year of car
+  "color": "blue",                --String  --Color of car
+  "licensePlate": "xyz 123",      --String  --License plate number
+  "photo": "some url",            --String  --Url address of photo of car
+  "category": "car",              --String  --Type of car(car/suv/truck/van/etc.)
+  "size": "small"                 --String  --Size of car(small/medium/large)
 }
 ```
+
+---
+
+The PUT `cars/:id` Endpoint takes in any of the following JSON information:
+Takes in a valid car id in the url.
+
+```#! json
+{
+  "make": "ford",                 --String  --Make of car
+  "model": "mustang",             --String  --Model of car
+  "year": 1996,                   --Int     --Year of car
+  "color": "blue",                --String  --Color of car
+  "licensePlate": "xyz 123",      --String  --License plate number
+  "photo": "some url",            --String  --Url address of photo of car
+  "category": "car",              --String  --Type of car(car/suv/truck/van/etc.)
+  "size": "small"                 --String  --Size of car(small/medium/large)
+}
+```
+
+The PUT `cars/:id` Endpoint returns the following JSON information:
+
+```#! json
+{
+  "carId": 1,                     --Int     --Id of new car object
+  "clientId": 6,                  --Int     --Id of user
+  "make": "ford",                 --String  --Make of car
+  "model": "mustang",             --String  --Model of car
+  "year": 1996,                   --Int     --Year of car
+  "color": "blue",                --String  --Color of car
+  "licensePlate": "xyz 123",      --String  --License plate number
+  "photo": "some url",            --String  --Url address of photo of car
+  "category": "car",              --String  --Type of car(car/suv/truck/van/etc.)
+  "size": "small"                 --String  --Size of car(small/medium/large)
+}
+```
+
+---
+
+The DELETE `cars/:id` Endpoint returns the following JSON information:
+Takes in a valid car id in the url.
+
+```#! json
+{
+    "message": "Successfully deleted 1 car"
+}
+```
+
+---
 
 The `jobs/new` Endpoint needs the following JSON information:
 
