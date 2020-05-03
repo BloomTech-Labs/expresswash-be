@@ -30,6 +30,12 @@ The endpoints currently operational on the server are listed below.
 | POST   | `/auth/RegisterClient`     | all users                   | Register for a client account.                                             |
 | POST   | `/auth/RegisterWasher/:id` | users registered as washers | Register for a washer account.                                             |
 | POST   | `/auth/login`              | all users                   | Login to an existing account.                                              |
+| GET    | `/users/`                  | all users                   | View all users.                                                            |
+| GET    | `/users/:id`               | all users                   | View a user by id.                                                         |
+| PUT    | `/users/:id`               | all users                   | Update a user.                                                             |
+| DELETE | `/users/:id`               | all users                   | Remove a user.                                                             |
+| PUT    | `/users/rating/:id`        | all users                   | Update rating of a user.                                                   |
+| PUT    | `/users/washer/rating/:id` | all users                   | Update rating of a washer.                                                 |
 | GET    | `/carsPG/makes`            | all users                   | Returns all car makes.                                                     |
 | POST   | `/carsPG/models`           | all users                   | Returns all car models for a given make.                                   |
 | POST   | `/carsPG/getCarId`         | all users                   | Takes in make and model and returns carId.                                 |
@@ -41,22 +47,12 @@ The endpoints currently operational on the server are listed below.
 | DELETE | `/jobs/job/:id`            | all users                   | Deletes Job by Job ID                                                      |
 | PUT    | `/jobs/job/:id`            | all users                   | Edits Job by Job ID                                                        |
 | GET    | `/jobs/user/:id`           | all users                   | Gets Jobs by User ID                                                       |
-| POST   | `/ratings/washerAverage`   | all users                   | Returns average rating for a washer.                                       |
-| POST   | `/ratings/clientAverage`   | all users                   | Returns average rating for a client.                                       |
-| POST   | `/ratings/rateWasher`      | all users                   | Add a washer rating.                                                       |
-| POST   | `/ratings/rateClient`      | all users                   | Add a client rating.                                                       |
-| GET    | `/users/`                  | all users                   | View all users.                                                            |
-| GET    | `/users/:id`               | all users                   | View a user by id.                                                         |
-| DELETE | `/users/:id`               | all users                   | Remove a user.                                                             |
-| PUT    | `/users/:id`               | all users                   | Update a user.                                                             |
-| PUT    | `/users/rating/:id`        | all users                   | Update rating of a user.                                                   |
-| PUT    | `/users/washer/rating/:id` | all users                   | Update rating of a washer.                                                 |
 
 ## Endpoint Details
 
 ---
 
-The `auth/registerClient` Endpoint takes the following JSON information:
+The POST `auth/registerClient` Endpoint takes the following JSON information:
 
 ```#! json
 {
@@ -64,7 +60,7 @@ The `auth/registerClient` Endpoint takes the following JSON information:
   "email":"test@test.com",              --Required  --String  --Must be Unique
   "firstName":"Test",                   --Required  --String
   "lastName":"Testerson",               --Required  --String
-  "password":"12345678",                    --Required  --String  --Min 8 characters
+  "password":"12345678",                --Required  --String  --Min 8 characters
   "phoneNumber":"1234567890",                       --String
   "streetAddress":"1051 Market St",     --Required  --String
   "streetAddress2":"APT 240",                       --String
@@ -76,7 +72,7 @@ The `auth/registerClient` Endpoint takes the following JSON information:
 }
 ```
 
-The `auth/registerClient` Endpoint returns the following JSON information:
+The POST `auth/registerClient` Endpoint returns the following JSON information:
 
 ```#! json
 {
@@ -98,7 +94,7 @@ The `auth/registerClient` Endpoint returns the following JSON information:
         "profilePicture": "some url",     --String  --Url location of profile img
         "bannerImage": "some url",        --String  --Url location of banner img
         "creationDate": "date",           --String  --Timestamp auto generated
-        "userRating": 4,                  --Floeat  --Current Users Rating
+        "userRating": 4,                  --Float   --Current Users Rating
         "userRatingTotal": 1              --Int     --Number of ratings for user
     }
 }
@@ -106,7 +102,7 @@ The `auth/registerClient` Endpoint returns the following JSON information:
 
 ---
 
-The `auth/login` Endpoint needs the following JSON information:
+The POST `auth/login` Endpoint needs the following JSON information:
 
 ```#! json
 {
@@ -115,7 +111,7 @@ The `auth/login` Endpoint needs the following JSON information:
 }
 ```
 
-The `auth/login` Endpoint returns the following JSON information:
+The POST `auth/login` Endpoint returns the following JSON information:
 
 ```#!json
 {
@@ -136,7 +132,7 @@ The `auth/login` Endpoint returns the following JSON information:
         "profilePicture": "some url",     --String  --Url location of profile img
         "bannerImage": "some url",        --String  --Url location of banner img
         "creationDate": "date",           --String  --Timestamp auto generated
-        "userRating": 4,                  --Floeat  --Current Users Rating
+        "userRating": 4,                  --Float   --Current Users Rating
         "userRatingTotal": 1              --Int     --Number of ratings for user
     },
     "washer": {                                     --Washer Object(only if registered as a washer)
@@ -157,7 +153,7 @@ The `auth/login` Endpoint returns the following JSON information:
 
 ---
 
-The `auth/registerWasher/:id` Endpoint needs the following JSON information:
+The POST `auth/registerWasher/:id` Endpoint needs the following JSON information:
 Takes in a valid user id in the url and must be registered with the account type of "washer"
 
 ```#! json
@@ -173,7 +169,7 @@ Takes in a valid user id in the url and must be registered with the account type
 }
 ```
 
-The `auth/registerWasher/:id` Endpoint returns the following JSON information:
+The POST `auth/registerWasher/:id` Endpoint returns the following JSON information:
 
 ```@!json
 {
@@ -193,7 +189,7 @@ The `auth/registerWasher/:id` Endpoint returns the following JSON information:
         "profilePicture": "some url",     --String  --Url location of profile img
         "bannerImage": "some url",        --String  --Url location of banner img
         "creationDate": "date",           --String  --Timestamp auto generated
-        "userRating": 4,                  --Floeat  --Current Users Rating
+        "userRating": 4,                  --Float   --Current Users Rating
         "userRatingTotal": 1              --Int     --Number of ratings for user
     },
     "washer": {                                     --Washer Object
@@ -209,6 +205,184 @@ The `auth/registerWasher/:id` Endpoint returns the following JSON information:
         "washerRating": 3,                --Float   --Current washer rating
         "washerRatingTotal": 1            --Int     --Number of ratings for washer
     }
+}
+```
+
+---
+
+The GET `users/` Endpoint returns the following array of JSON information:
+
+```#!json
+{
+  [
+    {
+        "id": 1,                          --Int     --User Id
+        "accountType": "client",          --String  --user's account type "washer/client"
+        "email": "test@test.com",         --String  --Users Unique Email
+        "firstName": "Test",              --String  --Users First Name
+        "lastName": "Testerson",          --String  --Users Last Name
+        "phoneNumber": "1234567890",      --String  --Phone Number
+        "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+        "streetAddress": "1051 Market St",--String  --Street Address
+        "streetAddress2": "APT 240",      --String  --Secondary address field
+        "city": "San Francisco",          --String  --City
+        "state": "CA",                    --String  --State --Max Length 2
+        "zip": "94103",                   --String  --Zip code
+        "profilePicture": "some url",     --String  --Url location of profile img
+        "bannerImage": "some url",        --String  --Url location of banner img
+        "creationDate": "date",           --String  --Timestamp auto generated
+        "userRating": 4,                  --Float   --Current Users Rating
+        "userRatingTotal": 1              --Int     --Number of ratings for user
+    },
+  ]
+}
+```
+
+---
+
+The GET `users/:id` Endpoint returns the following JSON information:
+Takes in a valid user id in the url.
+
+```#!json
+{
+  "id": 1,                          --Int     --User Id
+  "accountType": "client",          --String  --user's account type "washer/client"
+  "email": "test@test.com",         --String  --Users Unique Email
+  "firstName": "Test",              --String  --Users First Name
+  "lastName": "Testerson",          --String  --Users Last Name
+  "phoneNumber": "1234567890",      --String  --Phone Number
+  "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+  "streetAddress": "1051 Market St",--String  --Street Address
+  "streetAddress2": "APT 240",      --String  --Secondary address field
+  "city": "San Francisco",          --String  --City
+  "state": "CA",                    --String  --State --Max Length 2
+  "zip": "94103",                   --String  --Zip code
+  "profilePicture": "some url",     --String  --Url location of profile img
+  "bannerImage": "some url",        --String  --Url location of banner img
+  "creationDate": "date",           --String  --Timestamp auto generated
+  "userRating": 4,                  --Float   --Current Users Rating
+  "userRatingTotal": 1              --Int     --Number of ratings for user
+}
+```
+
+---
+
+The PUT `users/:id` Endpoint takes in any of the following JSON information:
+Takes in a valid user id in the url.
+
+```#!json
+{
+  "accountType": "client",          --String  --user's account type "washer/client"
+  "firstName": "Test",              --String  --Users First Name
+  "lastName": "Testerson",          --String  --Users Last Name
+  "phoneNumber": "1234567890",      --String  --Phone Number
+  "streetAddress": "1051 Market St",--String  --Street Address
+  "streetAddress2": "APT 240",      --String  --Secondary address field
+  "city": "San Francisco",          --String  --City
+  "state": "CA",                    --String  --State --Max Length 2
+  "zip": "94103",                   --String  --Zip code
+  "profilePicture": "some url",     --String  --Url location of profile img
+  "bannerImage": "some url",        --String  --Url location of banner img
+}
+```
+
+The PUT `users/:id` Endpoint returns the following JSON information:
+
+```#!json
+{
+  "id": 1,                          --Int     --User Id
+  "accountType": "client",          --String  --user's account type "washer/client"
+  "email": "test@test.com",         --String  --Users Unique Email
+  "firstName": "Test",              --String  --Users First Name
+  "lastName": "Testerson",          --String  --Users Last Name
+  "phoneNumber": "1234567890",      --String  --Phone Number
+  "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+  "streetAddress": "1051 Market St",--String  --Street Address
+  "streetAddress2": "APT 240",      --String  --Secondary address field
+  "city": "San Francisco",          --String  --City
+  "state": "CA",                    --String  --State --Max Length 2
+  "zip": "94103",                   --String  --Zip code
+  "profilePicture": "some url",     --String  --Url location of profile img
+  "bannerImage": "some url",        --String  --Url location of banner img
+  "creationDate": "date",           --String  --Timestamp auto generated
+  "userRating": 4,                  --Float   --Current Users Rating
+  "userRatingTotal": 1              --Int     --Number of ratings for user
+}
+```
+
+---
+
+The DELETE `users/:id` Endpoint returns following JSON information:
+Takes in a valid user id in the url.
+
+```#!json
+{
+    "message": "The user has been successfully removed from the database"
+}
+```
+
+---
+
+The PUT `users/rating/:id` Endpoint takes in the following JSON information:
+Takes in a valid user id in the url.
+
+```#!json
+{
+ "userRating": 4                    --Float --updates and averages automatically
+}
+```
+
+The PUT `users/rating/:id` Endpoint returns the following JSON information:
+
+```#!json
+{
+  "id": 1,                          --Int     --User Id
+  "accountType": "client",          --String  --user's account type "washer/client"
+  "email": "test@test.com",         --String  --Users Unique Email
+  "firstName": "Test",              --String  --Users First Name
+  "lastName": "Testerson",          --String  --Users Last Name
+  "phoneNumber": "1234567890",      --String  --Phone Number
+  "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+  "streetAddress": "1051 Market St",--String  --Street Address
+  "streetAddress2": "APT 240",      --String  --Secondary address field
+  "city": "San Francisco",          --String  --City
+  "state": "CA",                    --String  --State --Max Length 2
+  "zip": "94103",                   --String  --Zip code
+  "profilePicture": "some url",     --String  --Url location of profile img
+  "bannerImage": "some url",        --String  --Url location of banner img
+  "creationDate": "date",           --String  --Timestamp auto generated
+  "userRating": 3.6667,             --Float   --Updated user rating
+  "userRatingTotal": 2              --Int     --Number of ratings for user
+}
+```
+
+---
+
+he PUT `users/washer/rating/:id` Endpoint takes in the following JSON information:
+Takes in a valid washer id in the url.
+
+```#!json
+{
+ "washerRating": 4                    --Float --updates and averages automatically
+}
+```
+
+The PUT `users/washer/rating/:id` Endpoint returns the following JSON information:
+
+```#!json
+{
+  "washerId": 2                     --Int     --Washer Id
+  "userId": 26,                     --Int     --User's Id
+  "available": true,                --Boolean --If washer is available for work
+  "workStatus": true,               --Boolean --If washer is available for work
+  "rateSmall": "30.00",             --Float   --Washer price for small job
+  "rateMedium": "50.00",            --Float   --Washer price for medium job
+  "rateLarge": "75.00",             --Float   --Washer price for large job
+  "aboutMe": "I am a washer",       --String  --Description of washer/Bio
+  "currentLocationLat": "55.777",   --Float   --Current location latitude
+  "currentLocationLon": "35.555",   --Float   --Current location longitude
+  "washerRating": 3,                --Float   --Updated washer rating
+  "washerRatingTotal": 2            --Int     --Number of ratings for washer
 }
 ```
 
