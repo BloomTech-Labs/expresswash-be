@@ -218,3 +218,10 @@ test("/user/:id, GET Jobs by user id: error(catch)", async () => {
   expect(res.status).toBe(500);
   mock.mockRestore();
 });
+
+test("/jobs, GET ALL Jobs", async () => {
+  const mock = jest.spyOn(Jobs, "find");
+  mock.mockImplementation(() => Promise.resolve([]));
+  const res = await request(server).get("/");
+  expect(res.status).toBe(200);
+});
