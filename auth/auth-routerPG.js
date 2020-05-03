@@ -1,6 +1,6 @@
 const authRouterPG = require("express").Router();
 const bcrypt = require("bcryptjs");
-const { generateToken } = require("../middleware/globalMiddleWare");
+const generateToken = require("../middleware/generateToken.js");
 const { validateUserId, ifWasherExists } = require("./auth-middleware");
 const Users = require("./auth-modal");
 

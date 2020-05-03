@@ -18,7 +18,7 @@ function findBy(carId) {
 
 async function addCar(car) {
   const [carId] = await db("cars").insert(car, "carId");
-  return findBy(carId);
+  return findBy({ carId });
 }
 
 function update(changes, carId) {
