@@ -224,4 +224,5 @@ test("/jobs, GET ALL Jobs", async () => {
   mock.mockImplementation(() => Promise.resolve([]));
   const res = await request(server).get("/");
   expect(res.status).toBe(200);
+  mock.mockRestore();
 });
