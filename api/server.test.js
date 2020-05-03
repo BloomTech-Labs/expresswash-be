@@ -13,7 +13,6 @@ test("server is running on home route", async () => {
 test("server error for 404", async () => {
   const res = await request(testServer).get("/a");
   expect(res.status).toBe(404);
-  console.log(res.status);
 });
 
 // describe("the server is running", () => {

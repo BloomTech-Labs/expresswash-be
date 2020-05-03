@@ -1,6 +1,6 @@
 const authRouterPG = require("express").Router();
 const bcrypt = require("bcryptjs");
-const generateToken = require("../middleware/generateToken.js");
+const { generateToken } = require("../middleware/globalMiddleWare");
 const { validateUserId, ifWasherExists } = require("./auth-middleware");
 const Users = require("./auth-modal");
 
@@ -14,7 +14,7 @@ authRouterPG.get("/", (req, res) => {
     });
 });
 
-authRouterPG.post("/registerClient", async (req, res) => {
+authRouterPG.post("/registerClient", (req, res) => {
   let user = req.body;
   const date = new Date();
   const creationDate = date;
@@ -22,8 +22,9 @@ authRouterPG.post("/registerClient", async (req, res) => {
   user.password = hash;
   user = { ...user, creationDate };
   return Users.insert(user)
-    .then((newUser) => {
-      delete newUser[0].password;
+    .then((user2) => {
+      const newUser = user2;
+      delete newUser.password;
       const token = generateToken(newUser);
       res.status(201).json({
         message: "user created successfully",
@@ -33,7 +34,7 @@ authRouterPG.post("/registerClient", async (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({ message: "unable to register new user" });
-    });
+  })
 });
 
 authRouterPG.post(
