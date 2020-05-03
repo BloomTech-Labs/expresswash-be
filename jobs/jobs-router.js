@@ -100,7 +100,7 @@ jobsRouter.delete("/job/:id", [validateJobId], async (req, res) => {
   const jobId = req.params.id;
   deleteJob(jobId)
     .then((removed) => {
-      res.status(204).json({ message: "Job  has been deleted." }, removed);
+      res.status(204).json({ message: "Job  has been deleted.", removed });
     })
     .catch((err) => res.status(500).json(err.message));
 });
@@ -130,6 +130,11 @@ jobsRouter.get("/user/:id", async (req, res) => {
       }
     })
     .catch((err) => res.status(500).json(err.message));
+});
+jobsRouter.get("/", async (req, res) => {
+  find().then((jobs) => {
+    res.status(200).json(jobs);
+  });
 });
 // validates that the Job id does exist
 function validateJobId(req, res, next) {
