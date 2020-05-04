@@ -16,7 +16,11 @@
       "!**/node_modules/**",
       "!**/vendor/**",
       "!**/__tests__/**",
-      "!**/*.test.js"
+      "!**/*.test.js",
+      "!**/coverage/**",
+      "!**/prettierre.js",
+      "!**/index.js",
+      "!**/database/**"
     ]
   },
   "repository": {
