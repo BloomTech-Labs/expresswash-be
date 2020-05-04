@@ -512,100 +512,245 @@ Takes in a valid car id in the url.
 
 ---
 
-The `jobs/new` Endpoint needs the following JSON information:
+The POST `jobs/new` Endpoint needs the following JSON information:
 
 ```#! json
 {
-        "washAddress": "42 Wallaby Way Sydney",      --Required
-        "scheduled": true,                        --Defaults to true
-        "completed": false,                       --Defaults to false
-        "paid": false,                            --Defaults to false
-        "clientId": 4,                            --Represents the user's ID
-        "washerId": null,
-        "creationDate": "2020-04-29T22:59:51.775-04:00",   --Required Auto Generated from Database
-        "carId": 1,                              --Represents the car ID
-        "address": "123 First St",               --Required
-        "address2": "APT 2",
-        "jobLocationLat": null,
-        "jobLocationLon": null,
-        "city": "tampa",                        --Required
-        "state": "FL",                          --Required
-        "zip": "60184",                         --Required
-        "notes": null,
-        "jobType": "basic",                     --Required
-        "photoBeforeJob": null,
-        "photoAfterJob": null,
-        "timeRequested": "12:00 PM",                --Required
-        "timeCompleted": null
-    }
+  "washAddress": "42 Wallaby Way Sydney", --Required  --String  --Address of job
+  "scheduled": true,                                  --Boolean --Defaults to true
+  "completed": false,                                 --Boolean --Defaults to false
+  "paid": false,                                      --Boolean --Defaults to false
+  "clientId": 4,                          --Required  --Int     --Represents the user's ID
+  "washerId": null,                                   --Int     --Represents Id of accepting washer
+  "carId": 1,                             --Required  --Int     --Represents the car ID
+  "address": "123 First St",              --Required  --String  --Address of Job
+  "address2": "APT 2",                                --String  --Adress second line
+  "jobLocationLat": null,                             --Float   --Latitude of job location
+  "jobLocationLon": null,                             --Float   --Longitude of job location
+  "city": "tampa",                        --Required  --String  --City of job location
+  "state": "FL",                          --Required  --String  --State of job location
+  "zip": "60184",                         --Required  --String  --Zip of job location
+  "notes": null,                                      --String  --Additional notes or requests
+  "jobType": "basic",                     --Required  --String  --Type of service(basic/premium/full)
+  "photoBeforeJob": null,                             --String  --photo url of before job
+  "photoAfterJob": null,                              --String  --photo url of after job
+  "timeRequested": "12:00 PM",            --Required  --String  --Time requested for job
+  "timeCompleted": null                               --String  --Time job was completed
+}
 ```
+
+The POST `jobs/new` Endpoint returns the following JSON information:
+
+```#! json
+{
+  "jobId": 1,                               --Int     --New Job Id
+  "washAddress": "42 Wallaby Way Sydney",   --String  --Address of job
+  "scheduled": true,                        --Boolean --Defaults to true
+  "completed": false,                       --Boolean --Defaults to false
+  "paid": false,                            --Boolean --Defaults to false
+  "clientId": 4,                            --Int     --Represents the user's ID
+  "washerId": null,                         --Int     --Represents Id of accepting washer
+  "carId": 1,                               --Int     --Represents the car ID
+  "creationDate": "time stamp",             --String  --Time stamp of job creation
+  "address": "123 First St",                --String  --Address of Job
+  "address2": "APT 2",                      --String  --Adress second line
+  "jobLocationLat": null,                   --Float   --Latitude of job location
+  "jobLocationLon": null,                   --Float   --Longitude of job location
+  "city": "tampa",                          --String  --City of job location
+  "state": "FL",                            --String  --State of job location
+  "zip": "60184",                           --String  --Zip of job location
+  "notes": null,                            --String  --Additional notes or requests
+  "jobType": "basic",                       --String  --Type of service(basic/premium/full)
+  "photoBeforeJob": null,                   --String  --photo url of before job
+  "photoAfterJob": null,                    --String  --photo url of after job
+  "timeRequested": "12:00 PM",              --String  --Time requested for job
+  "timeCompleted": null                     --String  --Time job was completed
+}
+```
+
+---
 
 The `jobs/available/:id` Endpoint needs the following JSON information:
 
 ID in the URL/ URI
 
-The `jobs/jobInfo/:id` Endpoint needs the following JSON information:
+---
 
-ID in the URL/ URI
+The GET `jobs/jobInfo/:id` Endpoint returns the following JSON information:
+Takes in a valid job id in the url.
 
-The `jobs/selectJob/:id` Endpoint needs the following JSON information:
-
-```#! json
+```#!json
 {
-  "washerID": 1  --Required
+  "jobId": 1,                               --Int     --New Job Id
+  "washAddress": "42 Wallaby Way Sydney",   --String  --Address of job
+  "scheduled": true,                        --Boolean --Defaults to true
+  "completed": false,                       --Boolean --Defaults to false
+  "paid": false,                            --Boolean --Defaults to false
+  "clientId": 4,                            --Int     --Represents the user's ID
+  "washerId": null,                         --Int     --Represents Id of accepting washer
+  "creationDate": "time stamp",             --String  --Time stamp of job creation
+  "carId": 1,                               --Int     --Represents the car ID
+  "address": "123 First St",                --String  --Address of Job
+  "address2": "APT 2",                      --String  --Adress second line
+  "jobLocationLat": null,                   --Float   --Latitude of job location
+  "jobLocationLon": null,                   --Float   --Longitude of job location
+  "city": "tampa",                          --String  --City of job location
+  "state": "FL",                            --String  --State of job location
+  "zip": "60184",                           --String  --Zip of job location
+  "notes": null,                            --String  --Additional notes or requests
+  "jobType": "basic",                       --String  --Type of service(basic/premium/full)
+  "photoBeforeJob": null,                   --String  --photo url of before job
+  "photoAfterJob": null,                    --String  --photo url of after job
+  "timeRequested": "12:00 PM",              --String  --Time requested for job
+  "timeCompleted": null                     --String  --Time job was completed
 }
 ```
-
-The `jobs/job/:id` Endpoint needs the following JSON information:
-
-GET Requires ID in the URL/ URI
-
-DELETE Requires ID in the URL/ URI
-
-PUT Requires changes to the Job
-
-```#! json
-{
-  "washAddress": "updated address"
-}
-```
-
-### USERS
 
 ---
 
-The `/users/rating/:id` Endpoint needs the following information:
+The GET `jobs/user/:id` Endpoint returns an array with the following JSON information:
+Takes in a valid user id in the url.
+
+```#!json
+[
+  {
+    "jobId": 1,                               --Int     --Job Id
+    "washAddress": "42 Wallaby Way Sydney",   --String  --Address of job
+    "scheduled": true,                        --Boolean --Defaults to true
+    "completed": false,                       --Boolean --Defaults to false
+    "paid": false,                            --Boolean --Defaults to false
+    "clientId": 4,                            --Int     --Represents the user's ID
+    "washerId": null,                         --Int     --Represents Id of accepting washer
+    "creationDate": "time stamp",             --String  --Time stamp of job creation
+    "carId": 1,                               --Int     --Represents the car ID
+    "address": "123 First St",                --String  --Address of Job
+    "address2": "APT 2",                      --String  --Adress second line
+    "jobLocationLat": null,                   --Float   --Latitude of job location
+    "jobLocationLon": null,                   --Float   --Longitude of job location
+    "city": "tampa",                          --String  --City of job location
+    "state": "FL",                            --String  --State of job location
+    "zip": "60184",                           --String  --Zip of job location
+    "notes": null,                            --String  --Additional notes or requests
+    "jobType": "basic",                       --String  --Type of service(basic/premium/full)
+    "photoBeforeJob": null,                   --String  --photo url of before job
+    "photoAfterJob": null,                    --String  --photo url of after job
+    "timeRequested": "12:00 PM",              --String  --Time requested for job
+    "timeCompleted": null                     --String  --Time job was completed
+  }
+]
+```
+
+---
+
+The PUT `jobs/selectJob/:id` Endpoint needs the following JSON information:
+Takes in a valid job id in the url and assigns a washer to a job.
 
 ```#! json
 {
-  userRating: 3
+  "washerID": 1  --Required --washer id to be assigned to job
 }
 ```
 
-The `/users/washer/rating/:id` Endpoint needs the following information:
+The PUT `jobs/selectJob/:id` Endpoint returns the following JSON information:
+
+```#!json
+{
+  "jobId": 1,                               --Int     --Job Id
+  "washAddress": "42 Wallaby Way Sydney",   --String  --Address of job
+  "scheduled": true,                        --Boolean --Defaults to true
+  "completed": false,                       --Boolean --Defaults to false
+  "paid": false,                            --Boolean --Defaults to false
+  "clientId": 4,                            --Int     --Represents the user's ID
+  "washerId": 2,                            --Int     --Newly added washer Id
+  "creationDate": "time stamp",             --String  --Time stamp of job creation
+  "carId": 1,                               --Int     --Represents the car ID
+  "address": "123 First St",                --String  --Address of Job
+  "address2": "APT 2",                      --String  --Adress second line
+  "jobLocationLat": null,                   --Float   --Latitude of job location
+  "jobLocationLon": null,                   --Float   --Longitude of job location
+  "city": "tampa",                          --String  --City of job location
+  "state": "FL",                            --String  --State of job location
+  "zip": "60184",                           --String  --Zip of job location
+  "notes": null,                            --String  --Additional notes or requests
+  "jobType": "basic",                       --String  --Type of service(basic/premium/full)
+  "photoBeforeJob": null,                   --String  --photo url of before job
+  "photoAfterJob": null,                    --String  --photo url of after job
+  "timeRequested": "12:00 PM",              --String  --Time requested for job
+  "timeCompleted": null                     --String  --Time job was completed
+}
+```
+
+---
+
+The PUT `jobs/job/:id` Endpoint any of the following in JSON information:
+Takes in a valid job id in the url.
+
+```#!json
+{
+  "washAddress": "42 Wallaby Way Sydney",   --String  --Address of job
+  "scheduled": true,                        --Boolean --Defaults to true
+  "completed": false,                       --Boolean --Defaults to false
+  "paid": false,                            --Boolean --Defaults to false
+  "clientId": 4,                            --Int     --Represents the user's ID
+  "washerId": 2,                            --Int     --Newly added washer Id
+  "carId": 1,                               --Int     --Represents the car ID
+  "address": "123 First St",                --String  --Address of Job
+  "address2": "APT 2",                      --String  --Adress second line
+  "jobLocationLat": null,                   --Float   --Latitude of job location
+  "jobLocationLon": null,                   --Float   --Longitude of job location
+  "city": "tampa",                          --String  --City of job location
+  "state": "FL",                            --String  --State of job location
+  "zip": "60184",                           --String  --Zip of job location
+  "notes": null,                            --String  --Additional notes or requests
+  "jobType": "basic",                       --String  --Type of service(basic/premium/full)
+  "photoBeforeJob": null,                   --String  --photo url of before job
+  "photoAfterJob": null,                    --String  --photo url of after job
+  "timeRequested": "12:00 PM",              --String  --Time requested for job
+  "timeCompleted": null                     --String  --Time job was completed
+}
+```
+
+The PUT `jobs/job/:id` Endpoint returns following in JSON information:
+
+```#!json
+{
+  "jobId": 1,                               --Int     --Job Id
+  "washAddress": "42 Wallaby Way Sydney",   --String  --Address of job
+  "scheduled": true,                        --Boolean --Defaults to true
+  "completed": false,                       --Boolean --Defaults to false
+  "paid": false,                            --Boolean --Defaults to false
+  "clientId": 4,                            --Int     --Represents the user's ID
+  "washerId": 2,                            --Int     --Newly added washer Id
+  "creationDate": "time stamp",             --String  --Time stamp of job creation
+  "carId": 1,                               --Int     --Represents the car ID
+  "address": "123 First St",                --String  --Address of Job
+  "address2": "APT 2",                      --String  --Adress second line
+  "jobLocationLat": null,                   --Float   --Latitude of job location
+  "jobLocationLon": null,                   --Float   --Longitude of job location
+  "city": "tampa",                          --String  --City of job location
+  "state": "FL",                            --String  --State of job location
+  "zip": "60184",                           --String  --Zip of job location
+  "notes": null,                            --String  --Additional notes or requests
+  "jobType": "basic",                       --String  --Type of service(basic/premium/full)
+  "photoBeforeJob": null,                   --String  --photo url of before job
+  "photoAfterJob": null,                    --String  --photo url of after job
+  "timeRequested": "12:00 PM",              --String  --Time requested for job
+  "timeCompleted": null                     --String  --Time job was completed
+}
+```
+
+---
+
+The DELETE `jobs/job/:id` Endpoint returns following in JSON information:
+Takes in a valid job id in the url.
 
 ```#! json
 {
-  washerRating: 3
+  "message": "Job has been deleted"
 }
 ```
 
-```#! json
-{
-  id: UUID,
-  email: STRING,
-  first_name: STRING,
-  last_name: STRING,
-  password: STRING,
-  phoneNumber: STRING,
-  streetAddress: STRING,
-  streetAddress2: STRING,
-  city: STRING,
-  state: STRING,
-  zip: STRING,
-  userType: STRING [ 'admin', 'washer', 'client' ],
-}
-```
+---
 
 ## 2️⃣ Actions
 
