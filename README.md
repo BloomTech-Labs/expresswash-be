@@ -54,6 +54,8 @@ The endpoints currently operational on the server are listed below.
 
 ---
 
+### Auth Routes
+
 The POST `auth/registerClient` Endpoint takes the following JSON information:
 
 ```#! json
@@ -211,6 +213,8 @@ The POST `auth/registerWasher/:id` Endpoint returns the following JSON informati
 ```
 
 ---
+
+### Users routes
 
 The GET `users/` Endpoint returns the following array of JSON information:
 
@@ -390,6 +394,8 @@ The PUT `users/washer/rating/:id` Endpoint returns the following JSON informatio
 
 ---
 
+### Cars routes
+
 The GET `cars/` Endpoint returns the following array of JSON information:
 
 ```#! json
@@ -511,6 +517,8 @@ Takes in a valid car id in the url.
 ```
 
 ---
+
+### Jobs Routes
 
 The POST `jobs/new` Endpoint needs the following JSON information:
 
@@ -754,9 +762,7 @@ Takes in a valid job id in the url.
 
 ## 2️⃣ Actions
 
-Currently no actions are coded for the server.
-
-Tests are on the way and will be coded using Jest and Supertest for all of the endpoints, coming soon.
+Github Actions are in place to run unit tests an update the code climate coverage.
 
 ## 3️⃣ Environment Variables
 
@@ -764,12 +770,12 @@ In order for the app to function correctly, the user must set up their own envir
 
 create a .env file that includes the following:
 
-- PORT - set the port you wish the server to run on on your local machine
-- JWT_SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;*(-*=+)') for i in range(50)])
-
-## Contributing
-
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+LOCAL_DB_PASSWORD= Your local postgres database password
+LOCAL_DB_DATABASE_DEV= Your local database name
+LOCAL_DB_HOST= Your local database host
+LOCAL_DB_PORT= Your local database port
+LOCAL_DB_USER= Your local database username
+JWT_SECRET= A string of your chosing for the web token encryption
 
 Please note we have a [code of conduct](./code_of_conduct.md). Please follow it in all your interactions with the project.
 
