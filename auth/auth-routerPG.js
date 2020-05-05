@@ -1,6 +1,6 @@
 const authRouterPG = require("express").Router();
 const bcrypt = require("bcryptjs");
-const generateToken = require("../middleware/generateToken.js");
+const { generateToken } = require("../middleware/globalMiddleWare");
 const { validateUserId, ifWasherExists } = require("./auth-middleware");
 const Users = require("./auth-modal");
 
@@ -14,7 +14,7 @@ authRouterPG.get("/", (req, res) => {
     });
 });
 
-authRouterPG.post("/registerClient", async (req, res) => {
+authRouterPG.post("/registerClient", (req, res) => {
   let user = req.body;
   const date = new Date();
   const creationDate = date;
@@ -22,15 +22,14 @@ authRouterPG.post("/registerClient", async (req, res) => {
   user.password = hash;
   user = { ...user, creationDate };
   return Users.insert(user)
-    .then((id) => {
-      Users.findById(id).then((user) => {
-        delete user.password;
-        const token = generateToken(user);
-        res.status(201).json({
-          message: "user created successfully",
-          token,
-          user,
-        });
+    .then((user2) => {
+      const newUser = user2;
+      delete newUser.password;
+      const token = generateToken(newUser);
+      res.status(201).json({
+        message: "user created successfully",
+        token,
+        user: newUser,
       });
     })
     .catch((error) => {
@@ -42,24 +41,21 @@ authRouterPG.post(
   "/registerWasher/:id",
   [validateUserId, ifWasherExists],
   (req, res) => {
-    const id = req.user.id;
-    const newWasher = { ...req.body, userId: Number(id) };
-
-    Users.insertWasher(newWasher)
-      .then((id) => {
-        Users.findWasherId(id)
-          .then((washer) => {
-            res.status(201).json({ user: req.user, washer: washer });
-          })
-          .catch((err) => {
-            res
-              .status(500)
-              .json({ message: "unable to find new washer in database" });
-          });
-      })
-      .catch((err) => {
-        res.status(500).json({ message: "unable to add washer" });
-      });
+    if (req.user.accountType === "washer") {
+      const id = req.user.id;
+      const newWasher = { ...req.body, userId: Number(id) };
+      Users.insertWasher(newWasher)
+        .then((washer) => {
+          res.status(201).json({ user: { ...req.user, washer } });
+        })
+        .catch((err) => {
+          res.status(500).json({ message: "unable to add washer" });
+        });
+    } else {
+      res
+        .status(403)
+        .json({ message: "user does not have an account type of washer" });
+    }
   }
 );
 authRouterPG.get("/washers", (req, res) => {
@@ -81,7 +77,7 @@ authRouterPG.post("/login", (req, res) => {
             if (user.accountType === "washer") {
               Users.findWasherId(user.id)
                 .then((washer) => {
-                  res.status(200).json({ token, user, washer });
+                  res.status(200).json({ token, user: { ...user, washer } });
                 })
                 .catch((err) => {
                   res

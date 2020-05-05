@@ -16,7 +16,10 @@
       "!**/node_modules/**",
       "!**/vendor/**",
       "!**/__tests__/**",
-      "!**/*.test.js"
+      "!**/*.test.js",
+      "!**/coverage/**",
+      "!**/index.js",
+      "!**/database/**"
     ]
   },
   "repository": {

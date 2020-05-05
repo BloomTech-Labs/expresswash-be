@@ -1,6 +1,7 @@
 const usersRouter = require("express").Router();
-
+const { findWasherId } = require("../auth/auth-modal");
 const Users = require("../users/users-model.js");
+
 // Return all users
 usersRouter.get("/", (req, res) => {
   Users.find()
@@ -16,10 +17,16 @@ usersRouter.get("/", (req, res) => {
     });
 });
 
-// Return user by id - firstName, lastName, email, phoneNumber
+// Return user by id - firstName, lastName, email, phoneNumber, and the cars that are linked to that user
 usersRouter.get("/:id", checkId, (req, res) => {
   delete req.user.password;
-  res.status(200).json(req.user);
+  Users.getUserCars(req.params.id).then((cars) =>
+    findWasherId(req.user.id).then((washer) => {
+      washer
+        ? res.status(200).json({ ...req.user, cars, washer })
+        : res.status(200).json({ ...req.user, cars });
+    })
+  );
 });
 
 // Add rating to user profile
@@ -40,12 +47,10 @@ usersRouter.put("/rating/:id", (req, res) => {
             res.status(201).json(user);
           })
           .catch((err) => {
-            res
-              .status(500)
-              .json({
-                message: "error in updating the user",
-                error: err.message,
-              });
+            res.status(500).json({
+              message: "error in updating the user",
+              error: err.message,
+            });
           });
       } else {
         // adds rating if it is the first one for the user
@@ -55,12 +60,10 @@ usersRouter.put("/rating/:id", (req, res) => {
           })
           .catch((err) => {
             console.log(err);
-            res
-              .status(500)
-              .json({
-                message: "error updating the user rating",
-                error: err.message,
-              });
+            res.status(500).json({
+              message: "error updating the user rating",
+              error: err.message,
+            });
           });
       }
     })
@@ -97,7 +100,6 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
             res.status(201).json(user);
           })
           .catch((err) => {
-            console.log(err);
             res
               .status(500)
               .json({ message: "error updating the washer rating" });
@@ -107,7 +109,6 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
     .catch((err) => {
       res.status(500).json({
         message: `washer with the id ${req.params.id} does not exist`,
-        error: err.message,
       });
     });
 });

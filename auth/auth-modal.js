@@ -18,27 +18,21 @@ function find() {
 }
 
 function findById(id) {
-  return db("users")
-    .where({ id })
-    .then(([user]) => user);
+  return db("users").where({ id }).first();
 }
 
 function findByEmail(email) {
-  return db("users")
-    .where({ email })
-    .then(([user]) => user);
+  return db("users").where({ email }).first();
 }
 
-function insert(user) {
-  return db("users")
-    .insert(user, "id")
-    .then(([id]) => id);
+async function insert(user) {
+  const [newUser] = await db("users").insert(user, "*");
+  return newUser;
 }
 
-function insertWasher(washer) {
-  return db("washers")
-    .insert(washer, "washerId")
-    .then(([id]) => id);
+async function insertWasher(washer) {
+  const [newWasher] = await db("washers").insert(washer, "*");
+  return newWasher;
 }
 
 function findWasherId(userId) {

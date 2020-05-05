@@ -1,7 +1,6 @@
 const carsRouterPG = require("express").Router();
 const db = require("../database/dbConfig.js");
 const cars = require("./cars-model");
-
 //get the list of all cars
 
 carsRouterPG.get("/", (req, res) => {
@@ -30,7 +29,7 @@ carsRouterPG.post("/", (req, res) => {
     .addCar(req.body)
     .then((newCar) => res.status(201).json(newCar))
     .catch((err) => {
-      res.status(500).json(err);
+      res.status(500).json(err.message);
     });
 });
 // updates a car by its carId

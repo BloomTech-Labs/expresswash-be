@@ -6,7 +6,6 @@ mockDb.mock(knex);
 test("testing auth model find", async () => {
   const res = await model.find();
   expect(res).toHaveLength(1);
-  console.log(res);
 });
 test("testing auth model findWahser", async () => {
   const res = await model.findWasher();
