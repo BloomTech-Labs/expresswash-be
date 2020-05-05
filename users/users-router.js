@@ -1,5 +1,5 @@
 const usersRouter = require("express").Router();
-
+const { findWasherId } = require("../auth/auth-modal");
 const Users = require("../users/users-model.js");
 
 // Return all users
@@ -21,7 +21,11 @@ usersRouter.get("/", (req, res) => {
 usersRouter.get("/:id", checkId, (req, res) => {
   delete req.user.password;
   Users.getUserCars(req.params.id).then((cars) =>
-    res.status(200).json({ ...req.user, cars })
+    findWasherId(req.user.id).then((washer) => {
+      washer
+        ? res.status(200).json({ ...req.user, cars, washer })
+        : res.status(200).json({ ...req.user, cars });
+    })
   );
 });
 
