@@ -267,7 +267,33 @@ Takes in a valid user id in the url.
   "bannerImage": "some url",        --String  --Url location of banner img
   "creationDate": "date",           --String  --Timestamp auto generated
   "userRating": 4,                  --Float   --Current Users Rating
-  "userRatingTotal": 1              --Int     --Number of ratings for user
+  "userRatingTotal": 1,             --Int     --Number of ratings for user
+  "cars:[                           --Array   --Array of users cars
+      {
+            "carId": 3,
+            "clientId": 3,
+            "make": "ford",
+            "model": "escort",
+            "year": 1994,
+            "color": "red",
+            "licensePlate": "xyz123",
+            "photo": "some url",
+            "category": "car",
+            "size": "small"
+        },
+        {
+            "carId": 4,
+            "clientId": 3,
+            "make": "chevrolet",
+            "model": "camaro",
+            "year": 2010,
+            "color": "blue",
+            "licensePlate": "zyx321",
+            "photo": "some url",
+            "category": "car",
+            "size": "medium"
+        }
+  ]
 }
 ```
 
@@ -578,9 +604,50 @@ The POST `jobs/new` Endpoint returns the following JSON information:
 
 ---
 
-The `jobs/available/:id` Endpoint needs the following JSON information:
+The GET `jobs/available/:id` Endpoint returns an array of the following JSON information:
+Takes in a valid job id in the url.
 
-ID in the URL/ URI
+```!#json
+[
+   {
+    "id": 5,                        --Int     --User's Id
+    "accountType": "washer",        --String  --User's account type
+    "email": "chris2@chris.com",    --String  --User's Email
+    "firstName": "Chris2",          --String  --User's First Name
+    "lastName": "Adams",            --String  --User's Last Name
+    "phoneNumber": null,            --String  --User's Phone Number
+    "stripeUUID": null,             --String  --Stipe Id
+    "streetAddress": null,          --String  --User's Address
+    "streetAddress2": null,         --String  --User's Address
+    "city": "Kingman",              --String  --User/Job City
+    "state": "AZ",                  --String  --User/Job State
+    "zip": "86409",                 --String  --User/Job Zip
+    "profilePicture": "",           --String  --User's profile url
+    "bannerImage": "",              --String  --User's banner image
+    "creationDate": "date created", --String  --Job creation Date
+    "userRating": null,             --Float   --User's Rating
+    "userRatingTotal": 1,           --Int     --Amount of ratings
+    "jobId": 5,                     --Int     --Job Id
+    "washAddress": "123 s street",  --String  --Address of job
+    "scheduled": true,              --Boolean --Wether Job is scheduled
+    "completed": false,             --Boolean --Wether Job is completed
+    "paid": false,                  --Boolean --Wether Job is Paid
+    "clientId": 2,                  --Int     --User Id for the Job
+    "washerId": null,               --Int     --Populates with washer id when accepted
+    "carId": 7,                     --Int     --Id of car for job
+    "address": "123 main st",       --String  --Address of Job
+    "address2": null,               --String  --Address of Job
+    "jobLocationLat": null,         --Float   --Job location latitude
+    "jobLocationLon": null,         --Float   --Job location Longitude
+    "notes": null,                  --String  --Notes for job
+    "jobType": "basic",             --String  --Type of service requested
+    "photoBeforeJob": null,         --String  --Url of before photo
+    "photoAfterJob": null,          --String  --Url of after photo
+    "timeRequested": "12:00 PM",    --String  --Time requested for job
+    "timeCompleted": null           --String  --Time of job completion
+  },
+]
+```
 
 ---
 
