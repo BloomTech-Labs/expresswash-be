@@ -59,7 +59,6 @@ usersRouter.put("/rating/:id", (req, res) => {
             res.status(201).json(user);
           })
           .catch((err) => {
-            console.log(err);
             res.status(500).json({
               message: "error updating the user rating",
               error: err.message,
@@ -148,7 +147,7 @@ usersRouter.put("/:id", checkId, (req, res) => {
     });
 });
 
-usersRouter.put("washer/:id", checkId, (req, res) => {
+usersRouter.put("/washer/:id", (req, res) => {
   const washerId = req.params.id;
   const changes = req.body;
   Users.updateWasher(washerId, changes)

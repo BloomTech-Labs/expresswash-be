@@ -254,6 +254,14 @@ test("/users/washer/rating/:id PUT error in update new user", async () => {
   mockUpdate.mockRestore();
 });
 
+test("/washer/:id PUT edits existing washer table", async () => {
+  const mock = jest.spyOn(Users, "updateWasher");
+  mock.mockImplementationOnce(() => Promise.resolve());
+  const res = await request(server).put("/washer/1");
+  console.log(res.status);
+  mock.mockRestore();
+});
+
 // const updates = { firstName: "Taco", lastName: "Burrito" };
 // test("/washer/:id - PUT - returns the response 201 when updated", async () => {
 //   const mock2 = jest.spyOn(Users, "findById");
