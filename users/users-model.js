@@ -7,6 +7,7 @@ module.exports = {
   update,
   updateWasher,
   findByWasherId,
+  getUserCars,
 };
 
 function find() {
@@ -29,4 +30,8 @@ function findByWasherId(washerId) {
 }
 function updateWasher(washerId, changes) {
   return db("washers").where({ washerId }).update(changes, "*");
+}
+
+function getUserCars(id) {
+  return db("cars").where({ clientId: id });
 }
