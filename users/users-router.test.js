@@ -142,7 +142,7 @@ test("/users/rating/:id PUT error in update existing user", async () => {
   mock.mockImplementationOnce(() =>
     Promise.resolve({ userRatingTotal: 1, userRating: 4 })
   );
-  mockUpdate.mockImplementationOnce(() => Promise.reject());
+  mockUpdate.mockImplementationOnce(() => Promise.reject({ message: "broke" }));
   const res = await request(server).put("/rating/1").send({
     userRating: 4,
   });
@@ -157,7 +157,7 @@ test("/users/rating/:id PUT error in update new user", async () => {
   mock.mockImplementationOnce(() =>
     Promise.resolve({ userRatingTotal: 0, userRating: 4 })
   );
-  mockUpdate.mockImplementationOnce(() => Promise.reject());
+  mockUpdate.mockImplementationOnce(() => Promise.reject({ message: "broke" }));
   const res = await request(server).put("/rating/1").send({
     userRating: 4,
   });
@@ -244,3 +244,27 @@ test("/users/washer/rating/:id PUT error in update new user", async () => {
   mock.mockRestore();
   mockUpdate.mockRestore();
 });
+
+// const updates = { firstName: "Taco", lastName: "Burrito" };
+// test("/washer/:id - PUT - returns the response 201 when updated", async () => {
+//   const mock2 = jest.spyOn(Users, "findById");
+//   const mockUpdate2 = jest.spyOn(Users, "updateWasher");
+//   mock2.mockImplementation(() => Promise.reject());
+//   mockUpdate2.mockImplementation(() => Promise.resolve());
+//   const res = await request(server).put("/washer/1");
+//   expect(res.status).toBe(201);
+//   mock2.mockRestore();
+//   mockUpdate2.mockRestore();
+// });
+
+// changes = { firstName: "new", lastName: "old" };
+// test("/users/:id PUT request - return response status 200 when user successfully updated", async () => {
+//   const mock = jest.spyOn(Users, "findById");
+//   const mockUpdate = jest.spyOn(Users, "update");
+//   mock.mockImplementationOnce(() => Promise.resolve(1));
+//   mockUpdate.mockImplementationOnce(() => Promise.resolve([changes]));
+//   const res = await request(server).put("/1");
+//   expect(res.status).toBe(200);
+//   mock.mockRestore();
+//   mockUpdate.mockRestore();
+// });
