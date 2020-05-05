@@ -138,19 +138,19 @@ The POST `auth/login` Endpoint returns the following JSON information:
         "creationDate": "date",           --String  --Timestamp auto generated
         "userRating": 4,                  --Float   --Current Users Rating
         "userRatingTotal": 1              --Int     --Number of ratings for user
-    },
-    "washer": {                                     --Washer Object(only if registered as a washer)
-        "userId": 26,                     --Int     --User's Id
-        "available": true,                --Boolean --If washer is available for work
-        "workStatus": true,               --Boolean --If washer is available for work
-        "rateSmall": "30.00",             --Float   --Washer price for small job
-        "rateMedium": "50.00",            --Float   --Washer price for medium job
-        "rateLarge": "75.00",             --Float   --Washer price for large job
-        "aboutMe": "I am a washer",       --String  --Description of washer/Bio
-        "currentLocationLat": "55.777",   --Float   --Current location latitude
-        "currentLocationLon": "35.555",   --Float   --Current location longitude
-        "washerRating": 3,                --Float   --Current washer rating
-        "washerRatingTotal": 1            --Int     --Number of ratings for washer
+        "washer": {                                 --Washer Object(only if registered as a washer)
+          "userId": 26,                    --Int     --User's Id
+          "available": true,               --Boolean --If washer is available for work
+          "workStatus": true,              --Boolean --If washer is available for work
+          "rateSmall": "30.00",            --Float   --Washer price for small job
+          "rateMedium": "50.00",           --Float   --Washer price for medium job
+          "rateLarge": "75.00",            --Float   --Washer price for large job
+          "aboutMe": "I am a washer",      --String  --Description of washer/Bio
+          "currentLocationLat": "55.777",  --Float   --Current location latitude
+          "currentLocationLon": "35.555",  --Float   --Current location longitude
+          "washerRating": 3,               --Float   --Current washer rating
+          "washerRatingTotal": 1           --Int     --Number of ratings for washer
+        }
     }
 }
 ```
@@ -195,26 +195,26 @@ The POST `auth/registerWasher/:id` Endpoint returns the following JSON informati
         "creationDate": "date",           --String  --Timestamp auto generated
         "userRating": 4,                  --Float   --Current Users Rating
         "userRatingTotal": 1              --Int     --Number of ratings for user
-    },
-    "washer": {                                     --Washer Object
-        "userId": 26,                     --Int     --User's Id
-        "available": true,                --Boolean --If washer is available for work
-        "workStatus": true,               --Boolean --If washer is available for work
-        "rateSmall": "30.00",             --Float   --Washer price for small job
-        "rateMedium": "50.00",            --Float   --Washer price for medium job
-        "rateLarge": "75.00",             --Float   --Washer price for large job
-        "aboutMe": "I am a washer",       --String  --Description of washer/Bio
-        "currentLocationLat": "55.777",   --Float   --Current location latitude
-        "currentLocationLon": "35.555",   --Float   --Current location longitude
-        "washerRating": 3,                --Float   --Current washer rating
-        "washerRatingTotal": 1            --Int     --Number of ratings for washer
+        "washer": {                                 --Washer Object
+          "userId": 26,                   --Int     --User's Id
+          "available": true,              --Boolean --If washer is available for work
+          "workStatus": true,             --Boolean --If washer is available for work
+          "rateSmall": "30.00",           --Float   --Washer price for small job
+          "rateMedium": "50.00",          --Float   --Washer price for medium job
+          "rateLarge": "75.00",           --Float   --Washer price for large job
+          "aboutMe": "I am a washer",     --String  --Description of washer/Bio
+          "currentLocationLat": "55.777", --Float   --Current location latitude
+          "currentLocationLon": "35.555", --Float   --Current location longitude
+          "washerRating": 3,              --Float   --Current washer rating
+          "washerRatingTotal": 1          --Int     --Number of ratings for washer
+        }
     }
 }
 ```
 
 ---
 
-### Users routes
+### Users routs
 
 The GET `users/` Endpoint returns the following array of JSON information:
 
@@ -269,7 +269,7 @@ Takes in a valid user id in the url.
   "userRating": 4,                  --Float   --Current Users Rating
   "userRatingTotal": 1,             --Int     --Number of ratings for user
   "cars:[                           --Array   --Array of users cars
-      {
+        {
             "carId": 3,
             "clientId": 3,
             "make": "ford",
@@ -294,6 +294,19 @@ Takes in a valid user id in the url.
             "size": "medium"
         }
   ]
+  "washer": {                                 --Washer Object(if user is registered as a washer)
+    "userId": 26,                   --Int     --User's Id
+    "available": true,              --Boolean --If washer is available for work
+    "workStatus": true,             --Boolean --If washer is available for work
+    "rateSmall": "30.00",           --Float   --Washer price for small job
+    "rateMedium": "50.00",          --Float   --Washer price for medium job
+    "rateLarge": "75.00",           --Float   --Washer price for large job
+    "aboutMe": "I am a washer",     --String  --Description of washer/Bio
+    "currentLocationLat": "55.777", --Float   --Current location latitude
+    "currentLocationLon": "35.555", --Float   --Current location longitude
+    "washerRating": 3,              --Float   --Current washer rating
+    "washerRatingTotal": 1          --Int     --Number of ratings for washer
+  }
 }
 ```
 
