@@ -111,7 +111,7 @@ test("Posts a new Washer to the /auth/registerWasher/:id endpoint", async () => 
   const res = await request(server).post("/registerWasher/1").send(newWasher);
   expect(res.status).toBe(201);
   expect(res.body).toHaveProperty("user");
-  expect(res.body).toHaveProperty("washer");
+  expect(res.body.user).toHaveProperty("washer");
   mock.mockRestore();
   mockFind.mockRestore();
   mockFindUser.mockRestore();
@@ -141,7 +141,6 @@ test("Error message on account not having the type of washer", async () => {
   mockIfWasherExists.mockImplementationOnce(() => Promise.resolve(false));
   mock.mockImplementationOnce(() => Promise.resolve(1));
   const res = await request(server).post("/registerWasher/1").send(newWasher);
-  console.log(res.body);
   expect(res.status).toBe(403);
   expect(res.body).toMatchObject({
     message: "user does not have an account type of washer",
@@ -181,7 +180,7 @@ test("Log user in to the /auth/login endpoint", async () => {
   expect(res.status).toBe(200);
   expect(res.body).toHaveProperty("token");
   expect(res.body).toHaveProperty("user");
-  expect(res.body).toHaveProperty("washer");
+  expect(res.body.user).toHaveProperty("washer");
   mock.mockRestore();
   mockFindWasher.mockRestore();
 });

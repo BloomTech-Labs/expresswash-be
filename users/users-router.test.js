@@ -2,6 +2,7 @@ const express = require("express");
 const server = express();
 const request = require("supertest");
 const Users = require("./users-model");
+const Washer = require("../auth/auth-modal");
 const usersRouter = require("./users-router");
 
 server.use(express.json());
@@ -23,10 +24,18 @@ test("/users/ GET request - return error and status 500 on failure", async () =>
 });
 test("/users/:id GET request - return user by id with response status 200", async () => {
   const mock = jest.spyOn(Users, "findById");
-  mock.mockImplementationOnce(() => Promise.resolve(2));
+  const mockWasher = jest.spyOn(Washer, "findWasherId");
+  const mockCars = jest.spyOn(Users, "getUserCars");
+  mock.mockImplementationOnce(() =>
+    Promise.resolve({ id: 2, accoutType: "washer" })
+  );
+  mockCars.mockImplementationOnce(() => Promise.resolve([{ cars: "cars" }]));
+  mockWasher.mockImplementationOnce(() => Promise.resolve());
   const res = await request(server).get("/2");
   expect(res.status).toBe(200);
   mock.mockRestore();
+  mockWasher.mockRestore();
+  mockCars.mockRestore();
 });
 test("/users/:id GET request - return response status 404 when no user", async () => {
   const mock = jest.spyOn(Users, "findById");
@@ -142,7 +151,7 @@ test("/users/rating/:id PUT error in update existing user", async () => {
   mock.mockImplementationOnce(() =>
     Promise.resolve({ userRatingTotal: 1, userRating: 4 })
   );
-  mockUpdate.mockImplementationOnce(() => Promise.reject());
+  mockUpdate.mockImplementationOnce(() => Promise.reject({ message: "broke" }));
   const res = await request(server).put("/rating/1").send({
     userRating: 4,
   });
@@ -157,7 +166,7 @@ test("/users/rating/:id PUT error in update new user", async () => {
   mock.mockImplementationOnce(() =>
     Promise.resolve({ userRatingTotal: 0, userRating: 4 })
   );
-  mockUpdate.mockImplementationOnce(() => Promise.reject());
+  mockUpdate.mockImplementationOnce(() => Promise.reject({ message: "broke" }));
   const res = await request(server).put("/rating/1").send({
     userRating: 4,
   });
