@@ -3,17 +3,17 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/d9d450333b0f06f4ceca/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/wowo-be/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d9d450333b0f06f4ceca/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/wowo-be/test_coverage)
 
-## Backend deployed at [Heroku](https://pt6-wowo.herokuapp.com/)
+## Backend deployed at [AWS](http://wowo-env.eba-35bhjsem.us-east-1.elasticbeanstalk.com/)
 
 ## 1️⃣ Getting started
 
 To get the server running locally:
 
 - Clone this repo
-- Install PostgresSQL then **createdb databasePG**
+- Install PostgresSQL then **createdb wowo-dev**
 - **npm install** to install all required dependencies
 - **npm run server** to start the local server
-- **npm run test** to start server using testing environment
+- **npm run unit-test** to start server using testing environment
 
 ### Backend Framework
 
@@ -25,209 +25,811 @@ The endpoints currently operational on the server are listed below.
 
 ### All Routes
 
-
 | Method | Endpoint                   | Access Control              | Description                                                                |
 | ------ | -------------------------- | --------------------------- | -------------------------------------------------------------------------- |
 | POST   | `/auth/RegisterClient`     | all users                   | Register for a client account.                                             |
 | POST   | `/auth/RegisterWasher/:id` | users registered as washers | Register for a washer account.                                             |
 | POST   | `/auth/login`              | all users                   | Login to an existing account.                                              |
-| GET    | `/carsPG/makes`            | all users                   | Returns all car makes.                                                     |
-| POST   | `/carsPG/models`           | all users                   | Returns all car models for a given make.                                   |
-| POST   | `/carsPG/getCarId`         | all users                   | Takes in make and model and returns carId.                                 |
-| POST   | `/carsPG/addACar`          | all users                   | Takes in userId, carId, color and license plate, ties car to user profile. |
+| GET    | `/users`                   | all users                   | View all users.                                                            |
+| GET    | `/users/:id`               | all users                   | View a user by id.                                                         |
+| PUT    | `/users/:id`               | all users                   | Update a user.                                                             |
+| DELETE | `/users/:id`               | all users                   | Remove a user.                                                             |
+| PUT    | `/users/rating/:id`        | all washers                 | Update rating of a user.                                                   |
+| PUT    | `/users/washer/rating/:id` | all users                   | Update rating of a washer.                                                 |
+| GET    | `/cars`                    | all users                   | Returns all car makes.                                                     |
+| POST   | `/cars`                    | all users                   | Takes in make and model and returns carId.                                 |
+| GET    | `/cars/:id`                | all users                   | Returns all car models for a given make.                                   |
+| PUT    | `/cars/:id`                | all users                   | Takes in userId, carId, color and license plate, ties car to user profile. |
+| PUT    | `/cars/:id`                | all users                   | Takes in userId, carId, color and license plate, ties car to user profile. |
+| DELETE | `/cars/:id`                | all users                   | Takes in userId, carId, color and license plate, ties car to user profile. |
 | POST   | `/jobs/new`                | all users                   | Creates a new job.                                                         |
-| GET    | `/jobs/available/:id`      | all users                   | Returns all jobs with washerId null (new available jobs).                  |
+| GET    | `/jobs/available/:id`      | all washers                 | Returns all jobs with washerId null (new available jobs).                  |
 | GET    | `/jobs/jobInfo/:id`        | all users                   | Returns all job info for given jobId                                       |
-| PUT    | `/jobs/selectJob/:id`      | all users                   | Adds the washer to a job.                                                  |
+| PUT    | `/jobs/selectJob/:id`      | all washers                 | Adds the washer to a job.                                                  |
 | DELETE | `/jobs/job/:id`            | all users                   | Deletes Job by Job ID                                                      |
 | PUT    | `/jobs/job/:id`            | all users                   | Edits Job by Job ID                                                        |
 | GET    | `/jobs/user/:id`           | all users                   | Gets Jobs by User ID                                                       |
-| POST   | `/ratings/washerAverage`   | all users                   | Returns average rating for a washer.                                       |
-| POST   | `/ratings/clientAverage`   | all users                   | Returns average rating for a client.                                       |
-| POST   | `/ratings/rateWasher`      | all users                   | Add a washer rating.                                                       |
-| POST   | `/ratings/rateClient`      | all users                   | Add a client rating.                                                       |
-| GET    | `/users/`                  | all users                   | View all users.                                                            |
-| GET    | `/users/:id`               | all users                   | View a user by id.                                                         |
-| DELETE | `/users/:id`               | all users                   | Remove a user.                                                             |
-| PUT    | `/users/:id`               | all users                   | Update a user.                                                             |
-| PUT    | `/users/rating/:id`        | all users                   | Update rating of a user.                                                   |
-| PUT    | `/users/washer/rating/:id` | all users                   | Update rating of a washer.                                                 |
 
-
-## Data Model
-
-The `auth/registerClient` Endpoint need the following JSON information:
-
-```#! json
-{
-  "email":"test@test.com",  --Required
-  "firstName":"Test",       --Required
-  "lastName":"Testerson",   --Required
-  "password":"1234",        --Required
-  "phoneNumber":"1234567890",
-  "streetAddress":"1051 Market St",
-  "streetAddress2":"APT 240",
-  "city":"San Francisco",
-  "State":"California",
-  "zip":"94103",
-  "profilePicture":"some url",
-  "bannerImage":"some url"
-}
-```
-
-The `auth/login` Endpoint needs the following JSON information:
-
-```#! json
-{
-  "email":"test@test.con",
-  "password":"1234"
-}
-```
-
-The `auth/registerWasher` Endpoint needs the following JSON information. Must be registered as a washer to access:
-
-```#! json
-{
-  "userId": 1,              --Required
-  "workStatus": true,       --Defaults to false
-  "rateSmall": 30,
-  "rateMedium": 50,         --Required
-  "rateLarge": 80,
-  "aboutMe": "washer bio",
-  "currentLoaction":"lat/lon string",
-  "available": true,
-}
-```
-
-The Car Models Endpoint needs the following JSON information:
-
-```#! json
-{
-  "make":"Acura"
-}
-```
-
-The GetCarId Endpoint needs the following JSON information:
-
-```#! json
-{
-  "make":"Acura",
-  "model":"Integra"
-}
-```
-
-The AddACar Endpoint needs the following JSON information:
-
-```#! json
-{
-  "id":1,
-  "carId":42,
-  "color":"beige",
-  "licensePlate":"542-EXF"
-}
-```
-
-The `jobs/new` Endpoint needs the following JSON information:
-
-```#! json
-{
-        "washAddress": "42 Wallaby Way Sydney",      --Required
-        "scheduled": true,                        --Defaults to true
-        "completed": false,                       --Defaults to false
-        "paid": false,                            --Defaults to false
-        "clientId": 4,                            --Represents the user's ID
-        "washerId": null,
-        "creationDate": "2020-04-29T22:59:51.775-04:00",   --Required Auto Generated from Database
-        "carId": 1,                              --Represents the car ID
-        "address": "123 First St",               --Required
-        "address2": "APT 2",
-        "jobLocationLat": null,
-        "jobLocationLon": null,
-        "city": "tampa",                        --Required
-        "state": "FL",                          --Required
-        "zip": "60184",                         --Required
-        "notes": null,
-        "jobType": "basic",                     --Required
-        "photoBeforeJob": null,
-        "photoAfterJob": null,
-        "timeRequested": "12:00 PM",                --Required
-        "timeCompleted": null
-    }
-```
-
-The `jobs/available/:id` Endpoint needs the following JSON information:
-
-ID in the URL/ URI
-
-The `jobs/jobInfo/:id` Endpoint needs the following JSON information:
-
-ID in the URL/ URI
-
-The `jobs/selectJob/:id` Endpoint needs the following JSON information:
-
-```#! json
-{
-  "washerID": 1  --Required
-}
-```
-
-The `jobs/job/:id` Endpoint needs the following JSON information:
-
-GET Requires ID in the URL/ URI
-
-DELETE Requires ID in the URL/ URI
-
-PUT Requires changes to the Job
-
-```#! json
-{
-  "washAddress": "updated address"
-}
-```
-
-
-### USERS
+## Endpoint Details
 
 ---
 
-The `/users/rating/:id` Endpoint needs the following information:
+### Auth Routes
+
+The POST `auth/registerClient` Endpoint takes the following JSON information:
 
 ```#! json
 {
-  userRating: 3
+  "accountType":"client"                --Required  --String  --Must be "washer" or "client"
+  "email":"test@test.com",              --Required  --String  --Must be Unique
+  "firstName":"Test",                   --Required  --String
+  "lastName":"Testerson",               --Required  --String
+  "password":"12345678",                --Required  --String  --Min 8 characters
+  "phoneNumber":"1234567890",                       --String
+  "streetAddress":"1051 Market St",     --Required  --String
+  "streetAddress2":"APT 240",                       --String
+  "city":"San Francisco",               --Required  --String
+  "State":"California",                 --Required  --String
+  "zip":"94103",                        --Required  --String
+  "profilePicture":"some url",                      --String
+  "bannerImage":"some url"                          --String
 }
 ```
 
-The `/users/washer/rating/:id` Endpoint needs the following information:
+The POST `auth/registerClient` Endpoint returns the following JSON information:
 
 ```#! json
 {
-  washerRating: 3
+  "message": "user created successfully", --String  --Success Message
+    "token": "Auth token",                --String  --auto generated auth token
+    "user": {                                       --New user Object
+        "id": 1,                          --Int     --User Id
+        "accountType": "client",          --String  --user's account type "washer/client"
+        "email": "test@test.com",         --String  --Users Unique Email
+        "firstName": "Test",              --String  --Users First Name
+        "lastName": "Testerson",          --String  --Users Last Name
+        "phoneNumber": "1234567890",      --String  --Phone Number
+        "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+        "streetAddress": "1051 Market St",--String  --Street Address
+        "streetAddress2": "APT 240",      --String  --Secondary address field
+        "city": "San Francisco",          --String  --City
+        "state": "CA",                    --String  --State --Max Length 2
+        "zip": "94103",                   --String  --Zip code
+        "profilePicture": "some url",     --String  --Url location of profile img
+        "bannerImage": "some url",        --String  --Url location of banner img
+        "creationDate": "date",           --String  --Timestamp auto generated
+        "userRating": 4,                  --Float   --Current Users Rating
+        "userRatingTotal": 1              --Int     --Number of ratings for user
+    }
 }
 ```
 
+---
+
+The POST `auth/login` Endpoint needs the following JSON information:
+
 ```#! json
 {
-  id: UUID,
-  email: STRING,
-  first_name: STRING,
-  last_name: STRING,
-  password: STRING,
-  phoneNumber: STRING,
-  streetAddress: STRING,
-  streetAddress2: STRING,
-  city: STRING,
-  state: STRING,
-  zip: STRING,
-  userType: STRING [ 'admin', 'washer', 'client' ],
+  "email":"test@test.com",              --String  --Registered Email Address
+  "password":"12345678"                 --String  --Users Password
 }
 ```
+
+The POST `auth/login` Endpoint returns the following JSON information:
+
+```#!json
+{
+  "token": "auth token",                  --String  --Generated Auth Token
+    "user": {                                       --Logged In User Object
+        "id": 26,                                   --User Id
+        "accountType": "washer",                    --user's account type "washer/client"
+        "email": "test@test.com",         --String  --Users Unique Email
+        "firstName": "Test",              --String  --Users First Name
+        "lastName": "Testerson",          --String  --Users Last Name
+        "phoneNumber": "1234567890",      --String  --Phone Number
+        "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+        "streetAddress": "1051 Market St",--String  --Street Address
+        "streetAddress2": "APT 240",      --String  --Secondary address field
+        "city": "San Francisco",          --String  --City
+        "state": "CA",                    --String  --State --Max Length 2
+        "zip": "94103",                   --String  --Zip code
+        "profilePicture": "some url",     --String  --Url location of profile img
+        "bannerImage": "some url",        --String  --Url location of banner img
+        "creationDate": "date",           --String  --Timestamp auto generated
+        "userRating": 4,                  --Float   --Current Users Rating
+        "userRatingTotal": 1              --Int     --Number of ratings for user
+    },
+    "washer": {                                     --Washer Object(only if registered as a washer)
+        "userId": 26,                     --Int     --User's Id
+        "available": true,                --Boolean --If washer is available for work
+        "workStatus": true,               --Boolean --If washer is available for work
+        "rateSmall": "30.00",             --Float   --Washer price for small job
+        "rateMedium": "50.00",            --Float   --Washer price for medium job
+        "rateLarge": "75.00",             --Float   --Washer price for large job
+        "aboutMe": "I am a washer",       --String  --Description of washer/Bio
+        "currentLocationLat": "55.777",   --Float   --Current location latitude
+        "currentLocationLon": "35.555",   --Float   --Current location longitude
+        "washerRating": 3,                --Float   --Current washer rating
+        "washerRatingTotal": 1            --Int     --Number of ratings for washer
+    }
+}
+```
+
+---
+
+The POST `auth/registerWasher/:id` Endpoint needs the following JSON information:
+Takes in a valid user id in the url and must be registered with the account type of "washer"
+
+```#! json
+{
+  "available": true,                            --Boolean --Defaults to false
+  "workStatus": true,                           --Boolean --Defaults to false
+  "rateSmall": "30.00",                         --Float
+  "rateMedium": "50.00",            --Required  --Float
+  "rateLarge": "75.00",                         --Float
+  "aboutMe": "I am a washer",                   --String
+  "currentLocationLat": "55.777",               --Float
+  "currentLocationLon": "35.555",               --Float
+}
+```
+
+The POST `auth/registerWasher/:id` Endpoint returns the following JSON information:
+
+```@!json
+{
+  "user": {                                       --Logged In User Object
+        "id": 26,                                   --User Id
+        "accountType": "washer",                    --user's account type "washer/client"
+        "email": "test@test.com",         --String  --Users Unique Email
+        "firstName": "Test",              --String  --Users First Name
+        "lastName": "Testerson",          --String  --Users Last Name
+        "phoneNumber": "1234567890",      --String  --Phone Number
+        "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+        "streetAddress": "1051 Market St",--String  --Street Address
+        "streetAddress2": "APT 240",      --String  --Secondary address field
+        "city": "San Francisco",          --String  --City
+        "state": "CA",                    --String  --State --Max Length 2
+        "zip": "94103",                   --String  --Zip code
+        "profilePicture": "some url",     --String  --Url location of profile img
+        "bannerImage": "some url",        --String  --Url location of banner img
+        "creationDate": "date",           --String  --Timestamp auto generated
+        "userRating": 4,                  --Float   --Current Users Rating
+        "userRatingTotal": 1              --Int     --Number of ratings for user
+    },
+    "washer": {                                     --Washer Object
+        "userId": 26,                     --Int     --User's Id
+        "available": true,                --Boolean --If washer is available for work
+        "workStatus": true,               --Boolean --If washer is available for work
+        "rateSmall": "30.00",             --Float   --Washer price for small job
+        "rateMedium": "50.00",            --Float   --Washer price for medium job
+        "rateLarge": "75.00",             --Float   --Washer price for large job
+        "aboutMe": "I am a washer",       --String  --Description of washer/Bio
+        "currentLocationLat": "55.777",   --Float   --Current location latitude
+        "currentLocationLon": "35.555",   --Float   --Current location longitude
+        "washerRating": 3,                --Float   --Current washer rating
+        "washerRatingTotal": 1            --Int     --Number of ratings for washer
+    }
+}
+```
+
+---
+
+### Users routes
+
+The GET `users/` Endpoint returns the following array of JSON information:
+
+```#!json
+{
+  [
+    {
+        "id": 1,                          --Int     --User Id
+        "accountType": "client",          --String  --user's account type "washer/client"
+        "email": "test@test.com",         --String  --Users Unique Email
+        "firstName": "Test",              --String  --Users First Name
+        "lastName": "Testerson",          --String  --Users Last Name
+        "phoneNumber": "1234567890",      --String  --Phone Number
+        "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+        "streetAddress": "1051 Market St",--String  --Street Address
+        "streetAddress2": "APT 240",      --String  --Secondary address field
+        "city": "San Francisco",          --String  --City
+        "state": "CA",                    --String  --State --Max Length 2
+        "zip": "94103",                   --String  --Zip code
+        "profilePicture": "some url",     --String  --Url location of profile img
+        "bannerImage": "some url",        --String  --Url location of banner img
+        "creationDate": "date",           --String  --Timestamp auto generated
+        "userRating": 4,                  --Float   --Current Users Rating
+        "userRatingTotal": 1              --Int     --Number of ratings for user
+    },
+  ]
+}
+```
+
+---
+
+The GET `users/:id` Endpoint returns the following JSON information:
+Takes in a valid user id in the url.
+
+```#!json
+{
+  "id": 1,                          --Int     --User Id
+  "accountType": "client",          --String  --user's account type "washer/client"
+  "email": "test@test.com",         --String  --Users Unique Email
+  "firstName": "Test",              --String  --Users First Name
+  "lastName": "Testerson",          --String  --Users Last Name
+  "phoneNumber": "1234567890",      --String  --Phone Number
+  "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+  "streetAddress": "1051 Market St",--String  --Street Address
+  "streetAddress2": "APT 240",      --String  --Secondary address field
+  "city": "San Francisco",          --String  --City
+  "state": "CA",                    --String  --State --Max Length 2
+  "zip": "94103",                   --String  --Zip code
+  "profilePicture": "some url",     --String  --Url location of profile img
+  "bannerImage": "some url",        --String  --Url location of banner img
+  "creationDate": "date",           --String  --Timestamp auto generated
+  "userRating": 4,                  --Float   --Current Users Rating
+  "userRatingTotal": 1,             --Int     --Number of ratings for user
+  "cars:[                           --Array   --Array of users cars
+      {
+            "carId": 3,
+            "clientId": 3,
+            "make": "ford",
+            "model": "escort",
+            "year": 1994,
+            "color": "red",
+            "licensePlate": "xyz123",
+            "photo": "some url",
+            "category": "car",
+            "size": "small"
+        },
+        {
+            "carId": 4,
+            "clientId": 3,
+            "make": "chevrolet",
+            "model": "camaro",
+            "year": 2010,
+            "color": "blue",
+            "licensePlate": "zyx321",
+            "photo": "some url",
+            "category": "car",
+            "size": "medium"
+        }
+  ]
+}
+```
+
+---
+
+The PUT `users/:id` Endpoint takes in any of the following JSON information:
+Takes in a valid user id in the url.
+
+```#!json
+{
+  "accountType": "client",          --String  --user's account type "washer/client"
+  "firstName": "Test",              --String  --Users First Name
+  "lastName": "Testerson",          --String  --Users Last Name
+  "phoneNumber": "1234567890",      --String  --Phone Number
+  "streetAddress": "1051 Market St",--String  --Street Address
+  "streetAddress2": "APT 240",      --String  --Secondary address field
+  "city": "San Francisco",          --String  --City
+  "state": "CA",                    --String  --State --Max Length 2
+  "zip": "94103",                   --String  --Zip code
+  "profilePicture": "some url",     --String  --Url location of profile img
+  "bannerImage": "some url",        --String  --Url location of banner img
+}
+```
+
+The PUT `users/:id` Endpoint returns the following JSON information:
+
+```#!json
+{
+  "id": 1,                          --Int     --User Id
+  "accountType": "client",          --String  --user's account type "washer/client"
+  "email": "test@test.com",         --String  --Users Unique Email
+  "firstName": "Test",              --String  --Users First Name
+  "lastName": "Testerson",          --String  --Users Last Name
+  "phoneNumber": "1234567890",      --String  --Phone Number
+  "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+  "streetAddress": "1051 Market St",--String  --Street Address
+  "streetAddress2": "APT 240",      --String  --Secondary address field
+  "city": "San Francisco",          --String  --City
+  "state": "CA",                    --String  --State --Max Length 2
+  "zip": "94103",                   --String  --Zip code
+  "profilePicture": "some url",     --String  --Url location of profile img
+  "bannerImage": "some url",        --String  --Url location of banner img
+  "creationDate": "date",           --String  --Timestamp auto generated
+  "userRating": 4,                  --Float   --Current Users Rating
+  "userRatingTotal": 1              --Int     --Number of ratings for user
+}
+```
+
+---
+
+The DELETE `users/:id` Endpoint returns following JSON information:
+Takes in a valid user id in the url.
+
+```#!json
+{
+    "message": "The user has been successfully removed from the database"
+}
+```
+
+---
+
+The PUT `users/rating/:id` Endpoint takes in the following JSON information:
+Takes in a valid user id in the url.
+
+```#!json
+{
+ "userRating": 4                    --Float --updates and averages automatically
+}
+```
+
+The PUT `users/rating/:id` Endpoint returns the following JSON information:
+
+```#!json
+{
+  "id": 1,                          --Int     --User Id
+  "accountType": "client",          --String  --user's account type "washer/client"
+  "email": "test@test.com",         --String  --Users Unique Email
+  "firstName": "Test",              --String  --Users First Name
+  "lastName": "Testerson",          --String  --Users Last Name
+  "phoneNumber": "1234567890",      --String  --Phone Number
+  "stripeUUID": null,               --String  --Stripe Id Unique Identifier
+  "streetAddress": "1051 Market St",--String  --Street Address
+  "streetAddress2": "APT 240",      --String  --Secondary address field
+  "city": "San Francisco",          --String  --City
+  "state": "CA",                    --String  --State --Max Length 2
+  "zip": "94103",                   --String  --Zip code
+  "profilePicture": "some url",     --String  --Url location of profile img
+  "bannerImage": "some url",        --String  --Url location of banner img
+  "creationDate": "date",           --String  --Timestamp auto generated
+  "userRating": 3.6667,             --Float   --Updated user rating
+  "userRatingTotal": 2              --Int     --Number of ratings for user
+}
+```
+
+---
+
+The PUT `users/washer/rating/:id` Endpoint takes in the following JSON information:
+Takes in a valid washer id in the url.
+
+```#!json
+{
+ "washerRating": 4                    --Float --updates and averages automatically
+}
+```
+
+The PUT `users/washer/rating/:id` Endpoint returns the following JSON information:
+
+```#!json
+{
+  "washerId": 2                     --Int     --Washer Id
+  "userId": 26,                     --Int     --User's Id
+  "available": true,                --Boolean --If washer is available for work
+  "workStatus": true,               --Boolean --If washer is available for work
+  "rateSmall": "30.00",             --Float   --Washer price for small job
+  "rateMedium": "50.00",            --Float   --Washer price for medium job
+  "rateLarge": "75.00",             --Float   --Washer price for large job
+  "aboutMe": "I am a washer",       --String  --Description of washer/Bio
+  "currentLocationLat": "55.777",   --Float   --Current location latitude
+  "currentLocationLon": "35.555",   --Float   --Current location longitude
+  "washerRating": 3,                --Float   --Updated washer rating
+  "washerRatingTotal": 2            --Int     --Number of ratings for washer
+}
+```
+
+---
+
+### Cars routes
+
+The GET `cars/` Endpoint returns the following array of JSON information:
+
+```#! json
+[
+  {
+    "carId": 1,                     --Int     --Id of car object
+    "clientId": 6,                  --Int     --Id of user
+    "make": "ford",                 --String  --Make of car
+    "model": "mustang",             --String  --Model of car
+    "year": 1996,                   --Int     --Year of car
+    "color": "blue",                --String  --Color of car
+    "licensePlate": "xyz 123",      --String  --License plate number
+    "photo": "some url",            --String  --Url address of photo of car
+    "category": "car",              --String  --Type of car(car/suv/truck/van/etc.)
+    "size": "small"                 --String  --Size of car(small/medium/large)
+  }
+]
+```
+
+---
+
+The POST `cars/` Endpoint takes in the following JSON information:
+
+```#! json
+{
+  "clientId": 6,                  --Required  --Int     --Id of user
+  "make": "ford",                 --Required  --String  --Make of car
+  "model": "mustang",             --Required  --String  --Model of car
+  "year": 1996,                   --Required  --Int     --Year of car
+  "color": "blue",                --Required  --String  --Color of car
+  "licensePlate": "xyz 123",      --Required  --String  --License plate number
+  "photo": "some url",                        --String  --Url address of photo of car
+  "category": "car",              --Required  --String  --Type of car(car/suv/truck/van/etc.)
+  "size": "small"                 --Required  --String  --Size of car(small/medium/large)
+}
+```
+
+The POST `cars/` Endpoint returns the following JSON information:
+
+```#! json
+{
+  "carId": 1,                     --Int     --Id of new car object
+  "clientId": 6,                  --Int     --Id of user
+  "make": "ford",                 --String  --Make of car
+  "model": "mustang",             --String  --Model of car
+  "year": 1996,                   --Int     --Year of car
+  "color": "blue",                --String  --Color of car
+  "licensePlate": "xyz 123",      --String  --License plate number
+  "photo": "some url",            --String  --Url address of photo of car
+  "category": "car",              --String  --Type of car(car/suv/truck/van/etc.)
+  "size": "small"                 --String  --Size of car(small/medium/large)
+}
+```
+
+---
+
+The GET `cars/:id` Endpoint returns the following JSON information:
+Takes in a valid car id in the url.
+
+```#! json
+{
+  "carId": 1,                     --Int     --Id of car object
+  "clientId": 6,                  --Int     --Id of user
+  "make": "ford",                 --String  --Make of car
+  "model": "mustang",             --String  --Model of car
+  "year": 1996,                   --Int     --Year of car
+  "color": "blue",                --String  --Color of car
+  "licensePlate": "xyz 123",      --String  --License plate number
+  "photo": "some url",            --String  --Url address of photo of car
+  "category": "car",              --String  --Type of car(car/suv/truck/van/etc.)
+  "size": "small"                 --String  --Size of car(small/medium/large)
+}
+```
+
+---
+
+The PUT `cars/:id` Endpoint takes in any of the following JSON information:
+Takes in a valid car id in the url.
+
+```#! json
+{
+  "make": "ford",                 --String  --Make of car
+  "model": "mustang",             --String  --Model of car
+  "year": 1996,                   --Int     --Year of car
+  "color": "blue",                --String  --Color of car
+  "licensePlate": "xyz 123",      --String  --License plate number
+  "photo": "some url",            --String  --Url address of photo of car
+  "category": "car",              --String  --Type of car(car/suv/truck/van/etc.)
+  "size": "small"                 --String  --Size of car(small/medium/large)
+}
+```
+
+The PUT `cars/:id` Endpoint returns the following JSON information:
+
+```#! json
+{
+  "carId": 1,                     --Int     --Id of new car object
+  "clientId": 6,                  --Int     --Id of user
+  "make": "ford",                 --String  --Make of car
+  "model": "mustang",             --String  --Model of car
+  "year": 1996,                   --Int     --Year of car
+  "color": "blue",                --String  --Color of car
+  "licensePlate": "xyz 123",      --String  --License plate number
+  "photo": "some url",            --String  --Url address of photo of car
+  "category": "car",              --String  --Type of car(car/suv/truck/van/etc.)
+  "size": "small"                 --String  --Size of car(small/medium/large)
+}
+```
+
+---
+
+The DELETE `cars/:id` Endpoint returns the following JSON information:
+Takes in a valid car id in the url.
+
+```#! json
+{
+    "message": "Successfully deleted 1 car"
+}
+```
+
+---
+
+### Jobs Routes
+
+The POST `jobs/new` Endpoint needs the following JSON information:
+
+```#! json
+{
+  "washAddress": "42 Wallaby Way Sydney", --Required  --String  --Address of job
+  "scheduled": true,                                  --Boolean --Defaults to true
+  "completed": false,                                 --Boolean --Defaults to false
+  "paid": false,                                      --Boolean --Defaults to false
+  "clientId": 4,                          --Required  --Int     --Represents the user's ID
+  "washerId": null,                                   --Int     --Represents Id of accepting washer
+  "carId": 1,                             --Required  --Int     --Represents the car ID
+  "address": "123 First St",              --Required  --String  --Address of Job
+  "address2": "APT 2",                                --String  --Adress second line
+  "jobLocationLat": null,                             --Float   --Latitude of job location
+  "jobLocationLon": null,                             --Float   --Longitude of job location
+  "city": "tampa",                        --Required  --String  --City of job location
+  "state": "FL",                          --Required  --String  --State of job location
+  "zip": "60184",                         --Required  --String  --Zip of job location
+  "notes": null,                                      --String  --Additional notes or requests
+  "jobType": "basic",                     --Required  --String  --Type of service(basic/premium/full)
+  "photoBeforeJob": null,                             --String  --photo url of before job
+  "photoAfterJob": null,                              --String  --photo url of after job
+  "timeRequested": "12:00 PM",            --Required  --String  --Time requested for job
+  "timeCompleted": null                               --String  --Time job was completed
+}
+```
+
+The POST `jobs/new` Endpoint returns the following JSON information:
+
+```#! json
+{
+  "jobId": 1,                               --Int     --New Job Id
+  "washAddress": "42 Wallaby Way Sydney",   --String  --Address of job
+  "scheduled": true,                        --Boolean --Defaults to true
+  "completed": false,                       --Boolean --Defaults to false
+  "paid": false,                            --Boolean --Defaults to false
+  "clientId": 4,                            --Int     --Represents the user's ID
+  "washerId": null,                         --Int     --Represents Id of accepting washer
+  "carId": 1,                               --Int     --Represents the car ID
+  "creationDate": "time stamp",             --String  --Time stamp of job creation
+  "address": "123 First St",                --String  --Address of Job
+  "address2": "APT 2",                      --String  --Adress second line
+  "jobLocationLat": null,                   --Float   --Latitude of job location
+  "jobLocationLon": null,                   --Float   --Longitude of job location
+  "city": "tampa",                          --String  --City of job location
+  "state": "FL",                            --String  --State of job location
+  "zip": "60184",                           --String  --Zip of job location
+  "notes": null,                            --String  --Additional notes or requests
+  "jobType": "basic",                       --String  --Type of service(basic/premium/full)
+  "photoBeforeJob": null,                   --String  --photo url of before job
+  "photoAfterJob": null,                    --String  --photo url of after job
+  "timeRequested": "12:00 PM",              --String  --Time requested for job
+  "timeCompleted": null                     --String  --Time job was completed
+}
+```
+
+---
+
+The GET `jobs/available/:id` Endpoint returns an array of the following JSON information:
+Takes in a valid job id in the url.
+
+```!#json
+[
+   {
+    "id": 5,                        --Int     --User's Id
+    "accountType": "washer",        --String  --User's account type
+    "email": "chris2@chris.com",    --String  --User's Email
+    "firstName": "Chris2",          --String  --User's First Name
+    "lastName": "Adams",            --String  --User's Last Name
+    "phoneNumber": null,            --String  --User's Phone Number
+    "stripeUUID": null,             --String  --Stipe Id
+    "streetAddress": null,          --String  --User's Address
+    "streetAddress2": null,         --String  --User's Address
+    "city": "Kingman",              --String  --User/Job City
+    "state": "AZ",                  --String  --User/Job State
+    "zip": "86409",                 --String  --User/Job Zip
+    "profilePicture": "",           --String  --User's profile url
+    "bannerImage": "",              --String  --User's banner image
+    "creationDate": "date created", --String  --Job creation Date
+    "userRating": null,             --Float   --User's Rating
+    "userRatingTotal": 1,           --Int     --Amount of ratings
+    "jobId": 5,                     --Int     --Job Id
+    "washAddress": "123 s street",  --String  --Address of job
+    "scheduled": true,              --Boolean --Wether Job is scheduled
+    "completed": false,             --Boolean --Wether Job is completed
+    "paid": false,                  --Boolean --Wether Job is Paid
+    "clientId": 2,                  --Int     --User Id for the Job
+    "washerId": null,               --Int     --Populates with washer id when accepted
+    "carId": 7,                     --Int     --Id of car for job
+    "address": "123 main st",       --String  --Address of Job
+    "address2": null,               --String  --Address of Job
+    "jobLocationLat": null,         --Float   --Job location latitude
+    "jobLocationLon": null,         --Float   --Job location Longitude
+    "notes": null,                  --String  --Notes for job
+    "jobType": "basic",             --String  --Type of service requested
+    "photoBeforeJob": null,         --String  --Url of before photo
+    "photoAfterJob": null,          --String  --Url of after photo
+    "timeRequested": "12:00 PM",    --String  --Time requested for job
+    "timeCompleted": null           --String  --Time of job completion
+  },
+]
+```
+
+---
+
+The GET `jobs/jobInfo/:id` Endpoint returns the following JSON information:
+Takes in a valid job id in the url.
+
+```#!json
+{
+  "jobId": 1,                               --Int     --New Job Id
+  "washAddress": "42 Wallaby Way Sydney",   --String  --Address of job
+  "scheduled": true,                        --Boolean --Defaults to true
+  "completed": false,                       --Boolean --Defaults to false
+  "paid": false,                            --Boolean --Defaults to false
+  "clientId": 4,                            --Int     --Represents the user's ID
+  "washerId": null,                         --Int     --Represents Id of accepting washer
+  "creationDate": "time stamp",             --String  --Time stamp of job creation
+  "carId": 1,                               --Int     --Represents the car ID
+  "address": "123 First St",                --String  --Address of Job
+  "address2": "APT 2",                      --String  --Adress second line
+  "jobLocationLat": null,                   --Float   --Latitude of job location
+  "jobLocationLon": null,                   --Float   --Longitude of job location
+  "city": "tampa",                          --String  --City of job location
+  "state": "FL",                            --String  --State of job location
+  "zip": "60184",                           --String  --Zip of job location
+  "notes": null,                            --String  --Additional notes or requests
+  "jobType": "basic",                       --String  --Type of service(basic/premium/full)
+  "photoBeforeJob": null,                   --String  --photo url of before job
+  "photoAfterJob": null,                    --String  --photo url of after job
+  "timeRequested": "12:00 PM",              --String  --Time requested for job
+  "timeCompleted": null                     --String  --Time job was completed
+}
+```
+
+---
+
+The GET `jobs/user/:id` Endpoint returns an array with the following JSON information:
+Takes in a valid user id in the url.
+
+```#!json
+[
+  {
+    "jobId": 1,                               --Int     --Job Id
+    "washAddress": "42 Wallaby Way Sydney",   --String  --Address of job
+    "scheduled": true,                        --Boolean --Defaults to true
+    "completed": false,                       --Boolean --Defaults to false
+    "paid": false,                            --Boolean --Defaults to false
+    "clientId": 4,                            --Int     --Represents the user's ID
+    "washerId": null,                         --Int     --Represents Id of accepting washer
+    "creationDate": "time stamp",             --String  --Time stamp of job creation
+    "carId": 1,                               --Int     --Represents the car ID
+    "address": "123 First St",                --String  --Address of Job
+    "address2": "APT 2",                      --String  --Adress second line
+    "jobLocationLat": null,                   --Float   --Latitude of job location
+    "jobLocationLon": null,                   --Float   --Longitude of job location
+    "city": "tampa",                          --String  --City of job location
+    "state": "FL",                            --String  --State of job location
+    "zip": "60184",                           --String  --Zip of job location
+    "notes": null,                            --String  --Additional notes or requests
+    "jobType": "basic",                       --String  --Type of service(basic/premium/full)
+    "photoBeforeJob": null,                   --String  --photo url of before job
+    "photoAfterJob": null,                    --String  --photo url of after job
+    "timeRequested": "12:00 PM",              --String  --Time requested for job
+    "timeCompleted": null                     --String  --Time job was completed
+  }
+]
+```
+
+---
+
+The PUT `jobs/selectJob/:id` Endpoint needs the following JSON information:
+Takes in a valid job id in the url and assigns a washer to a job.
+
+```#! json
+{
+  "washerID": 1  --Required --washer id to be assigned to job
+}
+```
+
+The PUT `jobs/selectJob/:id` Endpoint returns the following JSON information:
+
+```#!json
+{
+  "jobId": 1,                               --Int     --Job Id
+  "washAddress": "42 Wallaby Way Sydney",   --String  --Address of job
+  "scheduled": true,                        --Boolean --Defaults to true
+  "completed": false,                       --Boolean --Defaults to false
+  "paid": false,                            --Boolean --Defaults to false
+  "clientId": 4,                            --Int     --Represents the user's ID
+  "washerId": 2,                            --Int     --Newly added washer Id
+  "creationDate": "time stamp",             --String  --Time stamp of job creation
+  "carId": 1,                               --Int     --Represents the car ID
+  "address": "123 First St",                --String  --Address of Job
+  "address2": "APT 2",                      --String  --Adress second line
+  "jobLocationLat": null,                   --Float   --Latitude of job location
+  "jobLocationLon": null,                   --Float   --Longitude of job location
+  "city": "tampa",                          --String  --City of job location
+  "state": "FL",                            --String  --State of job location
+  "zip": "60184",                           --String  --Zip of job location
+  "notes": null,                            --String  --Additional notes or requests
+  "jobType": "basic",                       --String  --Type of service(basic/premium/full)
+  "photoBeforeJob": null,                   --String  --photo url of before job
+  "photoAfterJob": null,                    --String  --photo url of after job
+  "timeRequested": "12:00 PM",              --String  --Time requested for job
+  "timeCompleted": null                     --String  --Time job was completed
+}
+```
+
+---
+
+The PUT `jobs/job/:id` Endpoint any of the following in JSON information:
+Takes in a valid job id in the url.
+
+```#!json
+{
+  "washAddress": "42 Wallaby Way Sydney",   --String  --Address of job
+  "scheduled": true,                        --Boolean --Defaults to true
+  "completed": false,                       --Boolean --Defaults to false
+  "paid": false,                            --Boolean --Defaults to false
+  "clientId": 4,                            --Int     --Represents the user's ID
+  "washerId": 2,                            --Int     --Newly added washer Id
+  "carId": 1,                               --Int     --Represents the car ID
+  "address": "123 First St",                --String  --Address of Job
+  "address2": "APT 2",                      --String  --Adress second line
+  "jobLocationLat": null,                   --Float   --Latitude of job location
+  "jobLocationLon": null,                   --Float   --Longitude of job location
+  "city": "tampa",                          --String  --City of job location
+  "state": "FL",                            --String  --State of job location
+  "zip": "60184",                           --String  --Zip of job location
+  "notes": null,                            --String  --Additional notes or requests
+  "jobType": "basic",                       --String  --Type of service(basic/premium/full)
+  "photoBeforeJob": null,                   --String  --photo url of before job
+  "photoAfterJob": null,                    --String  --photo url of after job
+  "timeRequested": "12:00 PM",              --String  --Time requested for job
+  "timeCompleted": null                     --String  --Time job was completed
+}
+```
+
+The PUT `jobs/job/:id` Endpoint returns following in JSON information:
+
+```#!json
+{
+  "jobId": 1,                               --Int     --Job Id
+  "washAddress": "42 Wallaby Way Sydney",   --String  --Address of job
+  "scheduled": true,                        --Boolean --Defaults to true
+  "completed": false,                       --Boolean --Defaults to false
+  "paid": false,                            --Boolean --Defaults to false
+  "clientId": 4,                            --Int     --Represents the user's ID
+  "washerId": 2,                            --Int     --Newly added washer Id
+  "creationDate": "time stamp",             --String  --Time stamp of job creation
+  "carId": 1,                               --Int     --Represents the car ID
+  "address": "123 First St",                --String  --Address of Job
+  "address2": "APT 2",                      --String  --Adress second line
+  "jobLocationLat": null,                   --Float   --Latitude of job location
+  "jobLocationLon": null,                   --Float   --Longitude of job location
+  "city": "tampa",                          --String  --City of job location
+  "state": "FL",                            --String  --State of job location
+  "zip": "60184",                           --String  --Zip of job location
+  "notes": null,                            --String  --Additional notes or requests
+  "jobType": "basic",                       --String  --Type of service(basic/premium/full)
+  "photoBeforeJob": null,                   --String  --photo url of before job
+  "photoAfterJob": null,                    --String  --photo url of after job
+  "timeRequested": "12:00 PM",              --String  --Time requested for job
+  "timeCompleted": null                     --String  --Time job was completed
+}
+```
+
+---
+
+The DELETE `jobs/job/:id` Endpoint returns following in JSON information:
+Takes in a valid job id in the url.
+
+```#! json
+{
+  "message": "Job has been deleted"
+}
+```
+
+---
 
 ## 2️⃣ Actions
 
-Currently no actions are coded for the server.
-
-Tests are on the way and will be coded using Jest and Supertest for all of the endpoints, coming soon.
+Github Actions are in place to run unit tests an update the code climate coverage.
 
 ## 3️⃣ Environment Variables
 
@@ -235,12 +837,12 @@ In order for the app to function correctly, the user must set up their own envir
 
 create a .env file that includes the following:
 
-- PORT - set the port you wish the server to run on on your local machine
-- JWT_SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;*(-*=+)') for i in range(50)])
-
-## Contributing
-
-When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
+LOCAL_DB_PASSWORD= Your local postgres database password
+LOCAL_DB_DATABASE_DEV= Your local database name
+LOCAL_DB_HOST= Your local database host
+LOCAL_DB_PORT= Your local database port
+LOCAL_DB_USER= Your local database username
+JWT_SECRET= A string of your chosing for the web token encryption
 
 Please note we have a [code of conduct](./code_of_conduct.md). Please follow it in all your interactions with the project.
 
