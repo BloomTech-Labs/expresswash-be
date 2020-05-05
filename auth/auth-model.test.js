@@ -21,11 +21,11 @@ test("testing auth model findByEmail", async () => {
 });
 test("testing auth model insert", async () => {
   const res = await model.insert({});
-  expect(res[0]).toHaveProperty("id");
+  expect(res).toHaveProperty("id");
 });
 test("testing auth model insertWasher", async () => {
   const res = await model.insertWasher({});
-  expect(res[0]).toHaveProperty("name");
+  expect(res).toHaveProperty("name");
 });
 test("testing auth model findWasherId", async () => {
   const res = await model.findWasherId(1);

@@ -52,7 +52,7 @@ test("/cars/ POST request - returns the added car- status code 201", async () =>
 });
 test("/cars/ POST request - returns error- status code 500", async () => {
   const mock = jest.spyOn(Cars, "addCar");
-  mock.mockImplementationOnce(() => Promise.reject());
+  mock.mockImplementationOnce(() => Promise.reject({ message: "broken" }));
   const res = await request(server).post("/");
   expect(res.status).toBe(500);
   mock.mockRestore();
