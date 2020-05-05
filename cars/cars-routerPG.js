@@ -1,6 +1,12 @@
 const carsRouterPG = require("express").Router();
 const db = require("../database/dbConfig.js");
 const cars = require("./cars-model");
+const {
+  validateCarId,
+  validateCarBody,
+  validateClientId,
+} = require("./cars-middleware");
+const { validateUserId } = require("../auth/auth-middleware");
 //get the list of all cars
 
 carsRouterPG.get("/", (req, res) => {
@@ -12,7 +18,7 @@ carsRouterPG.get("/", (req, res) => {
     });
 });
 // gets a car specified by carId
-carsRouterPG.get("/:carId", (req, res) => {
+carsRouterPG.get("/:carId", validateCarId, (req, res) => {
   const { carId } = req.params;
 
   cars
@@ -24,7 +30,7 @@ carsRouterPG.get("/:carId", (req, res) => {
 });
 
 //add a car to the list of cars
-carsRouterPG.post("/", (req, res) => {
+carsRouterPG.post("/", validateCarBody, validateClientId, (req, res) => {
   cars
     .addCar(req.body)
     .then((newCar) => res.status(201).json(newCar))
@@ -33,13 +39,17 @@ carsRouterPG.post("/", (req, res) => {
     });
 });
 // updates a car by its carId
-carsRouterPG.put("/:carId", (req, res) => {
+carsRouterPG.put("/:carId", validateCarId, validateCarBody, (req, res) => {
   const { carId } = req.params;
   const body = req.body;
 
   cars
     .update(body, carId)
-    .then((updatedCar) => res.status(200).json(updatedCar))
+    .then((updatedCar) =>
+      res
+        .status(200)
+        .json({ message: "successfully updated car", car: updatedCar })
+    )
     .catch((err) => {
       res.status(500).json(err);
     });
