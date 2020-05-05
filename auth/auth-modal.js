@@ -30,8 +30,9 @@ async function insert(user) {
   return newUser;
 }
 
-function insertWasher(washer) {
-  return db("washers").insert(washer, "*");
+async function insertWasher(washer) {
+  const [newWasher] = await db("washers").insert(washer, "*");
+  return newWasher;
 }
 
 function findWasherId(userId) {
