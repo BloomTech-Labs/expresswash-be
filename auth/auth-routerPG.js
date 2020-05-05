@@ -34,7 +34,7 @@ authRouterPG.post("/registerClient", (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({ message: "unable to register new user" });
-  })
+    });
 });
 
 authRouterPG.post(
@@ -46,7 +46,7 @@ authRouterPG.post(
       const newWasher = { ...req.body, userId: Number(id) };
       Users.insertWasher(newWasher)
         .then((washer) => {
-          res.status(201).json({ user: req.user, washer: washer });
+          res.status(201).json({ user: { ...req.user, washer } });
         })
         .catch((err) => {
           res.status(500).json({ message: "unable to add washer" });
@@ -77,7 +77,7 @@ authRouterPG.post("/login", (req, res) => {
             if (user.accountType === "washer") {
               Users.findWasherId(user.id)
                 .then((washer) => {
-                  res.status(200).json({ token, user, washer });
+                  res.status(200).json({ token, user: { ...user, washer } });
                 })
                 .catch((err) => {
                   res
