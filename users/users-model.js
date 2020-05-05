@@ -28,8 +28,11 @@ function update(id, changes) {
 function findByWasherId(washerId) {
   return db("washers").where({ washerId }).first();
 }
-function updateWasher(washerId, changes) {
-  return db("washers").where({ washerId }).update(changes, "*");
+async function updateWasher(washerId, changes) {
+  const [updatedWasher] = await db("washers")
+    .where({ washerId })
+    .update(changes, "*");
+  return updatedWasher;
 }
 
 function getUserCars(id) {
