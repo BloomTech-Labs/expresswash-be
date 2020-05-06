@@ -59,7 +59,6 @@ usersRouter.put("/rating/:id", (req, res) => {
             res.status(201).json(user);
           })
           .catch((err) => {
-            console.log(err);
             res.status(500).json({
               message: "error updating the user rating",
               error: err.message,
@@ -145,6 +144,22 @@ usersRouter.put("/:id", checkId, (req, res) => {
         message: "there was an error processing the request",
         error: err.message,
       });
+    });
+});
+
+usersRouter.put("/washer/:id", (req, res) => {
+  const washerId = req.params.id;
+  const changes = req.body;
+  Users.findByWasherId(washerId)
+    .then((washer) => {
+      Users.updateWasher(washerId, changes)
+        .then((edited) => {
+          res.status(201).json(edited);
+        })
+        .catch((err) => res.status(500).json(err.message));
+    })
+    .catch((err) => {
+      res.status(404).json({ message: "Unable to find washer" });
     });
 });
 

@@ -63,32 +63,31 @@ module.exports = {
       min: 2,
       max: 10,
     },
-    // useNullAsDefault: true,
-    // connection: process.env.DATABASE_URL,
-
-    // user: `${process.env.DB_USER}`,
-    // password: `${process.env.DB_PW}`,
-    // host:`${process.env.DB_HOST}`,
-    // port:`${process.env.DB_PORT}`
-    // connection: process.env.DB_URL,
     migrations: {
       directory: "./database/migrationsPG",
     },
     seeds: {
       directory: "./database/seedsPG",
     },
-    // production: {
-    //   client: 'sqlite3',
-    //   useNullAsDefault: true,
-    //   connection: {
-    //     filename: './database/database.db3',
-    //   },
-    //   // connection: process.env.DB_URL,
-    //   migrations: {
-    //     directory: './database/migrations',
-    //   },
-    //   seeds: {
-    //     directory: './database/seeds'
-    //   },
+  },
+  testDb: {
+    client: "pg",
+    connection: {
+      host: process.env.RDS_TEST_HOSTNAME,
+      port: process.env.RDS_TEST_PORT,
+      user: process.env.RDS_TEST_USERNAME,
+      password: process.env.RDS_TEST_PASSWORD,
+      database: process.env.RDS_TEST_DB_NAME,
+    },
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      directory: "./database/migrationsPG",
+    },
+    seeds: {
+      directory: "./database/seedsPG",
+    },
   },
 };
