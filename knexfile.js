@@ -69,24 +69,25 @@ module.exports = {
     seeds: {
       directory: "./database/seedsPG",
     },
-    testDb: {
-      client: "pg",
-      connection: {
-        host: process.env.RDS_TEST_HOSTNAME,
-        port: process.env.RDS_TEST_PORT,
-        user: process.env.RDS_TEST_USERNAME,
-        password: process.env.RDS_TEST_PASSWORD,
-        database: process.env.RDS_TEST_DB_NAME,
-      },
-      pool: {
-        min: 2,
-        max: 10,
-      },
-      migrations: {
-        directory: "./database/migrationsPG",
-      },
-      seeds: {
-        directory: "./database/seedsPG",
-      },
+  },
+  testDb: {
+    client: "pg",
+    connection: {
+      host: process.env.RDS_TEST_HOSTNAME,
+      port: process.env.RDS_TEST_PORT,
+      user: process.env.RDS_TEST_USERNAME,
+      password: process.env.RDS_TEST_PASSWORD,
+      database: process.env.RDS_TEST_DB_NAME,
+    },
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      directory: "./database/migrationsPG",
+    },
+    seeds: {
+      directory: "./database/seedsPG",
+    },
   },
 };
