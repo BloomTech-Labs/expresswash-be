@@ -17,7 +17,7 @@ carsRouterPG.get("/", (req, res) => {
     });
 });
 // gets a car specified by carId
-carsRouterPG.get("/:carId", validateCarId, (req, res) => {
+carsRouterPG.get("/:carId", validateCarId, async (req, res) => {
   const { carId } = req.params;
 
   cars
@@ -52,7 +52,7 @@ carsRouterPG.put(
       .then((updatedCar) =>
         res
           .status(200)
-          .json({ message: "successfully updated car", car: updatedCar })
+          .json({ message: "successfully updated car", updatedCar })
       )
       .catch((err) => {
         res.status(500).json(err);

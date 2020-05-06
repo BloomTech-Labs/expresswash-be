@@ -21,6 +21,7 @@ function validateCarId(req, res, next) {
 function validateClientId(req, res, next) {
   users.findById(req.body.clientId).then((user) => {
     if (user) {
+      delete user.password;
       req.user = user;
       next();
     } else {
