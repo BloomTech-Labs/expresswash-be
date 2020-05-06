@@ -255,33 +255,34 @@ test("/users/washer/rating/:id PUT error in update new user", async () => {
 });
 
 test("/washer/:id PUT edits existing washer table", async () => {
+  const mockWasher = jest.spyOn(Users, "findByWasherId");
   const mock = jest.spyOn(Users, "updateWasher");
+  mockWasher.mockImplementationOnce(() => Promise.resolve());
   mock.mockImplementationOnce(() => Promise.resolve());
   const res = await request(server).put("/washer/1");
-  console.log(res.status);
+  expect(res.status).toBe(201);
   mock.mockRestore();
+  mockWasher.mockRestore();
 });
 
-// const updates = { firstName: "Taco", lastName: "Burrito" };
-// test("/washer/:id - PUT - returns the response 201 when updated", async () => {
-//   const mock2 = jest.spyOn(Users, "findById");
-//   const mockUpdate2 = jest.spyOn(Users, "updateWasher");
-//   mock2.mockImplementation(() => Promise.reject());
-//   mockUpdate2.mockImplementation(() => Promise.resolve());
-//   const res = await request(server).put("/washer/1");
-//   expect(res.status).toBe(201);
-//   mock2.mockRestore();
-//   mockUpdate2.mockRestore();
-// });
+test("/washer/:id PUT fails to find  existing washer ", async () => {
+  const mockWasher = jest.spyOn(Users, "findByWasherId");
+  const mock = jest.spyOn(Users, "updateWasher");
+  mockWasher.mockImplementationOnce(() => Promise.reject());
+  mock.mockImplementationOnce(() => Promise.resolve());
+  const res = await request(server).put("/washer/1");
+  expect(res.status).toBe(404);
+  mock.mockRestore();
+  mockWasher.mockRestore();
+});
 
-// changes = { firstName: "new", lastName: "old" };
-// test("/users/:id PUT request - return response status 200 when user successfully updated", async () => {
-//   const mock = jest.spyOn(Users, "findById");
-//   const mockUpdate = jest.spyOn(Users, "update");
-//   mock.mockImplementationOnce(() => Promise.resolve(1));
-//   mockUpdate.mockImplementationOnce(() => Promise.resolve([changes]));
-//   const res = await request(server).put("/1");
-//   expect(res.status).toBe(200);
-//   mock.mockRestore();
-//   mockUpdate.mockRestore();
-// });
+test("/washer/:id PUT fails to find  existing washer ", async () => {
+  const mockWasher = jest.spyOn(Users, "findByWasherId");
+  const mock = jest.spyOn(Users, "updateWasher");
+  mockWasher.mockImplementationOnce(() => Promise.resolve());
+  mock.mockImplementationOnce(() => Promise.reject({ message: "broke" }));
+  const res = await request(server).put("/washer/1");
+  expect(res.status).toBe(500);
+  mock.mockRestore();
+  mockWasher.mockRestore();
+});
