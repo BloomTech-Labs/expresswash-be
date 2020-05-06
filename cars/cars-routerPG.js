@@ -6,7 +6,6 @@ const {
   validateCarBody,
   validateClientId,
 } = require("./cars-middleware");
-const { validateUserId } = require("../auth/auth-middleware");
 //get the list of all cars
 
 carsRouterPG.get("/", (req, res) => {
@@ -39,24 +38,30 @@ carsRouterPG.post("/", validateCarBody, validateClientId, (req, res) => {
     });
 });
 // updates a car by its carId
-carsRouterPG.put("/:carId", validateCarId, validateCarBody, (req, res) => {
-  const { carId } = req.params;
-  const body = req.body;
+carsRouterPG.put(
+  "/:carId",
+  validateCarId,
+  validateCarBody,
+  validateClientId,
+  (req, res) => {
+    const { carId } = req.params;
+    const body = req.body;
 
-  cars
-    .update(body, carId)
-    .then((updatedCar) =>
-      res
-        .status(200)
-        .json({ message: "successfully updated car", car: updatedCar })
-    )
-    .catch((err) => {
-      res.status(500).json(err);
-    });
-});
+    cars
+      .update(body, carId)
+      .then((updatedCar) =>
+        res
+          .status(200)
+          .json({ message: "successfully updated car", car: updatedCar })
+      )
+      .catch((err) => {
+        res.status(500).json(err);
+      });
+  }
+);
 
 //deletes a car by carId
-carsRouterPG.delete("/:carId", (req, res) => {
+carsRouterPG.delete("/:carId", validateCarId, (req, res) => {
   const { carId } = req.params;
 
   cars

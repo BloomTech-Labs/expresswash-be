@@ -30,6 +30,8 @@ function validateClientId(req, res, next) {
 }
 
 function validateCarBody(req, res, next) {
+  //destructuring all properties but photo from the car's body because photo is not required
+
   const {
     make,
     model,
@@ -40,6 +42,9 @@ function validateCarBody(req, res, next) {
     size,
     clientId,
   } = req.body;
+
+  //turn the properties into an array so that I can check for their length to be ///able to check if there is one, many or none missing or not and making sure it //is in Object format.
+
   if (Object.keys(req.body).length === 0 && req.body.constructor === Object) {
     res.status(400).json({ error: "missing car body" });
   } else if (
@@ -56,6 +61,7 @@ function validateCarBody(req, res, next) {
       error:
         "make, model, year, color, licensePlate, category, size, and clientId are required. clientId must be an integer!",
     });
+    //makes sure every required property is there otherwise you will receive the error message from line 62
   } else {
     next();
   }
