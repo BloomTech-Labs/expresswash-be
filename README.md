@@ -35,6 +35,7 @@ The endpoints currently operational on the server are listed below.
 | PUT    | `/users/:id`               | all users                   | Update a user.                                                             |
 | DELETE | `/users/:id`               | all users                   | Remove a user.                                                             |
 | PUT    | `/users/rating/:id`        | all washers                 | Update rating of a user.                                                   |
+| PUT    | `/users/washer/:id`        | all washers                 | Update washer.                                                             |
 | PUT    | `/users/washer/rating/:id` | all users                   | Update rating of a washer.                                                 |
 | GET    | `/cars`                    | all users                   | Returns all car makes.                                                     |
 | POST   | `/cars`                    | all users                   | Takes in make and model and returns carId.                                 |
@@ -398,6 +399,43 @@ The PUT `users/rating/:id` Endpoint returns the following JSON information:
   "creationDate": "date",           --String  --Timestamp auto generated
   "userRating": 3.6667,             --Float   --Updated user rating
   "userRatingTotal": 2              --Int     --Number of ratings for user
+}
+```
+
+---
+
+The PUT `users/washer/:id` Endpoint takes in any of the following JSON information:
+Takes in a valid washer id in the url.
+
+```#!json
+{
+  "available": true,              --Boolean --If washer is available for work
+  "workStatus": true,             --Boolean --If washer is available for work
+  "rateSmall": "30.00",           --Float   --Rate for a small job
+  "rateMedium": "50.00",          --Float   --Rate for a medium job
+  "rateLarge": "75.00",           --Float   --Rate for a large job
+  "aboutMe": "I am a washer",     --String  --Washer bio
+  "currentLocationLat": "55.667", --Float   --Washer current location latitude
+  "currentLocationLon": "35.553"  --Float   --Washer current location longitude
+}
+```
+
+The PUT `users/washer/:id` Endpoint returns the following JSON information:
+
+```#!json
+{
+  "washerId": 2,                  --Int     --Washer Id
+  "userId": 26,                   --Int     --User Id for washer
+  "available": true,              --Boolean --If washer is available for work
+  "workStatus": true,             --Boolean --If washer is available for work
+  "rateSmall": "30.00",           --Float   --Rate for a small job
+  "rateMedium": "50.00",          --Float   --Rate for a medium job
+  "rateLarge": "75.00",           --Float   --Rate for a large job
+  "aboutMe": "I am a washer",     --String  --Washer bio
+  "currentLocationLat": "55.667", --Float   --Washer current location latitude
+  "currentLocationLon": "35.553", --Float   --Washer current location longitude
+  "washerRating": 4,              --Float   --Washer's current rating
+  "washerRatingTotal": 3,         --Int     --Number of ratings for the washer
 }
 ```
 
