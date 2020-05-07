@@ -52,7 +52,7 @@ carsRouterPG.put(
       .then((updatedCar) =>
         res
           .status(200)
-          .json({ message: "successfully updated car", updatedCar })
+          .json({ message: "Successfully updated car", updatedCar })
       )
       .catch((err) => {
         res.status(500).json(err);
