@@ -66,7 +66,7 @@ jobsRouter.get("/available/:id", async (req, res) => {
         });
         res.status(200).json(returnJobs);
       } else {
-        res.status(403).json({ message: "No available jobs found." });
+        res.status(404).json({ message: "No available jobs found." });
       }
     })
     .catch((err) => res.status(500).json(err.message));
@@ -100,7 +100,7 @@ jobsRouter.delete("/job/:id", [validateJobId], async (req, res) => {
   const jobId = req.params.id;
   deleteJob(jobId)
     .then((removed) => {
-      res.status(204).json({ message: "Job  has been deleted.", removed });
+      res.status(204).json().end();
     })
     .catch((err) => res.status(500).json(err.message));
 });
@@ -125,7 +125,7 @@ jobsRouter.get("/user/:id", async (req, res) => {
         res.status(200).json(jobs);
       } else {
         res
-          .status(404)
+          .status(400)
           .json({ message: "Jobs for the specified ID does not exist." });
       }
     })
