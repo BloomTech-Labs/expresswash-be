@@ -3,7 +3,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/d9d450333b0f06f4ceca/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/wowo-be/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d9d450333b0f06f4ceca/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/wowo-be/test_coverage)
 
-## Backend deployed at [AWS](http://wowo-env.eba-35bhjsem.us-east-1.elasticbeanstalk.com/)
+## Backend deployed at [AWS](http://serverprod.expresswash.us)
 
 ## 1️⃣ Getting started
 
@@ -656,7 +656,7 @@ The POST `jobs/new` Endpoint returns the following JSON information:
 ---
 
 The GET `jobs/available/:id` Endpoint returns an array of the following JSON information:
-Takes in a valid job id in the url.
+Takes in a washer job id in the url.
 
 ```!#json
 [
