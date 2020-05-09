@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const upload = require("./file-upload");
 
+//Upload for profile images
 const singleUpload = upload.single("profileImage");
 router.post("/profile", (req, res) => {
   singleUpload(req, res, (err) => {
