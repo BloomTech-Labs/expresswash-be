@@ -656,7 +656,7 @@ The POST `jobs/new` Endpoint returns the following JSON information:
 ---
 
 The GET `jobs/available/:id` Endpoint returns an array of the following JSON information:
-Takes in a washer job id in the url.
+Takes in a washer id in the url.
 
 ```!#json
 [
