@@ -9,10 +9,6 @@ jest.mock("./jobs-model");
 server.use(express.json());
 server.use("/", jobsRouter);
 
-// addNewJob getAvailableJobs selectJobById addWasherToJob deleteJob editJob getJobsByUserId
-
-// /new   /available/:id   /jobInfo/:id  /selectJob/:id  /job/:id  /job/:id /job/:id
-
 const newJob = {
   jobId: 1,
   washAddress: "42 Wallaby Way, Sydney",
@@ -31,7 +27,6 @@ const newJob = {
   timeRequested: "12:00",
 };
 
-// test("endpoint, action: result"
 test("/new, POST new Job: success", async () => {
   const mock = jest.spyOn(Jobs, "addNewJob");
   mock.mockImplementation(() => Promise.resolve(newJob));
@@ -204,7 +199,7 @@ test("/user/:id, GET Jobs by user id: error(not found)", async () => {
   const mock = jest.spyOn(Jobs, "getJobsByUserId");
   mock.mockImplementation(() => Promise.resolve());
   const res = await request(server).get("/user/1");
-  expect(res.status).toBe(404);
+  expect(res.status).toBe(400);
   expect(res.body).toMatchObject({
     message: "Jobs for the specified ID does not exist.",
   });
