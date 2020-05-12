@@ -2,6 +2,7 @@ const router = require("express").Router();
 const upload = require("./file-upload");
 const aws = require("aws-sdk");
 const Users = require("../users/users-model");
+const Jobs = require("../jobs/jobs-model");
 
 //Profile image endpoints
 const profileUpload = upload.single("profilePicture");
@@ -146,7 +147,40 @@ router.delete("/banner/:id", checkId, (req, res) => {
     }
   });
 });
-
+//Before job image upload endpoint
+const beforeUpload = upload.single("photoBeforeJob");
+router.post("/job/before/:id", (req, res) => {
+  beforeUpload(req, res, (err) => {
+    if (err) {
+      res.status(422).json({ error: err.message });
+    } else {
+      Jobs.editJob(req.params.id, { photoBeforeJob: req.file.location })
+        .then((user) => {
+          res.status(201).json(user);
+        })
+        .catch((err) => {
+          res.status(500).json(err.message);
+        });
+    }
+  });
+});
+//After job image endpoint
+const afterUpload = upload.single("photoAfterJob");
+router.post("/job/after/:id", (req, res) => {
+  afterUpload(req, res, (err) => {
+    if (err) {
+      res.status(422).json({ error: err.message });
+    } else {
+      Jobs.editJob(req.params.id, { photoAfterJob: req.file.location })
+        .then((user) => {
+          res.status(201).json(user);
+        })
+        .catch((err) => {
+          res.status(500).json(err.message);
+        });
+    }
+  });
+});
 //middleware
 function checkId(req, res, next) {
   const { id } = req.params;
