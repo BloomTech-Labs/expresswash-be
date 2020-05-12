@@ -23,7 +23,10 @@ function del(id) {
 }
 
 function update(id, changes) {
-  return db("users").where({ id }).update(changes, "*");
+  return db("users")
+    .where({ id })
+    .update(changes, "*")
+    .then(([user]) => user);
 }
 function findByWasherId(washerId) {
   return db("washers").where({ washerId }).first();
