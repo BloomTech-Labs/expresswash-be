@@ -155,8 +155,8 @@ router.post("/job/before/:id", (req, res) => {
       res.status(422).json({ error: err.message });
     } else {
       Jobs.editJob(req.params.id, { photoBeforeJob: req.file.location })
-        .then((user) => {
-          res.status(201).json(user);
+        .then((job) => {
+          res.status(201).json(job);
         })
         .catch((err) => {
           res.status(500).json(err.message);
@@ -172,8 +172,8 @@ router.post("/job/after/:id", (req, res) => {
       res.status(422).json({ error: err.message });
     } else {
       Jobs.editJob(req.params.id, { photoAfterJob: req.file.location })
-        .then((user) => {
-          res.status(201).json(user);
+        .then((job) => {
+          res.status(201).json(job);
         })
         .catch((err) => {
           res.status(500).json(err.message);
