@@ -9,15 +9,18 @@ const profileUpload = upload.single("profilePicture");
 router.post("/profile/:id", checkId, (req, res) => {
   profileUpload(req, res, (err) => {
     if (err) {
+      // console.log(req);
       res.status(422).json({ error: err.message });
     } else {
+      console.log("hey2");
       Users.update(req.params.id, { profilePicture: req.file.location })
         .then((user) => {
+          console.log("hey3");
           delete user.password;
           res.status(201).json(user);
         })
         .catch((err) => {
-          res.status(500).json(err.message);
+          res.status(501).json(err.message);
         });
     }
   });
