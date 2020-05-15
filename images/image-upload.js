@@ -7,9 +7,9 @@ const Jobs = require("../jobs/jobs-model");
 //Profile image endpoints
 const profileUpload = upload.single("profilePicture");
 router.post("/profile/:id", checkId, (req, res) => {
+  console.log(req.file);
   profileUpload(req, res, (err) => {
     if (err) {
-      // console.log(req);
       res.status(422).json({ error: err.message });
     } else {
       console.log("hey2");
@@ -81,7 +81,6 @@ router.delete("/profile/:id", checkId, (req, res) => {
 // Banner image endpoints
 const bannerUpload = upload.single("bannerImage");
 router.post("/banner/:id", checkId, (req, res) => {
-  console.log(req);
   bannerUpload(req, res, (err) => {
     if (err) {
       res.status(422).json({ error: err.message });
