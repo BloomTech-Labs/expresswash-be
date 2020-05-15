@@ -7,15 +7,12 @@ const Jobs = require("../jobs/jobs-model");
 //Profile image endpoints
 const profileUpload = upload.single("profilePicture");
 router.post("/profile/:id", checkId, (req, res) => {
-  console.log(req.file);
   profileUpload(req, res, (err) => {
     if (err) {
       res.status(422).json({ error: err.message });
     } else {
-      console.log("hey2");
       Users.update(req.params.id, { profilePicture: req.file.location })
         .then((user) => {
-          console.log("hey3");
           delete user.password;
           res.status(201).json(user);
         })
