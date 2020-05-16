@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 require("dotenv").config();
+const bodyParser = require("body-parser");
 
 // routers=require('') go here
 
@@ -11,6 +12,7 @@ const authRouterPG = require("../auth/auth-routerPG.js");
 const carsRouterPG = require("../cars/cars-routerPG.js");
 const jobsRouter = require("../jobs/jobs-router.js");
 const usersRouter = require("../users/users-router.js");
+const imageRouter = require("../images/image-upload");
 
 const server = express();
 
@@ -25,6 +27,7 @@ server.use("/auth/", authRouterPG);
 server.use("/cars/", carsRouterPG);
 server.use("/jobs/", jobsRouter);
 server.use("/users/", usersRouter);
+server.use("/images/", imageRouter);
 
 server.get("/", (req, res) => {
   res.status(200).json({ message: "Backend is up and running" });
