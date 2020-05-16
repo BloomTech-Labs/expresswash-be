@@ -75,11 +75,11 @@ The POST `auth/registerClient` Endpoint takes the following JSON information:
   "lastName":"Testerson",               --Required  --String
   "password":"12345678",                --Required  --String  --Min 8 characters
   "phoneNumber":"1234567890",                       --String
-  "streetAddress":"1051 Market St",     --Required  --String
+  "streetAddress":"1051 Market St",                 --String
   "streetAddress2":"APT 240",                       --String
-  "city":"San Francisco",               --Required  --String
-  "State":"California",                 --Required  --String
-  "zip":"94103",                        --Required  --String
+  "city":"San Francisco",                           --String
+  "State":"California",                             --String
+  "zip":"94103",                                    --String
   "profilePicture":"some url",                      --String
   "bannerImage":"some url"                          --String
 }
