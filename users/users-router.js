@@ -2,11 +2,10 @@ const usersRouter = require("express").Router();
 const { findWasherId } = require("../auth/auth-modal");
 const Users = require("../users/users-model.js");
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
-const { uuid } = require("uuidv4");
+const uuid = require("uuid/v4");
 
 // make payment for job
 usersRouter.post("/payment", (req, res) => {
-  console.log("user-router /payment", req.body);
   const { product, token } = req.body;
   const idempontencyKey = uuid();
 
@@ -16,7 +15,6 @@ usersRouter.post("/payment", (req, res) => {
       source: token.id,
     })
     .then((customer) => {
-      console.log(customer);
       stripe.charges.create(
         {
           amount: product.price * 100,
@@ -25,20 +23,11 @@ usersRouter.post("/payment", (req, res) => {
           receipt_email: token.email,
           description: product.name,
         },
-        function (err, charge) {
-          if (err) {
-            console.log(err);
-            return;
-          }
-          console.log(charge);
-        }
+        { idempontencyKey }
       );
     })
-    .then((res) => {
-      console.log(res);
-      res.status(200).json(res);
-    })
-    .catch((err) => res.status(500).send(err.message));
+    .then((res) => res.status(200).json(res))
+    .catch((err) => res.status(500).send(err));
 });
 
 // Return all users
