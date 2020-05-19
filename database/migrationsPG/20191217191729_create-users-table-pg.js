@@ -59,8 +59,8 @@ exports.up = function (knex, Promise) {
       jobs.integer("carId").notNullable();
       jobs.string("address").notNullable();
       jobs.string("address2");
-      jobs.decimal("jobLocationLat", 8, 2);
-      jobs.decimal("jobLocationLon", 8, 2);
+      jobs.decimal("jobLocationLat", 8, 6);
+      jobs.decimal("jobLocationLon", 8, 6);
       jobs.string("city").notNullable();
       jobs.string("state").notNullable();
       jobs.string("zip").notNullable();
