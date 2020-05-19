@@ -151,6 +151,10 @@ function validateJobId(req, res, next) {
 }
 // adds a job latitude and longitude if none are provided based on the washAddress
 async function addJobLatLon(req, res, next) {
+  if (!req.body.washAddress || req.body.washAddress.length < 5)
+    return res
+      .status(500)
+      .json({ message: "Please provide a valid washAddress" });
   if (!req.body.jobLocationLat || !req.body.jobLocationLon) {
     const TOKEN =
       "pk.eyJ1IjoicXVhbjAwNSIsImEiOiJjazN0a2N3a2YwM3ViM2twdzhkbGphMTZzIn0.OepqB_mymhr1YLSYwNmRSg"; // Set your mapbox token here
