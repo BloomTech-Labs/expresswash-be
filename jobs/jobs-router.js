@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 const jobsRouter = require("express").Router();
 const {
   addNewJob,
@@ -14,6 +16,8 @@ const {
 jobsRouter.post("/new", async (req, res) => {
   const date = new Date();
   const creationDate = date;
+  const TOKEN =
+    "pk.eyJ1IjoicXVhbjAwNSIsImEiOiJjazN0a2N3a2YwM3ViM2twdzhkbGphMTZzIn0.OepqB_mymhr1YLSYwNmRSg"; // Set your mapbox token here
   const {
     clientId,
     washAddress,
@@ -29,14 +33,32 @@ jobsRouter.post("/new", async (req, res) => {
     jobType,
     timeRequested,
   } = req.body;
+  let lat, lon;
+  if (!jobLocationLat || !jobLocationLon) {
+    const country = "us";
+    try {
+      const getLocation = await axios.get(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?country=${country}&limit=1&autocomplete=true&access_token=${TOKEN}`
+      );
+      console.log(
+        "Jobs Router - POST NEW JOB ",
+        getLocation.data.features[0].geometry
+      );
+      lat = getLocation.data.features[0].geometry.coordinates[1];
+      lon = getLocation.data.features[0].geometry.coordinates[0];
+      console.log("lat, lon", lat, lon);
+    } catch (err) {
+      res.status(500).json(err.message);
+    }
+  }
   const newJob = {
     clientId,
     washAddress,
     carId,
     address,
     address2,
-    jobLocationLat,
-    jobLocationLon,
+    jobLocationLat: lat,
+    jobLocationLon: lon,
     city,
     state,
     zip,
