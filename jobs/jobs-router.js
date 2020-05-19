@@ -159,10 +159,6 @@ async function addJobLatLon(req, res, next) {
       const getLocation = await axios.get(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${req.body.washAddress}.json?country=${country}&limit=1&autocomplete=true&access_token=${TOKEN}`
       );
-      console.log(
-        "Jobs Router - POST NEW JOB ",
-        getLocation.data.features[0].geometry
-      );
       req.jobLat = getLocation.data.features[0].geometry.coordinates[1];
       req.jobLon = getLocation.data.features[0].geometry.coordinates[0];
       next();
