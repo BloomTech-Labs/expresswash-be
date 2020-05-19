@@ -33,7 +33,8 @@ jobsRouter.post("/new", async (req, res) => {
     jobType,
     timeRequested,
   } = req.body;
-  let lat, lon;
+  let lat = 0;
+  let lon = 0;
   if (!jobLocationLat || !jobLocationLon) {
     const country = "us";
     try {
