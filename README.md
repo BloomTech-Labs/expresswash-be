@@ -609,7 +609,7 @@ The POST `jobs/new` Endpoint needs the following JSON information:
 
 ```#! json
 {
-  "washAddress": "42 Wallaby Way Sydney", --Required  --String  --Address of job
+  "washAddress": "42 Wallaby Way Sydney", --Required  --String  --Address of job(used to calculate jobLocationLat and jobLocationLon variables if none are provided with the request. Only works for US addresses.)
   "scheduled": true,                                  --Boolean --Defaults to true
   "completed": false,                                 --Boolean --Defaults to false
   "paid": false,                                      --Boolean --Defaults to false
@@ -647,8 +647,8 @@ The POST `jobs/new` Endpoint returns the following JSON information:
   "creationDate": "time stamp",             --String  --Time stamp of job creation
   "address": "123 First St",                --String  --Address of Job
   "address2": "APT 2",                      --String  --Adress second line
-  "jobLocationLat": null,                   --Float   --Latitude of job location
-  "jobLocationLon": null,                   --Float   --Longitude of job location
+  "jobLocationLat": "38.132456",            --Float   --Latitude of job location(calculated by washAddress unless provided)
+  "jobLocationLon": "-121.123654",          --Float   --Longitude of job location(calculated by washAddress unless provided)
   "city": "tampa",                          --String  --City of job location
   "state": "FL",                            --String  --State of job location
   "zip": "60184",                           --String  --Zip of job location
