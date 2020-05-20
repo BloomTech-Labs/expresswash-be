@@ -23,11 +23,15 @@ usersRouter.post("/payment", (req, res) => {
           receipt_email: token.email,
           description: product.name,
         },
-        { idempontencyKey }
+        (err, charge) => {
+          if (err) {
+            res.status(500).send(err.message);
+          }
+          res.status(200).json(charge);
+        }
       );
     })
-    .then((res) => res.status(200).json(res))
-    .catch((err) => res.status(500).send(err));
+    .catch((err) => res.status(500).send(err.message));
 });
 
 // Return all users
