@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 const jobsRouter = require("express").Router();
 const {
   addNewJob,
@@ -11,7 +13,7 @@ const {
 } = require("./jobs-model.js");
 
 // creates a job
-jobsRouter.post("/new", async (req, res) => {
+jobsRouter.post("/new", [addJobLatLon], async (req, res) => {
   const date = new Date();
   const creationDate = date;
   const {
@@ -35,8 +37,8 @@ jobsRouter.post("/new", async (req, res) => {
     carId,
     address,
     address2,
-    jobLocationLat,
-    jobLocationLon,
+    jobLocationLat: req.jobLat ? req.jobLat : jobLocationLat,
+    jobLocationLon: req.jobLon ? req.jobLon : jobLocationLon,
     city,
     state,
     zip,
@@ -146,6 +148,30 @@ function validateJobId(req, res, next) {
       res.status(400).json({ message: "invalid job id" });
     }
   });
+}
+// adds a job latitude and longitude if none are provided based on the washAddress
+async function addJobLatLon(req, res, next) {
+  if (!req.body.washAddress || req.body.washAddress.length < 5)
+    return res
+      .status(500)
+      .json({ message: "Please provide a valid washAddress" });
+  if (!req.body.jobLocationLat || !req.body.jobLocationLon) {
+    const TOKEN =
+      "pk.eyJ1IjoicXVhbjAwNSIsImEiOiJjazN0a2N3a2YwM3ViM2twdzhkbGphMTZzIn0.OepqB_mymhr1YLSYwNmRSg"; // Set your mapbox token here
+    const country = "us";
+    try {
+      const getLocation = await axios.get(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${req.body.washAddress}.json?country=${country}&limit=1&autocomplete=true&access_token=${TOKEN}`
+      );
+      req.jobLat = getLocation.data.features[0].geometry.coordinates[1];
+      req.jobLon = getLocation.data.features[0].geometry.coordinates[0];
+      next();
+    } catch (err) {
+      res.status(500).json(err.message);
+    }
+  } else {
+    next();
+  }
 }
 
 module.exports = jobsRouter;
