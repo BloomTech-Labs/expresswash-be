@@ -25,18 +25,13 @@ usersRouter.post("/payment", (req, res) => {
           receipt_email: token.email,
           description: product.name,
         },
-        function (err, charge) {
+        (err, charge) => {
           if (err) {
-            console.log(err);
-            return;
+            res.status(500).send(err.message);
           }
-          console.log(charge);
+          res.status(200).json(charge);
         }
       );
-    })
-    .then((res) => {
-      console.log(res);
-      res.status(200).json(res);
     })
     .catch((err) => res.status(500).send(err.message));
 });
