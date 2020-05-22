@@ -1,6 +1,36 @@
 const usersRouter = require("express").Router();
 const { findWasherId } = require("../auth/auth-modal");
 const Users = require("../users/users-model.js");
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
+
+// make payment for job
+usersRouter.post("/payment", (req, res) => {
+  const { product, token } = req.body;
+
+  return stripe.customers
+    .create({
+      email: token.email,
+      source: token.id,
+    })
+    .then((customer) => {
+      stripe.charges.create(
+        {
+          amount: product.price * 100,
+          currency: "usd",
+          customer: customer.id,
+          receipt_email: token.email,
+          description: product.name,
+        },
+        (err, charge) => {
+          if (err) {
+            res.status(500).send(err.message);
+          }
+          res.status(200).json(charge);
+        }
+      );
+    })
+    .catch((err) => res.status(500).send(err.message));
+});
 
 // Return all users
 usersRouter.get("/", (req, res) => {
