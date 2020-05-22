@@ -90,7 +90,7 @@ test("Posts a new User to the /auth/registerClient endpoint", async () => {
 
 test("Error on insert of new user", async () => {
   const mock = jest.spyOn(Users, "insert");
-  mock.mockImplementationOnce(() => Promise.reject());
+  mock.mockImplementationOnce(() => Promise.reject({ message: "broke" }));
   const res = await request(server)
     .post("/registerClient")
     .send({ ...newUser, password: "taco" });
