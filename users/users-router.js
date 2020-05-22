@@ -2,12 +2,10 @@ const usersRouter = require("express").Router();
 const { findWasherId } = require("../auth/auth-modal");
 const Users = require("../users/users-model.js");
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
-const uuid = require("uuid/v4");
 
 // make payment for job
 usersRouter.post("/payment", (req, res) => {
   const { product, token } = req.body;
-  const idempontencyKey = uuid();
 
   return stripe.customers
     .create({
