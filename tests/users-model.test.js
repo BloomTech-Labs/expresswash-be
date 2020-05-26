@@ -1,6 +1,6 @@
 const mockDb = require("mock-knex");
 const knex = require("knex")({ client: "pg" });
-const model = require("./users-model");
+const model = require("../users/users-model");
 mockDb.mock(knex);
 
 test("testing users model find", async () => {

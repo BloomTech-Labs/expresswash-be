@@ -1,9 +1,9 @@
 const express = require("express");
 const server = express();
 const request = require("supertest");
-const Users = require("./users-model");
+const Users = require("../users/users-model");
 const Washer = require("../auth/auth-modal");
-const usersRouter = require("./users-router");
+const usersRouter = require("../users/users-router");
 
 server.use(express.json());
 server.use("/", usersRouter);

@@ -1,6 +1,6 @@
 const mockDB = require("mock-knex");
 const knex = require("knex")({ client: "pg" });
-const model = require("./cars-model");
+const model = require("../cars/cars-model");
 mockDB.mock(knex);
 
 const expectedObject = {
