@@ -1,8 +1,8 @@
 const express = require("express");
 const server = express();
 const request = require("supertest");
-const Users = require("./auth-modal");
-const authRouter = require("./auth-routerPG");
+const Users = require("../auth/auth-modal");
+const authRouter = require("../auth/auth-routerPG");
 server.use(express.json());
 server.use("/", authRouter);
 

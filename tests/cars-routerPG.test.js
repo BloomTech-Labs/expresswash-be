@@ -1,9 +1,9 @@
 const express = require("express");
 const server = express();
 const request = require("supertest");
-const Cars = require("./cars-model");
+const Cars = require("../cars/cars-model");
 const Users = require("../users/users-model");
-const carsRouter = require("./cars-routerPG");
+const carsRouter = require("../cars/cars-routerPG");
 
 server.use(express.json());
 server.use("/", carsRouter);

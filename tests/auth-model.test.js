@@ -1,6 +1,6 @@
 const mockDb = require("mock-knex");
 const knex = require("knex")({ client: "pg" });
-const model = require("./auth-modal");
+const model = require("../auth/auth-modal");
 mockDb.mock(knex);
 
 test("testing auth model find", async () => {
