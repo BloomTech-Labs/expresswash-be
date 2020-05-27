@@ -1116,6 +1116,32 @@ The POST `images/job/after/:id` Endpoint returns the following JSON information 
 
 ---
 
+The POST `images/car/:id` Endpoint needs the following Form-data information and takes a valid car id in the url:
+
+```#!file
+The Key needs to be `photo`,
+The Value file can only have the types of .jpeg or .png
+```
+
+The POST `images/car/:id` Endpoint returns the following JSON information with the hosted image url:
+
+```#!json
+{
+    "carId": 1,
+    "clientId": 1,
+    "make": "carmake",
+    "model": "carmodel",
+    "year": 1998,
+    "color": "red",
+    "licensePlate": "xyf 123",
+    "photo": "https://wowo-images.s3.amazonaws.com/1590543592174",
+    "category": "truck",
+    "size": "small"
+}
+```
+
+---
+
 ## 2️⃣ Actions
 
 Github Actions are in place to run unit tests an update the code climate coverage.
