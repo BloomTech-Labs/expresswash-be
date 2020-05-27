@@ -3,6 +3,8 @@ const upload = require("./file-upload");
 const aws = require("aws-sdk");
 const Users = require("../users/users-model");
 const Jobs = require("../jobs/jobs-model");
+const Cars = require("../cars/cars-model");
+const { validateCarId } = require("../cars/cars-middleware");
 
 //Profile image endpoints
 const profileUpload = upload.single("profilePicture");
@@ -173,6 +175,22 @@ router.post("/job/after/:id", (req, res) => {
       Jobs.editJob(req.params.id, { photoAfterJob: req.file.location })
         .then((job) => {
           res.status(201).json(job);
+        })
+        .catch((err) => {
+          res.status(500).json(err.message);
+        });
+    }
+  });
+});
+const carUpload = upload.single("photo");
+router.post("/car/:carId", validateCarId, (req, res) => {
+  carUpload(req, res, (err) => {
+    if (err) {
+      res.status(422).json({ error: err.message });
+    } else {
+      Cars.update({ photo: req.file.location }, req.params.carId)
+        .then((car) => {
+          res.status(201).json(car);
         })
         .catch((err) => {
           res.status(500).json(err.message);
