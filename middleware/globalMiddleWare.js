@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-
+const multer = require("multer");
 module.exports = {
   generateToken,
   restrictedMiddleware,

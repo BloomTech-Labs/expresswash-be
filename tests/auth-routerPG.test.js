@@ -2,8 +2,8 @@ const express = require("express");
 const server = express();
 const request = require("supertest");
 const bcrypt = require("bcryptjs");
-const Users = require("./auth-modal");
-const authRouter = require("./auth-routerPG");
+const Users = require("../auth/auth-modal");
+const authRouter = require("../auth/auth-routerPG");
 // jest.mock("./auth-modal");
 server.use(express.json());
 server.use("/", authRouter);
@@ -90,7 +90,7 @@ test("Posts a new User to the /auth/registerClient endpoint", async () => {
 
 test("Error on insert of new user", async () => {
   const mock = jest.spyOn(Users, "insert");
-  mock.mockImplementationOnce(() => Promise.reject());
+  mock.mockImplementationOnce(() => Promise.reject({ message: "broke" }));
   const res = await request(server)
     .post("/registerClient")
     .send({ ...newUser, password: "taco" });

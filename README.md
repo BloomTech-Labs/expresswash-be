@@ -50,6 +50,14 @@ The endpoints currently operational on the server are listed below.
 | DELETE | `/jobs/job/:id`            | all users                   | Deletes Job by Job ID                                                      |
 | PUT    | `/jobs/job/:id`            | all users                   | Edits Job by Job ID                                                        |
 | GET    | `/jobs/user/:id`           | all users                   | Gets Jobs by User ID                                                       |
+| POST   | `/images/profile/:id`      | all users                   | Posts profile image of user                                                |
+| PUT    | `/images/profile/:id`      | all users                   | Edits profile image of user                                                |
+| DELETE | `/images/profile/:id`      | all users                   | Delete profile image of user                                               |
+| POST   | `/images/banner/:id`       | all users                   | Posts banner image of user                                                 |
+| PUT    | `/images/banner/:id`       | all users                   | Edits banner image of user                                                 |
+| DELETE | `/images/banner/:id`       | all users                   | Delete banner image of user                                                |
+| POST   | `/images/before/:id`       | all washers                 | Posts before photo of job                                                  |
+| POST   | `/images/after/:id`        | all washers                 | Posts after photo of job                                                   |
 
 ## Endpoint Details
 
@@ -67,11 +75,11 @@ The POST `auth/registerClient` Endpoint takes the following JSON information:
   "lastName":"Testerson",               --Required  --String
   "password":"12345678",                --Required  --String  --Min 8 characters
   "phoneNumber":"1234567890",                       --String
-  "streetAddress":"1051 Market St",     --Required  --String
+  "streetAddress":"1051 Market St",                 --String
   "streetAddress2":"APT 240",                       --String
-  "city":"San Francisco",               --Required  --String
-  "State":"California",                 --Required  --String
-  "zip":"94103",                        --Required  --String
+  "city":"San Francisco",                           --String
+  "State":"California",                             --String
+  "zip":"94103",                                    --String
   "profilePicture":"some url",                      --String
   "bannerImage":"some url"                          --String
 }
@@ -601,7 +609,7 @@ The POST `jobs/new` Endpoint needs the following JSON information:
 
 ```#! json
 {
-  "washAddress": "42 Wallaby Way Sydney", --Required  --String  --Address of job
+  "washAddress": "42 Wallaby Way Sydney", --Required  --String  --Address of job(used to calculate jobLocationLat and jobLocationLon variables if none are provided with the request. Only works for US addresses.)
   "scheduled": true,                                  --Boolean --Defaults to true
   "completed": false,                                 --Boolean --Defaults to false
   "paid": false,                                      --Boolean --Defaults to false
@@ -639,8 +647,8 @@ The POST `jobs/new` Endpoint returns the following JSON information:
   "creationDate": "time stamp",             --String  --Time stamp of job creation
   "address": "123 First St",                --String  --Address of Job
   "address2": "APT 2",                      --String  --Adress second line
-  "jobLocationLat": null,                   --Float   --Latitude of job location
-  "jobLocationLon": null,                   --Float   --Longitude of job location
+  "jobLocationLat": "38.132456",            --Float   --Latitude of job location(calculated by washAddress unless provided)
+  "jobLocationLon": "-121.123654",          --Float   --Longitude of job location(calculated by washAddress unless provided)
   "city": "tampa",                          --String  --City of job location
   "state": "FL",                            --String  --State of job location
   "zip": "60184",                           --String  --Zip of job location
@@ -873,6 +881,262 @@ Takes in a valid job id in the url.
 ```#! json
 {
   "message": "Job has been deleted"
+}
+```
+
+---
+
+### Images Routes
+
+The POST `images/profile/:id` Endpoint needs the following Form-data information and takes a valid user id in the url:
+
+```#!file
+The Key needs to be `profilePicture`,
+The Value file can only have the types of .jpeg or .png
+```
+
+The POST `images/profile/:id` Endpoint returns the following JSON information with the hosted image url:
+
+```#!json
+{
+    "id": 2,
+    "accountType": "washer",
+    "email": "testing@wowo.com",
+    "firstName": "test",
+    "lastName": "last test",
+    "phoneNumber": null,
+    "stripeUUID": null,
+    "streetAddress": "123 nowhere",
+    "streetAddress2": null,
+    "city": "chicago",
+    "state": "IL",
+    "zip": "33612",
+    "profilePicture": "https://wowo-images.s3.amazonaws.com/1589567300843",
+    "bannerImage": "",
+    "creationDate": "2020-05-15T14:23:16.122-04:00",
+    "userRating": null,
+    "userRatingTotal": 1
+}
+```
+
+---
+
+The PUT `images/profile/:id` Endpoint needs the following Form-data information and takes a valid user id in the url:
+
+```#!file
+The Key needs to be `profilePicture`,
+The Value file can only have the types of .jpeg or .png
+```
+
+The PUT `images/profile/:id` Endpoint returns the following JSON information with the hosted image url:
+
+```#!json
+{
+    "id": 2,
+    "accountType": "washer",
+    "email": "testing@wowo.com",
+    "firstName": "test",
+    "lastName": "last test",
+    "phoneNumber": null,
+    "stripeUUID": null,
+    "streetAddress": "123 nowhere",
+    "streetAddress2": null,
+    "city": "chicago",
+    "state": "IL",
+    "zip": "33612",
+    "profilePicture": "https://wowo-images.s3.amazonaws.com/1589567300843",
+    "bannerImage": "",
+    "creationDate": "2020-05-15T14:23:16.122-04:00",
+    "userRating": null,
+    "userRatingTotal": 1
+}
+```
+
+---
+
+The DELETE `images/profile/:id` Endpoint needs a valid user id in the url and returns the following JSON information:
+
+```#!json
+{
+  "message" "picture deleted successfully"
+}
+```
+
+---
+
+The POST `images/banner/:id` Endpoint needs the following Form-data information and takes a valid user id in the url:
+
+```#!file
+The Key needs to be `bannerImage`,
+The Value file can only have the types of .jpeg or .png
+```
+
+The POST `images/banner/:id` Endpoint returns the following JSON information with the hosted image url:
+
+```#!json
+{
+    "id": 2,
+    "accountType": "washer",
+    "email": "testing@wowo.com",
+    "firstName": "test",
+    "lastName": "last test",
+    "phoneNumber": null,
+    "stripeUUID": null,
+    "streetAddress": "123 nowhere",
+    "streetAddress2": null,
+    "city": "chicago",
+    "state": "IL",
+    "zip": "33612",
+    "profilePicture": "",
+    "bannerImage": "https://wowo-images.s3.amazonaws.com/1589567300843",
+    "creationDate": "2020-05-15T14:23:16.122-04:00",
+    "userRating": null,
+    "userRatingTotal": 1
+}
+```
+
+---
+
+The PUT `images/banner/:id` Endpoint needs the following Form-data information and takes a valid user id in the url:
+
+```#!file
+The Key needs to be `bannerImage`,
+The Value file can only have the types of .jpeg or .png
+```
+
+The PUT `images/banner/:id` Endpoint returns the following JSON information with the hosted image url:
+
+```#!json
+{
+    "id": 2,
+    "accountType": "washer",
+    "email": "testing@wowo.com",
+    "firstName": "test",
+    "lastName": "last test",
+    "phoneNumber": null,
+    "stripeUUID": null,
+    "streetAddress": "123 nowhere",
+    "streetAddress2": null,
+    "city": "chicago",
+    "state": "IL",
+    "zip": "33612",
+    "profilePicture": "",
+    "bannerImage": "https://wowo-images.s3.amazonaws.com/1589567300843",
+    "creationDate": "2020-05-15T14:23:16.122-04:00",
+    "userRating": null,
+    "userRatingTotal": 1
+}
+```
+
+---
+
+The DELETE `images/banner/:id` Endpoint needs a valid user id in the url and returns the following JSON information:
+
+```#!json
+{
+  "message" "picture deleted successfully"
+}
+```
+
+---
+
+The POST `images/job/before/:id` Endpoint needs the following Form-data information and takes a valid job id in the url:
+
+```#!file
+The Key needs to be `photoBeforeJob`,
+The Value file can only have the types of .jpeg or .png
+```
+
+The POST `images/job/before/:id` Endpoint returns the following JSON information with the hosted image url:
+
+```#!json
+{
+    "jobId": 2,
+    "washAddress": "123 this way",
+    "scheduled": true,
+    "completed": false,
+    "paid": false,
+    "clientId": 2,
+    "washerId": null,
+    "creationDate": "2020-05-15T14:42:34.168-04:00",
+    "carId": 1,
+    "address": "123 this way",
+    "address2": null,
+    "jobLocationLat": null,
+    "jobLocationLon": null,
+    "city": "chicago",
+    "state": "IL",
+    "zip": "33612",
+    "notes": null,
+    "jobType": "basic",
+    "photoBeforeJob": "https://wowo-images.s3.amazonaws.com/1589568241194",
+    "photoAfterJob": null,
+    "timeRequested": "asap",
+    "timeCompleted": null
+}
+```
+
+---
+
+The POST `images/job/after/:id` Endpoint needs the following Form-data information and takes a valid job id in the url:
+
+```#!file
+The Key needs to be `photoAfterJob`,
+The Value file can only have the types of .jpeg or .png
+```
+
+The POST `images/job/after/:id` Endpoint returns the following JSON information with the hosted image url:
+
+```#!json
+{
+    "jobId": 2,
+    "washAddress": "123 this way",
+    "scheduled": true,
+    "completed": false,
+    "paid": false,
+    "clientId": 2,
+    "washerId": null,
+    "creationDate": "2020-05-15T14:42:34.168-04:00",
+    "carId": 1,
+    "address": "123 this way",
+    "address2": null,
+    "jobLocationLat": null,
+    "jobLocationLon": null,
+    "city": "chicago",
+    "state": "IL",
+    "zip": "33612",
+    "notes": null,
+    "jobType": "basic",
+    "photoBeforeJob": null,
+    "photoAfterJob": "https://wowo-images.s3.amazonaws.com/1589568241194",
+    "timeRequested": "asap",
+    "timeCompleted": null
+}
+```
+
+---
+
+The POST `images/car/:id` Endpoint needs the following Form-data information and takes a valid car id in the url:
+
+```#!file
+The Key needs to be `photo`,
+The Value file can only have the types of .jpeg or .png
+```
+
+The POST `images/car/:id` Endpoint returns the following JSON information with the hosted image url:
+
+```#!json
+{
+    "carId": 1,
+    "clientId": 1,
+    "make": "carmake",
+    "model": "carmodel",
+    "year": 1998,
+    "color": "red",
+    "licensePlate": "xyf 123",
+    "photo": "https://wowo-images.s3.amazonaws.com/1590543592174",
+    "category": "truck",
+    "size": "small"
 }
 ```
 

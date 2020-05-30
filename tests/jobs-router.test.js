@@ -1,10 +1,10 @@
 const express = require("express");
 const server = express();
 const request = require("supertest");
-const Jobs = require("./jobs-model");
-const jobsRouter = require("./jobs-router");
+const Jobs = require("../jobs/jobs-model");
+const jobsRouter = require("../jobs/jobs-router");
 
-jest.mock("./jobs-model");
+jest.mock("../jobs/jobs-model");
 
 server.use(express.json());
 server.use("/", jobsRouter);

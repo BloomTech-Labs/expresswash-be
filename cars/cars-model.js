@@ -22,7 +22,10 @@ async function addCar(car) {
 }
 
 function update(changes, carId) {
-  return db("cars").where({ carId }).update(changes, "*");
+  return db("cars")
+    .where({ carId })
+    .update(changes, "*")
+    .then(([car]) => car);
 }
 
 function remove(carId) {
