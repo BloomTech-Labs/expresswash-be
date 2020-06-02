@@ -133,11 +133,29 @@ jobsRouter.get("/user/:id", async (req, res) => {
     })
     .catch((err) => res.status(500).json(err.message));
 });
+
+//returns all jobs associated with given washerId
+jobsRouter.get("/washer/:id", async (req, res) => {
+  const washerId = req.params.id;
+  getJobsByWasherId(washerId)
+    .then((jobs) => {
+      if (jobs) {
+        res.status(200).json(jobs);
+      } else {
+        res
+          .status(400)
+          .json({ message: "Jobs for the specified ID does not exist." });
+      }
+    })
+    .catch((err) => res.status(500).json(err.message));
+});
+
 jobsRouter.get("/", async (req, res) => {
   find().then((jobs) => {
     res.status(200).json(jobs);
   });
 });
+
 // validates that the Job id does exist
 function validateJobId(req, res, next) {
   selectJobById(req.params.id).then((job) => {
@@ -149,6 +167,7 @@ function validateJobId(req, res, next) {
     }
   });
 }
+
 // adds a job latitude and longitude if none are provided based on the washAddress
 async function addJobLatLon(req, res, next) {
   if (!req.body.washAddress || req.body.washAddress.length < 5)
