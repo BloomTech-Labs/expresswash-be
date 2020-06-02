@@ -32,6 +32,10 @@ module.exports = {
   getJobsByUserId(clientId) {
     return knex("jobs").where({ clientId });
   },
+  //get all jobs by washerId
+  getJobsByWasherId(washerId) {
+    return knex("jobs").where({ washerId });
+  },
   find() {
     return knex("jobs");
   },
