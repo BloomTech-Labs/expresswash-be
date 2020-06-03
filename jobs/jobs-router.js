@@ -9,6 +9,7 @@ const {
   deleteJob,
   editJob,
   getJobsByUserId,
+  getJobsByWasherId,
   find,
 } = require("./jobs-model.js");
 

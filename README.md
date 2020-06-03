@@ -9,11 +9,11 @@
 
 To get the server running locally:
 
-- Clone this repo
-- Install PostgresSQL then **createdb wowo-dev**
-- **npm install** to install all required dependencies
-- **npm run server** to start the local server
-- **npm run unit-test** to start server using testing environment
+-   Clone this repo
+-   Install PostgresSQL then **createdb wowo-dev**
+-   **npm install** to install all required dependencies
+-   **npm run server** to start the local server
+-   **npm run unit-test** to start server using testing environment
 
 ### Backend Framework
 
@@ -50,6 +50,7 @@ The endpoints currently operational on the server are listed below.
 | DELETE | `/jobs/job/:id`            | all users                   | Deletes Job by Job ID                                                      |
 | PUT    | `/jobs/job/:id`            | all users                   | Edits Job by Job ID                                                        |
 | GET    | `/jobs/user/:id`           | all users                   | Gets Jobs by User ID                                                       |
+| GET    | `/jobs/washer/:id`         | all washers                 | Gets Jobs by Washer ID                                                     |
 | POST   | `/images/profile/:id`      | all users                   | Posts profile image of user                                                |
 | PUT    | `/images/profile/:id`      | all users                   | Edits profile image of user                                                |
 | DELETE | `/images/profile/:id`      | all users                   | Delete profile image of user                                               |
@@ -1165,10 +1166,10 @@ Please note we have a [code of conduct](./code_of_conduct.md). Please follow it 
 
 **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
 
-- Check first to see if your issue has already been reported.
-- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
-- Create a live example of the problem.
-- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
+-   Check first to see if your issue has already been reported.
+-   Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+-   Create a live example of the problem.
+-   Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
 
 ### Feature Requests
 
@@ -1182,11 +1183,11 @@ Remember that this project is licensed under the MIT license, and by submitting 
 
 #### Pull Request Guidelines
 
-- Ensure any install or build dependencies are removed before the end of the layer when doing a build.
-- Update the README.md with details of changes to the interface, including new plist variables, exposed ports, useful file locations and container parameters.
-- Ensure that your code conforms to our existing code conventions and test coverage.
-- Include the relevant issue number, if applicable.
-- You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
+-   Ensure any install or build dependencies are removed before the end of the layer when doing a build.
+-   Update the README.md with details of changes to the interface, including new plist variables, exposed ports, useful file locations and container parameters.
+-   Ensure that your code conforms to our existing code conventions and test coverage.
+-   Include the relevant issue number, if applicable.
+-   You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
 
 ### Attribution
 
