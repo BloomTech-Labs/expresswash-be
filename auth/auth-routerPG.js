@@ -54,6 +54,9 @@ authRouterPG.post(
                 ...washer,
                 currentLocationLat: parseFloat(washer.currentLocationLat),
                 currentLocationLon: parseFloat(washer.currentLocationLon),
+                rateSmall: parseFloat(washer.rateSmall),
+                rateMedium: parseFloat(washer.rateMedium),
+                rateLarge: parseFloat(washer.rateLarge),
               },
             },
           });
@@ -87,23 +90,24 @@ authRouterPG.post("/login", (req, res) => {
             if (user.accountType === "washer") {
               Users.findWasherId(user.id)
                 .then((washer) => {
-                  res
-                    .status(200)
-                    .json({
-                      token,
-                      user: {
-                        ...user,
-                        washer: {
-                          ...washer,
-                          currentLocationLat: parseFloat(
-                            washer.currentLocationLat
-                          ),
-                          currentLocationLon: parseFloat(
-                            washer.currentLocationLon
-                          ),
-                        },
+                  res.status(200).json({
+                    token,
+                    user: {
+                      ...user,
+                      washer: {
+                        ...washer,
+                        currentLocationLat: parseFloat(
+                          washer.currentLocationLat
+                        ),
+                        currentLocationLon: parseFloat(
+                          washer.currentLocationLon
+                        ),
+                        rateSmall: parseFloat(washer.rateSmall),
+                        rateMedium: parseFloat(washer.rateMedium),
+                        rateLarge: parseFloat(washer.rateLarge),
                       },
-                    });
+                    },
+                  });
                 })
                 .catch((err) => {
                   res
