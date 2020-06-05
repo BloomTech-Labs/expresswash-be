@@ -218,6 +218,23 @@ usersRouter.put("/washer/:id", (req, res) => {
     });
 });
 
+usersRouter.get("/available/:id", async (req, res) => {
+  const id = req.params.id;
+  getAvailableWashers(id)
+    .then((washers) => {
+      if (washers) {
+        const returnWashers = washers.map((item) => {
+          delete item.password;
+          return item;
+        });
+        res.status(200).json(returnWashers);
+      } else {
+        res.status(404).json({ message: "No available washers found." });
+      }
+    })
+    .catch((err) => res.status(500).json(err.message));
+});
+
 // MIDDLEWARE TO CHECK AN ID ACTUALLY EXISTS
 function checkId(req, res, next) {
   const { id } = req.params;
