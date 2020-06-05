@@ -47,7 +47,16 @@ authRouterPG.post(
       const newWasher = { ...req.body, userId: Number(id) };
       Users.insertWasher(newWasher)
         .then((washer) => {
-          res.status(201).json({ user: { ...req.user, washer } });
+          res.status(201).json({
+            user: {
+              ...req.user,
+              washer: {
+                ...washer,
+                currentLocationLat: parseFloat(washer.currentLocationLat),
+                currentLocationLon: parseFloat(washer.currentLocationLon),
+              },
+            },
+          });
         })
         .catch((err) => {
           res.status(500).json({ message: "unable to add washer" });
@@ -78,7 +87,23 @@ authRouterPG.post("/login", (req, res) => {
             if (user.accountType === "washer") {
               Users.findWasherId(user.id)
                 .then((washer) => {
-                  res.status(200).json({ token, user: { ...user, washer } });
+                  res
+                    .status(200)
+                    .json({
+                      token,
+                      user: {
+                        ...user,
+                        washer: {
+                          ...washer,
+                          currentLocationLat: parseFloat(
+                            washer.currentLocationLat
+                          ),
+                          currentLocationLon: parseFloat(
+                            washer.currentLocationLon
+                          ),
+                        },
+                      },
+                    });
                 })
                 .catch((err) => {
                   res
