@@ -53,7 +53,15 @@ usersRouter.get("/:id", checkId, (req, res) => {
   Users.getUserCars(req.params.id).then((cars) =>
     findWasherId(req.user.id).then((washer) => {
       washer
-        ? res.status(200).json({ ...req.user, cars, washer })
+        ? res.status(200).json({
+            ...req.user,
+            cars,
+            washer: {
+              ...washer,
+              currentLocationLat: parseFloat(washer.currentLocationLat),
+              currentLocationLon: parseFloat(washer.currentLocationLon),
+            },
+          })
         : res.status(200).json({ ...req.user, cars });
     })
   );
@@ -184,7 +192,14 @@ usersRouter.put("/washer/:id", (req, res) => {
     .then((washer) => {
       Users.updateWasher(washerId, changes)
         .then((edited) => {
-          res.status(201).json(edited);
+          res
+            .status(201)
+            .json({
+              ...edited,
+              currentLocationLat: parseFloat(edited.currentLocationLat),
+              currentLocationLon: parseFloat(edited.currentLocationLon),
+            });
+          edited;
         })
         .catch((err) => res.status(500).json(err.message));
     })
