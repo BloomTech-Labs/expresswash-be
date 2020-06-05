@@ -44,13 +44,17 @@ function getUserCars(id) {
 }
 
 // see available washers in the user's city
-getAvailableWashers(id) {
-  return knex("users as A")
-    .where({ id })
-    .join('users as B', function() {
-   this.on('A.city', '=', 'B.city')
-   this.andOnVal('B.accountType', '=', 'washer')
-    }, 'left')
-    .join('washers', { "B.id": "washers.userId" })
+function getAvailableWashers(id) {
+  return db("users as A")
+    .where("A.id", "=", id)
+    .join(
+      "users as B",
+      function () {
+        this.on("A.city", "=", "B.city");
+        this.andOnVal("B.accountType", "=", "washer");
+      },
+      "left"
+    )
+    .join("washers", { "B.id": "washers.userId" })
     .where({ workStatus: true });
 }

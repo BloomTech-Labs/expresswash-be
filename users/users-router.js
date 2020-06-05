@@ -220,7 +220,7 @@ usersRouter.put("/washer/:id", (req, res) => {
 
 usersRouter.get("/available/:id", async (req, res) => {
   const id = req.params.id;
-  getAvailableWashers(id)
+  Users.getAvailableWashers(id)
     .then((washers) => {
       if (washers) {
         const returnWashers = washers.map((item) => {
