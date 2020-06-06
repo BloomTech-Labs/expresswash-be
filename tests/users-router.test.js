@@ -258,7 +258,9 @@ test("/washer/:id PUT edits existing washer table", async () => {
   const mockWasher = jest.spyOn(Users, "findByWasherId");
   const mock = jest.spyOn(Users, "updateWasher");
   mockWasher.mockImplementationOnce(() => Promise.resolve());
-  mock.mockImplementationOnce(() => Promise.resolve());
+  mock.mockImplementationOnce(() =>
+    Promise.resolve({ currentLocationLat: 1, currentLocationLon: 1 })
+  );
   const res = await request(server).put("/washer/1");
   expect(res.status).toBe(201);
   mock.mockRestore();

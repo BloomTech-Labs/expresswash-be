@@ -38,7 +38,7 @@ test("testing card model addCar", async () => {
 
 test("testing cars model update", async () => {
   const res = await model.update({ color: "Golden" }, 1);
-  expect(res).toHaveLength(1);
+  expect(res).toHaveProperty("carId");
 });
 test("testing cars model delete", async () => {
   const res = await model.remove(1);
