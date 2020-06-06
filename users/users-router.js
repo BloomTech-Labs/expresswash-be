@@ -210,7 +210,6 @@ usersRouter.put("/washer/:id", (req, res) => {
             rateMedium: parseFloat(edited.rateMedium),
             rateLarge: parseFloat(edited.rateLarge),
           });
-          edited;
         })
         .catch((err) => res.status(500).json(err.message));
     })
