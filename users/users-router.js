@@ -60,6 +60,9 @@ usersRouter.get("/:id", checkId, (req, res) => {
               ...washer,
               currentLocationLat: parseFloat(washer.currentLocationLat),
               currentLocationLon: parseFloat(washer.currentLocationLon),
+              rateSmall: parseFloat(washer.rateSmall),
+              rateMedium: parseFloat(washer.rateMedium),
+              rateLarge: parseFloat(washer.rateLarge),
             },
           })
         : res.status(200).json({ ...req.user, cars });
@@ -125,7 +128,14 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
           washerRating: newRating,
         })
           .then((user) => {
-            res.status(201).json(user);
+            res.status(201).json({
+              ...user,
+              currentLocationLat: parseFloat(user.currentLocationLat),
+              currentLocationLon: parseFloat(user.currentLocationLon),
+              rateSmall: parseFloat(user.rateSmall),
+              rateMedium: parseFloat(user.rateMedium),
+              rateLarge: parseFloat(user.rateLarge),
+            });
           })
           .catch((err) => {
             res.status(500).json({ message: "error in updating the washer" });
@@ -192,14 +202,14 @@ usersRouter.put("/washer/:id", (req, res) => {
     .then((washer) => {
       Users.updateWasher(washerId, changes)
         .then((edited) => {
-          res
-            .status(201)
-            .json({
-              ...edited,
-              currentLocationLat: parseFloat(edited.currentLocationLat),
-              currentLocationLon: parseFloat(edited.currentLocationLon),
-            });
-          edited;
+          res.status(201).json({
+            ...edited,
+            currentLocationLat: parseFloat(edited.currentLocationLat),
+            currentLocationLon: parseFloat(edited.currentLocationLon),
+            rateSmall: parseFloat(edited.rateSmall),
+            rateMedium: parseFloat(edited.rateMedium),
+            rateLarge: parseFloat(edited.rateLarge),
+          });
         })
         .catch((err) => res.status(500).json(err.message));
     })
