@@ -225,7 +225,11 @@ usersRouter.get("/available/:id", async (req, res) => {
       if (washers) {
         const returnWashers = washers.map((item) => {
           delete item.password;
-          return item;
+          return {
+            ...item,
+            currentLocationLat: parseFloat(item.currentLocationLat),
+            currentLocationLon: parseFloat(item.currentLocationLon),
+          };
         });
         res.status(200).json(returnWashers);
       } else {
