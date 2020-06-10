@@ -27,7 +27,7 @@ test("/users/:id GET request - return user by id with response status 200", asyn
   const mockWasher = jest.spyOn(Washer, "findWasherId");
   const mockCars = jest.spyOn(Users, "getUserCars");
   mock.mockImplementationOnce(() =>
-    Promise.resolve({ id: 2, accoutType: "washer" })
+    Promise.resolve({ id: 2, accountType: "washer" })
   );
   mockCars.mockImplementationOnce(() => Promise.resolve([{ cars: "cars" }]));
   mockWasher.mockImplementationOnce(() => Promise.resolve());
