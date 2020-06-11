@@ -37,6 +37,7 @@ The endpoints currently operational on the server are listed below.
 | PUT    | `/users/rating/:id`        | all washers                 | Update rating of a user.                                                   |
 | PUT    | `/users/washer/:id`        | all washers                 | Update washer.                                                             |
 | PUT    | `/users/washer/rating/:id` | all users                   | Update rating of a washer.                                                 |
+| GET    | `/users/available/:id`     | all users                   | Returns all Active Washers in given User's City.                           |
 | GET    | `/cars`                    | all users                   | Returns all car makes.                                                     |
 | POST   | `/cars`                    | all users                   | Takes in make and model and returns carId.                                 |
 | GET    | `/cars/:id`                | all users                   | Returns all car models for a given make.                                   |
@@ -476,6 +477,47 @@ The PUT `users/washer/rating/:id` Endpoint returns the following JSON informatio
   "washerRating": 3,                --Float   --Updated washer rating
   "washerRatingTotal": 2            --Int     --Number of ratings for washer
 }
+```
+
+---
+
+The GET `users/available/:id` Endpoint returns the following JSON information:
+Takes a valid user id in the url.
+
+```#!json
+[
+    {
+        "id": 2,
+        "accountType": "washer",
+        "email": "chriswasher@test.com",
+        "firstName": "chris",
+        "lastName": "chris2",
+        "phoneNumber": null,
+        "stripeUUID": null,
+        "streetAddress": null,
+        "streetAddress2": null,
+        "city": "tampa",
+        "state": null,
+        "zip": null,
+        "profilePicture": "",
+        "bannerImage": "",
+        "creationDate": "2020-06-08T22:58:28.769-04:00",
+        "userRating": null,
+        "userRatingTotal": 1,
+        "washerId": 1,
+        "userId": 2,
+        "available": true,
+        "workStatus": true,
+        "rateSmall": null,
+        "rateMedium": "50.00",
+        "rateLarge": null,
+        "aboutMe": null,
+        "currentLocationLat": 55.67123,
+        "currentLocationLon": -121.445511,
+        "washerRating": null,
+        "washerRatingTotal": 1
+    }
+]
 ```
 
 ---
