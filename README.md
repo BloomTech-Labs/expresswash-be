@@ -1209,6 +1209,10 @@ LOCAL_DB_HOST= Your local database host
 LOCAL_DB_PORT= Your local database port
 LOCAL_DB_USER= Your local database username
 JWT_SECRET= A string of your chosing for the web token encryption
+STRIPE_SECRET=sk_test_TmP3OMa8RzmSvdwTxgvpDt4J000NX2dVjV
+S3_IMAGES_SECRET_KEY
+S3_IMAGES_SECRET_KEY_ID
+S3_REGION
 
 ## Documentation
 
