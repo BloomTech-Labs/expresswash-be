@@ -43,18 +43,13 @@ function getUserCars(id) {
   return db("cars").where({ clientId: id });
 }
 
-// see available washers in the user's city
-function getAvailableWashers(id) {
-  return db("users as A")
-    .where("A.id", "=", id)
-    .join(
-      "users as B",
-      function () {
-        this.on("A.city", "=", "B.city");
-        this.andOnVal("B.accountType", "=", "washer");
-      },
-      "left"
-    )
-    .join("washers", { "B.id": "washers.userId" })
+// see available washers in the selected city
+function getAvailableWashers(city) {
+  return db("users")
+    .where( function () {
+        this.where({ city })
+        .andWhere("accountType", "=", "washer");
+      }
+    .join("washers", { "id": "userId" })
     .where({ workStatus: true });
 }

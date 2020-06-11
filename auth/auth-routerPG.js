@@ -37,10 +37,7 @@ authRouterPG.post("/registerClient", (req, res) => {
         });
 });
 
-authRouterPG.post(
-    "/registerWasher/:id",
-    [validateUserId, ifWasherExists],
-    (req, res) => {
+authRouterPG.post("/registerWasher/:id", [validateUserId, ifWasherExists], (req, res) => {
         if (req.user.accountType === "washer") {
             const id = req.user.id;
             const newWasher = { ...req.body, userId: Number(id) };

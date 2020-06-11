@@ -218,9 +218,9 @@ usersRouter.put("/washer/:id", (req, res) => {
     });
 });
 
-usersRouter.get("/available/:id", async (req, res) => {
-  const id = req.params.id;
-  Users.getAvailableWashers(id)
+usersRouter.get("/available/:city", async (req, res) => {
+  const city = req.params.city;
+  Users.getAvailableWashers(city)
     .then((washers) => {
       if (washers) {
         const returnWashers = washers.map((item) => {

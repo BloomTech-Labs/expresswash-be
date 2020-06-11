@@ -37,7 +37,7 @@ The endpoints currently operational on the server are listed below.
 | PUT    | `/users/rating/:id`        | all washers                 | Update rating of a user.                                                   |
 | PUT    | `/users/washer/:id`        | all washers                 | Update washer.                                                             |
 | PUT    | `/users/washer/rating/:id` | all users                   | Update rating of a washer.                                                 |
-| GET    | `/users/available/:id`     | all users                   | Returns all Active Washers in given User's City.                           |
+| GET    | `/users/available/:city`   | all users                   | Returns all Active Washers in given City.                                  |
 | GET    | `/cars`                    | all users                   | Returns all car makes.                                                     |
 | POST   | `/cars`                    | all users                   | Takes in make and model and returns carId.                                 |
 | GET    | `/cars/:id`                | all users                   | Returns all car models for a given make.                                   |
@@ -474,8 +474,8 @@ The PUT `users/washer/rating/:id` Endpoint returns the following JSON informatio
 
 ---
 
-The GET `users/available/:id` Endpoint returns the following JSON information:
-Takes a valid user id in the url.
+The GET `users/available/:city` Endpoint returns the following JSON information:
+Takes a city name in the url.
 
 ```#!json
 [
