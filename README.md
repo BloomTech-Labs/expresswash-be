@@ -9,11 +9,11 @@
 
 To get the server running locally:
 
--   Clone this repo
--   Install PostgresSQL then **createdb wowo-dev**
--   **npm install** to install all required dependencies
--   **npm run server** to start the local server
--   **npm run unit-test** to start server using testing environment
+- Clone this repo
+- Install PostgresSQL then **createdb wowo-dev**
+- **npm install** to install all required dependencies
+- **npm run server** to start the local server
+- **npm run unit-test** to start server using testing environment
 
 ### Backend Framework
 
@@ -37,6 +37,7 @@ The endpoints currently operational on the server are listed below.
 | PUT    | `/users/rating/:id`        | all washers                 | Update rating of a user.                                                   |
 | PUT    | `/users/washer/:id`        | all washers                 | Update washer.                                                             |
 | PUT    | `/users/washer/rating/:id` | all users                   | Update rating of a washer.                                                 |
+| GET    | `/users/available/:id`     | all users                   | Returns all Active Washers in given User's City.                           |
 | GET    | `/cars`                    | all users                   | Returns all car makes.                                                     |
 | POST   | `/cars`                    | all users                   | Takes in make and model and returns carId.                                 |
 | GET    | `/cars/:id`                | all users                   | Returns all car models for a given make.                                   |
@@ -150,7 +151,6 @@ The POST `auth/login` Endpoint returns the following JSON information:
         "userRatingTotal": 1              --Int     --Number of ratings for user
         "washer": {                                 --Washer Object(only if registered as a washer)
           "userId": 26,                    --Int     --User's Id
-          "available": true,               --Boolean --If washer is available for work
           "workStatus": true,              --Boolean --If washer is available for work
           "rateSmall": "30.00",            --Float   --Washer price for small job
           "rateMedium": "50.00",           --Float   --Washer price for medium job
@@ -172,7 +172,6 @@ Takes in a valid user id in the url and must be registered with the account type
 
 ```#! json
 {
-  "available": true,                            --Boolean --Defaults to false
   "workStatus": true,                           --Boolean --Defaults to false
   "rateSmall": "30.00",                         --Float
   "rateMedium": "50.00",            --Required  --Float
@@ -207,7 +206,6 @@ The POST `auth/registerWasher/:id` Endpoint returns the following JSON informati
         "userRatingTotal": 1              --Int     --Number of ratings for user
         "washer": {                                 --Washer Object
           "userId": 26,                   --Int     --User's Id
-          "available": true,              --Boolean --If washer is available for work
           "workStatus": true,             --Boolean --If washer is available for work
           "rateSmall": "30.00",           --Float   --Washer price for small job
           "rateMedium": "50.00",          --Float   --Washer price for medium job
@@ -306,7 +304,6 @@ Takes in a valid user id in the url.
   ]
   "washer": {                                 --Washer Object(if user is registered as a washer)
     "userId": 26,                   --Int     --User's Id
-    "available": true,              --Boolean --If washer is available for work
     "workStatus": true,             --Boolean --If washer is available for work
     "rateSmall": "30.00",           --Float   --Washer price for small job
     "rateMedium": "50.00",          --Float   --Washer price for medium job
@@ -418,7 +415,6 @@ Takes in a valid washer id in the url.
 
 ```#!json
 {
-  "available": true,              --Boolean --If washer is available for work
   "workStatus": true,             --Boolean --If washer is available for work
   "rateSmall": "30.00",           --Float   --Rate for a small job
   "rateMedium": "50.00",          --Float   --Rate for a medium job
@@ -435,7 +431,6 @@ The PUT `users/washer/:id` Endpoint returns the following JSON information:
 {
   "washerId": 2,                  --Int     --Washer Id
   "userId": 26,                   --Int     --User Id for washer
-  "available": true,              --Boolean --If washer is available for work
   "workStatus": true,             --Boolean --If washer is available for work
   "rateSmall": "30.00",           --Float   --Rate for a small job
   "rateMedium": "50.00",          --Float   --Rate for a medium job
@@ -465,7 +460,6 @@ The PUT `users/washer/rating/:id` Endpoint returns the following JSON informatio
 {
   "washerId": 2                     --Int     --Washer Id
   "userId": 26,                     --Int     --User's Id
-  "available": true,                --Boolean --If washer is available for work
   "workStatus": true,               --Boolean --If washer is available for work
   "rateSmall": "30.00",             --Float   --Washer price for small job
   "rateMedium": "50.00",            --Float   --Washer price for medium job
@@ -476,6 +470,46 @@ The PUT `users/washer/rating/:id` Endpoint returns the following JSON informatio
   "washerRating": 3,                --Float   --Updated washer rating
   "washerRatingTotal": 2            --Int     --Number of ratings for washer
 }
+```
+
+---
+
+The GET `users/available/:id` Endpoint returns the following JSON information:
+Takes a valid user id in the url.
+
+```#!json
+[
+    {
+        "id": 2,
+        "accountType": "washer",
+        "email": "chriswasher@test.com",
+        "firstName": "chris",
+        "lastName": "chris2",
+        "phoneNumber": null,
+        "stripeUUID": null,
+        "streetAddress": null,
+        "streetAddress2": null,
+        "city": "tampa",
+        "state": null,
+        "zip": null,
+        "profilePicture": "",
+        "bannerImage": "",
+        "creationDate": "2020-06-08T22:58:28.769-04:00",
+        "userRating": null,
+        "userRatingTotal": 1,
+        "washerId": 1,
+        "userId": 2,
+        "workStatus": true,
+        "rateSmall": null,
+        "rateMedium": "50.00",
+        "rateLarge": null,
+        "aboutMe": null,
+        "currentLocationLat": 55.67123,
+        "currentLocationLon": -121.445511,
+        "washerRating": null,
+        "washerRatingTotal": 1
+    }
+]
 ```
 
 ---
@@ -630,6 +664,8 @@ The POST `jobs/new` Endpoint needs the following JSON information:
   "photoAfterJob": null,                              --String  --photo url of after job
   "timeRequested": "12:00 PM",            --Required  --String  --Time requested for job
   "timeCompleted": null                               --String  --Time job was completed
+  "dateScheduled": "05-30-1983"             --String  --Date the job was scheduled
+  "timeArrrived": "12:00 PM"                --String  --Time arrived at the job
 }
 ```
 
@@ -659,6 +695,8 @@ The POST `jobs/new` Endpoint returns the following JSON information:
   "photoAfterJob": null,                    --String  --photo url of after job
   "timeRequested": "12:00 PM",              --String  --Time requested for job
   "timeCompleted": null                     --String  --Time job was completed
+  "dateScheduled": "05-30-1983"             --String  --Date the job was scheduled
+  "timeArrrived": "12:00 PM"                --String  --Time arrived at the job
 }
 ```
 
@@ -705,6 +743,8 @@ Takes in a washer id in the url.
     "photoAfterJob": null,          --String  --Url of after photo
     "timeRequested": "12:00 PM",    --String  --Time requested for job
     "timeCompleted": null           --String  --Time of job completion
+    "dateScheduled": "05-30-1983"             --String  --Date the job was scheduled
+    "timeArrrived": "12:00 PM"                --String  --Time arrived at the job
   },
 ]
 ```
@@ -738,6 +778,8 @@ Takes in a valid job id in the url.
   "photoAfterJob": null,                    --String  --photo url of after job
   "timeRequested": "12:00 PM",              --String  --Time requested for job
   "timeCompleted": null                     --String  --Time job was completed
+  "dateScheduled": "05-30-1983"             --String  --Date the job was scheduled
+  "timeArrrived": "12:00 PM"                --String  --Time arrived at the job
 }
 ```
 
@@ -771,6 +813,8 @@ Takes in a valid user id in the url.
     "photoAfterJob": null,                    --String  --photo url of after job
     "timeRequested": "12:00 PM",              --String  --Time requested for job
     "timeCompleted": null                     --String  --Time job was completed
+    "dateScheduled": "05-30-1983"             --String  --Date the job was scheduled
+    "timeArrrived": "12:00 PM"                --String  --Time arrived at the job
   }
 ]
 ```
@@ -812,6 +856,8 @@ The PUT `jobs/selectJob/:id` Endpoint returns the following JSON information:
   "photoAfterJob": null,                    --String  --photo url of after job
   "timeRequested": "12:00 PM",              --String  --Time requested for job
   "timeCompleted": null                     --String  --Time job was completed
+  "dateScheduled": "05-30-1983"             --String  --Date the job was scheduled
+  "timeArrrived": "12:00 PM"                --String  --Time arrived at the job
 }
 ```
 
@@ -842,6 +888,8 @@ Takes in a valid job id in the url.
   "photoAfterJob": null,                    --String  --photo url of after job
   "timeRequested": "12:00 PM",              --String  --Time requested for job
   "timeCompleted": null                     --String  --Time job was completed
+  "dateScheduled": "05-30-1983"             --String  --Date the job was scheduled
+  "timeArrrived": "12:00 PM"                --String  --Time arrived at the job
 }
 ```
 
@@ -871,6 +919,8 @@ The PUT `jobs/job/:id` Endpoint returns following in JSON information:
   "photoAfterJob": null,                    --String  --photo url of after job
   "timeRequested": "12:00 PM",              --String  --Time requested for job
   "timeCompleted": null                     --String  --Time job was completed
+  "dateScheduled": "05-30-1983"             --String  --Date the job was scheduled
+  "timeArrrived": "12:00 PM"                --String  --Time arrived at the job
 }
 ```
 
@@ -1159,39 +1209,10 @@ LOCAL_DB_HOST= Your local database host
 LOCAL_DB_PORT= Your local database port
 LOCAL_DB_USER= Your local database username
 JWT_SECRET= A string of your chosing for the web token encryption
-
-Please note we have a [code of conduct](./code_of_conduct.md). Please follow it in all your interactions with the project.
-
-### Issue/Bug Request
-
-**If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
-
--   Check first to see if your issue has already been reported.
--   Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
--   Create a live example of the problem.
--   Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
-
-### Feature Requests
-
-We would love to hear from you about new features which would improve this app and further the aims of our project. Please provide as much detail and information as possible to show us why you think your new feature should be implemented.
-
-### Pull Requests
-
-If you have developed a patch, bug fix, or new feature that would improve this app, please submit a pull request. It is best to communicate your ideas with the developers first before investing a great deal of time into a pull request to ensure that it will mesh smoothly with the project.
-
-Remember that this project is licensed under the MIT license, and by submitting a pull request, you agree that your work will be, too.
-
-#### Pull Request Guidelines
-
--   Ensure any install or build dependencies are removed before the end of the layer when doing a build.
--   Update the README.md with details of changes to the interface, including new plist variables, exposed ports, useful file locations and container parameters.
--   Ensure that your code conforms to our existing code conventions and test coverage.
--   Include the relevant issue number, if applicable.
--   You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
-
-### Attribution
-
-These contribution guidelines have been adapted from [this good-Contributing.md-template](https://gist.github.com/PurpleBooth/b24679402957c63ec426).
+STRIPE_SECRET=sk_test_TmP3OMa8RzmSvdwTxgvpDt4J000NX2dVjV
+S3_IMAGES_SECRET_KEY
+S3_IMAGES_SECRET_KEY_ID
+S3_REGION
 
 ## Documentation
 

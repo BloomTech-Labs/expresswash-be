@@ -53,7 +53,18 @@ usersRouter.get("/:id", checkId, (req, res) => {
   Users.getUserCars(req.params.id).then((cars) =>
     findWasherId(req.user.id).then((washer) => {
       washer
-        ? res.status(200).json({ ...req.user, cars, washer })
+        ? res.status(200).json({
+            ...req.user,
+            cars,
+            washer: {
+              ...washer,
+              currentLocationLat: parseFloat(washer.currentLocationLat),
+              currentLocationLon: parseFloat(washer.currentLocationLon),
+              rateSmall: parseFloat(washer.rateSmall),
+              rateMedium: parseFloat(washer.rateMedium),
+              rateLarge: parseFloat(washer.rateLarge),
+            },
+          })
         : res.status(200).json({ ...req.user, cars });
     })
   );
@@ -117,7 +128,14 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
           washerRating: newRating,
         })
           .then((user) => {
-            res.status(201).json(user);
+            res.status(201).json({
+              ...user,
+              currentLocationLat: parseFloat(user.currentLocationLat),
+              currentLocationLon: parseFloat(user.currentLocationLon),
+              rateSmall: parseFloat(user.rateSmall),
+              rateMedium: parseFloat(user.rateMedium),
+              rateLarge: parseFloat(user.rateLarge),
+            });
           })
           .catch((err) => {
             res.status(500).json({ message: "error in updating the washer" });
@@ -184,13 +202,41 @@ usersRouter.put("/washer/:id", (req, res) => {
     .then((washer) => {
       Users.updateWasher(washerId, changes)
         .then((edited) => {
-          res.status(201).json(edited);
+          res.status(201).json({
+            ...edited,
+            currentLocationLat: parseFloat(edited.currentLocationLat),
+            currentLocationLon: parseFloat(edited.currentLocationLon),
+            rateSmall: parseFloat(edited.rateSmall),
+            rateMedium: parseFloat(edited.rateMedium),
+            rateLarge: parseFloat(edited.rateLarge),
+          });
         })
         .catch((err) => res.status(500).json(err.message));
     })
     .catch((err) => {
       res.status(404).json({ message: "Unable to find washer" });
     });
+});
+
+usersRouter.get("/available/:id", async (req, res) => {
+  const id = req.params.id;
+  Users.getAvailableWashers(id)
+    .then((washers) => {
+      if (washers) {
+        const returnWashers = washers.map((item) => {
+          delete item.password;
+          return {
+            ...item,
+            currentLocationLat: parseFloat(item.currentLocationLat),
+            currentLocationLon: parseFloat(item.currentLocationLon),
+          };
+        });
+        res.status(200).json(returnWashers);
+      } else {
+        res.status(404).json({ message: "No available washers found." });
+      }
+    })
+    .catch((err) => res.status(500).json(err.message));
 });
 
 // MIDDLEWARE TO CHECK AN ID ACTUALLY EXISTS
