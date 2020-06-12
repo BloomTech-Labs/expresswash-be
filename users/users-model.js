@@ -46,10 +46,10 @@ function getUserCars(id) {
 // see available washers in the selected city
 function getAvailableWashers(city) {
   return db("users")
-    .where( function () {
-        this.where({ city })
+    .where(function () {
+      this.where(db.raw('LOWER("city") = ?', city)) // removes case sensitivity from city
         .andWhere("accountType", "=", "washer");
-      }
-    .join("washers", { "id": "userId" })
+    })
+    .join("washers", { id: "userId" })
     .where({ workStatus: true });
 }

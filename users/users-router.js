@@ -60,9 +60,6 @@ usersRouter.get("/:id", checkId, (req, res) => {
               ...washer,
               currentLocationLat: parseFloat(washer.currentLocationLat),
               currentLocationLon: parseFloat(washer.currentLocationLon),
-              rateSmall: parseFloat(washer.rateSmall),
-              rateMedium: parseFloat(washer.rateMedium),
-              rateLarge: parseFloat(washer.rateLarge),
             },
           })
         : res.status(200).json({ ...req.user, cars });
@@ -128,14 +125,7 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
           washerRating: newRating,
         })
           .then((user) => {
-            res.status(201).json({
-              ...user,
-              currentLocationLat: parseFloat(user.currentLocationLat),
-              currentLocationLon: parseFloat(user.currentLocationLon),
-              rateSmall: parseFloat(user.rateSmall),
-              rateMedium: parseFloat(user.rateMedium),
-              rateLarge: parseFloat(user.rateLarge),
-            });
+            res.status(201).json(user);
           })
           .catch((err) => {
             res.status(500).json({ message: "error in updating the washer" });
@@ -210,6 +200,7 @@ usersRouter.put("/washer/:id", (req, res) => {
             rateMedium: parseFloat(edited.rateMedium),
             rateLarge: parseFloat(edited.rateLarge),
           });
+          edited;
         })
         .catch((err) => res.status(500).json(err.message));
     })
@@ -219,7 +210,7 @@ usersRouter.put("/washer/:id", (req, res) => {
 });
 
 usersRouter.get("/available/:city", async (req, res) => {
-  const city = req.params.city;
+  const city = req.params.city.toLowerCase();
   Users.getAvailableWashers(city)
     .then((washers) => {
       if (washers) {

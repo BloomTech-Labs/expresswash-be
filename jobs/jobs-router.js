@@ -56,7 +56,6 @@ jobsRouter.post("/new", [addJobLatLon], async (req, res) => {
 });
 
 // returns all jobs with washerid null (new jobs)
-// change to send city to query
 // takes user id from params
 jobsRouter.get("/available/:id", async (req, res) => {
   const id = req.params.id;
