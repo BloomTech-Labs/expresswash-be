@@ -37,7 +37,7 @@ The endpoints currently operational on the server are listed below.
 | PUT    | `/users/rating/:id`        | all washers                 | Update rating of a user.                                                   |
 | PUT    | `/users/washer/:id`        | all washers                 | Update washer.                                                             |
 | PUT    | `/users/washer/rating/:id` | all users                   | Update rating of a washer.                                                 |
-| GET    | `/users/available/:id`     | all users                   | Returns all Active Washers in given User's City.                           |
+| GET    | `/users/available/:city`   | all users                   | Returns all Active Washers in given City.                                  |
 | GET    | `/cars`                    | all users                   | Returns all car makes.                                                     |
 | POST   | `/cars`                    | all users                   | Takes in make and model and returns carId.                                 |
 | GET    | `/cars/:id`                | all users                   | Returns all car models for a given make.                                   |
@@ -474,8 +474,8 @@ The PUT `users/washer/rating/:id` Endpoint returns the following JSON informatio
 
 ---
 
-The GET `users/available/:id` Endpoint returns the following JSON information:
-Takes a valid user id in the url.
+The GET `users/available/:city` Endpoint returns the following JSON information:
+Takes a city name in the url.
 
 ```#!json
 [
@@ -815,6 +815,40 @@ Takes in a valid user id in the url.
     "timeCompleted": null                     --String  --Time job was completed
     "dateScheduled": "05-30-1983"             --String  --Date the job was scheduled
     "timeArrrived": "12:00 PM"                --String  --Time arrived at the job
+  }
+]
+```
+
+---
+
+The GET `jobs/washer/:id` Endpoint returns an array with the following JSON information:
+Takes in a valid washer id in the url.
+
+```#!json
+[
+  {
+    "jobId": 1,
+    "washAddress": "123 this way",
+    "scheduled": true,
+    "completed": false,
+    "paid": false,
+    "clientId": 1,
+    "washerId": 2,
+    "creationDate": "2020-06-11T22:47:14.545-04:00",
+    "carId": 1,
+    "address": "123 this way",
+    "address2": null,
+    "jobLocationLat": "38.238646",
+    "jobLocationLon": "-84.547482",
+    "city": "chicago",
+    "state": "IL",
+    "zip": "33612",
+    "notes": null,
+    "jobType": "basic",
+    "photoBeforeJob": null,
+    "photoAfterJob": null,
+    "timeRequested": "asap",
+    "timeCompleted": null
   }
 ]
 ```
