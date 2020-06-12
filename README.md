@@ -821,6 +821,40 @@ Takes in a valid user id in the url.
 
 ---
 
+The GET `jobs/washer/:id` Endpoint returns an array with the following JSON information:
+Takes in a valid washer id in the url.
+
+```#!json
+[
+  {
+    "jobId": 1,
+    "washAddress": "123 this way",
+    "scheduled": true,
+    "completed": false,
+    "paid": false,
+    "clientId": 1,
+    "washerId": 2,
+    "creationDate": "2020-06-11T22:47:14.545-04:00",
+    "carId": 1,
+    "address": "123 this way",
+    "address2": null,
+    "jobLocationLat": "38.238646",
+    "jobLocationLon": "-84.547482",
+    "city": "chicago",
+    "state": "IL",
+    "zip": "33612",
+    "notes": null,
+    "jobType": "basic",
+    "photoBeforeJob": null,
+    "photoAfterJob": null,
+    "timeRequested": "asap",
+    "timeCompleted": null
+  }
+]
+```
+
+---
+
 The PUT `jobs/selectJob/:id` Endpoint needs the following JSON information:
 Takes in a valid job id in the url and assigns a washer to a job.
 
