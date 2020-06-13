@@ -77,7 +77,7 @@ authRouterPG.get("/washers", (req, res) => {
 authRouterPG.post("/login", (req, res) => {
     const { email, password } = req.body;
     !email || !password
-        ? res.status(403).json({ message: "please povide email and password" })
+        ? res.status(403).json({ message: "email and password fields cannot be blank" })
         : Users.findByEmail(email)
             .then((user) => {
                 if (user && bcrypt.compareSync(password, user.password)) {
@@ -114,7 +114,7 @@ authRouterPG.post("/login", (req, res) => {
                         res.status(200).json({ token, user });
                     }
                 } else {
-                    res.status(403).json({ message: "invalid password" });
+                    res.status(403).json({ message: "invalid email and/or password" });
                 }
             })
             .catch((err) => {
