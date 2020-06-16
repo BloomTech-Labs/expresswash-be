@@ -151,9 +151,13 @@ jobsRouter.get("/washer/:id", async (req, res) => {
 });
 
 jobsRouter.get("/", async (req, res) => {
-  find().then((jobs) => {
-    res.status(200).json(jobs);
-  });
+  find()
+    .then((jobs) => {
+      res.status(200).json(jobs);
+    })
+    .catch((err) => {
+      res.status(500).json(err.message);
+    });
 });
 
 // validates that the Job id does exist
