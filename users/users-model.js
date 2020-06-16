@@ -8,7 +8,6 @@ module.exports = {
   updateWasher,
   findByWasherId,
   getUserCars,
-  getAvailableWashers,
 };
 
 function find() {
