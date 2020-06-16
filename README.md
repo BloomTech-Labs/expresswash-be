@@ -67,7 +67,7 @@ The endpoints currently operational on the server are listed below.
 
 ### Auth Routes
 
-The POST `auth/registerClient` Endpoint takes the following JSON information:
+The POST `/auth/registerClient` Endpoint takes the following JSON information:
 
 ```#! json
 {
@@ -87,7 +87,7 @@ The POST `auth/registerClient` Endpoint takes the following JSON information:
 }
 ```
 
-The POST `auth/registerClient` Endpoint returns the following JSON information:
+The POST `/auth/registerClient` Endpoint returns the following JSON information:
 
 ```#! json
 {
@@ -126,7 +126,7 @@ The POST `auth/login` Endpoint needs the following JSON information:
 }
 ```
 
-The POST `auth/login` Endpoint returns the following JSON information:
+The POST `/auth/login` Endpoint returns the following JSON information:
 
 ```#!json
 {
@@ -167,7 +167,7 @@ The POST `auth/login` Endpoint returns the following JSON information:
 
 ---
 
-The POST `auth/registerWasher/:id` Endpoint needs the following JSON information:
+The POST `/auth/registerWasher/:id` Endpoint needs the following JSON information:
 Takes in a valid user id in the url and must be registered with the account type of "washer"
 
 ```#! json
@@ -182,7 +182,7 @@ Takes in a valid user id in the url and must be registered with the account type
 }
 ```
 
-The POST `auth/registerWasher/:id` Endpoint returns the following JSON information:
+The POST `/auth/registerWasher/:id` Endpoint returns the following JSON information:
 
 ```@!json
 {
@@ -224,7 +224,7 @@ The POST `auth/registerWasher/:id` Endpoint returns the following JSON informati
 
 ### Users routs
 
-The GET `users/` Endpoint returns the following array of JSON information:
+The GET `/users/` Endpoint returns the following array of JSON information:
 
 ```#!json
 {
@@ -254,7 +254,7 @@ The GET `users/` Endpoint returns the following array of JSON information:
 
 ---
 
-The GET `users/:id` Endpoint returns the following JSON information:
+The GET `/users/:id` Endpoint returns the following JSON information:
 Takes in a valid user id in the url.
 
 ```#!json
@@ -319,7 +319,7 @@ Takes in a valid user id in the url.
 
 ---
 
-The PUT `users/:id` Endpoint takes in any of the following JSON information:
+The PUT `/users/:id` Endpoint takes in any of the following JSON information:
 Takes in a valid user id in the url.
 
 ```#!json
@@ -338,7 +338,7 @@ Takes in a valid user id in the url.
 }
 ```
 
-The PUT `users/:id` Endpoint returns the following JSON information:
+The PUT `/users/:id` Endpoint returns the following JSON information:
 
 ```#!json
 {
@@ -364,7 +364,7 @@ The PUT `users/:id` Endpoint returns the following JSON information:
 
 ---
 
-The DELETE `users/:id` Endpoint returns following JSON information:
+The DELETE `/users/:id` Endpoint returns following JSON information:
 Takes in a valid user id in the url.
 
 ```#!json
@@ -375,7 +375,7 @@ Takes in a valid user id in the url.
 
 ---
 
-The PUT `users/rating/:id` Endpoint takes in the following JSON information:
+The PUT `/users/rating/:id` Endpoint takes in the following JSON information:
 Takes in a valid user id in the url.
 
 ```#!json
@@ -384,7 +384,7 @@ Takes in a valid user id in the url.
 }
 ```
 
-The PUT `users/rating/:id` Endpoint returns the following JSON information:
+The PUT `/users/rating/:id` Endpoint returns the following JSON information:
 
 ```#!json
 {
@@ -410,7 +410,7 @@ The PUT `users/rating/:id` Endpoint returns the following JSON information:
 
 ---
 
-The PUT `users/washer/:id` Endpoint takes in any of the following JSON information:
+The PUT `/users/washer/:id` Endpoint takes in any of the following JSON information:
 Takes in a valid washer id in the url.
 
 ```#!json
@@ -425,7 +425,7 @@ Takes in a valid washer id in the url.
 }
 ```
 
-The PUT `users/washer/:id` Endpoint returns the following JSON information:
+The PUT `/users/washer/:id` Endpoint returns the following JSON information:
 
 ```#!json
 {
@@ -445,7 +445,7 @@ The PUT `users/washer/:id` Endpoint returns the following JSON information:
 
 ---
 
-The PUT `users/washer/rating/:id` Endpoint takes in the following JSON information:
+The PUT `/users/washer/rating/:id` Endpoint takes in the following JSON information:
 Takes in a valid washer id in the url.
 
 ```#!json
@@ -454,7 +454,7 @@ Takes in a valid washer id in the url.
 }
 ```
 
-The PUT `users/washer/rating/:id` Endpoint returns the following JSON information:
+The PUT `/users/washer/rating/:id` Endpoint returns the following JSON information:
 
 ```#!json
 {
@@ -474,7 +474,7 @@ The PUT `users/washer/rating/:id` Endpoint returns the following JSON informatio
 
 ---
 
-The GET `users/available/:city` Endpoint returns the following JSON information:
+The GET `/users/available/:city` Endpoint returns the following JSON information:
 Takes a city name in the url.
 
 ```#!json
@@ -516,7 +516,7 @@ Takes a city name in the url.
 
 ### Cars routes
 
-The GET `cars/` Endpoint returns the following array of JSON information:
+The GET `/cars/` Endpoint returns the following array of JSON information:
 
 ```#! json
 [
@@ -537,7 +537,7 @@ The GET `cars/` Endpoint returns the following array of JSON information:
 
 ---
 
-The POST `cars/` Endpoint takes in the following JSON information:
+The POST `/cars/` Endpoint takes in the following JSON information:
 
 ```#! json
 {
@@ -553,7 +553,7 @@ The POST `cars/` Endpoint takes in the following JSON information:
 }
 ```
 
-The POST `cars/` Endpoint returns the following JSON information:
+The POST `/cars/` Endpoint returns the following JSON information:
 
 ```#! json
 {
@@ -572,7 +572,7 @@ The POST `cars/` Endpoint returns the following JSON information:
 
 ---
 
-The GET `cars/:id` Endpoint returns the following JSON information:
+The GET `/cars/:id` Endpoint returns the following JSON information:
 Takes in a valid car id in the url.
 
 ```#! json
@@ -592,7 +592,7 @@ Takes in a valid car id in the url.
 
 ---
 
-The PUT `cars/:id` Endpoint takes in any of the following JSON information:
+The PUT `/cars/:id` Endpoint takes in any of the following JSON information:
 Takes in a valid car id in the url.
 
 ```#! json
@@ -608,7 +608,7 @@ Takes in a valid car id in the url.
 }
 ```
 
-The PUT `cars/:id` Endpoint returns the following JSON information:
+The PUT `/cars/:id` Endpoint returns the following JSON information:
 
 ```#! json
 {
@@ -627,7 +627,7 @@ The PUT `cars/:id` Endpoint returns the following JSON information:
 
 ---
 
-The DELETE `cars/:id` Endpoint returns the following JSON information:
+The DELETE `/cars/:id` Endpoint returns the following JSON information:
 Takes in a valid car id in the url.
 
 ```#! json
@@ -640,7 +640,7 @@ Takes in a valid car id in the url.
 
 ### Jobs Routes
 
-The POST `jobs/new` Endpoint needs the following JSON information:
+The POST `/jobs/new` Endpoint needs the following JSON information:
 
 ```#! json
 {
@@ -669,7 +669,7 @@ The POST `jobs/new` Endpoint needs the following JSON information:
 }
 ```
 
-The POST `jobs/new` Endpoint returns the following JSON information:
+The POST `/jobs/new` Endpoint returns the following JSON information:
 
 ```#! json
 {
@@ -702,7 +702,7 @@ The POST `jobs/new` Endpoint returns the following JSON information:
 
 ---
 
-The GET `jobs/available/:id` Endpoint returns an array of the following JSON information:
+The GET `/jobs/available/:id` Endpoint returns an array of the following JSON information:
 Takes in a washer id in the url.
 
 ```!#json
@@ -751,7 +751,7 @@ Takes in a washer id in the url.
 
 ---
 
-The GET `jobs/jobInfo/:id` Endpoint returns the following JSON information:
+The GET `/jobs/jobInfo/:id` Endpoint returns the following JSON information:
 Takes in a valid job id in the url.
 
 ```#!json
@@ -785,7 +785,7 @@ Takes in a valid job id in the url.
 
 ---
 
-The GET `jobs/user/:id` Endpoint returns an array with the following JSON information:
+The GET `/jobs/user/:id` Endpoint returns an array with the following JSON information:
 Takes in a valid user id in the url.
 
 ```#!json
@@ -821,7 +821,7 @@ Takes in a valid user id in the url.
 
 ---
 
-The GET `jobs/washer/:id` Endpoint returns an array with the following JSON information:
+The GET `/jobs/washer/:id` Endpoint returns an array with the following JSON information:
 Takes in a valid washer id in the url.
 
 ```#!json
@@ -855,7 +855,7 @@ Takes in a valid washer id in the url.
 
 ---
 
-The PUT `jobs/selectJob/:id` Endpoint needs the following JSON information:
+The PUT `/jobs/selectJob/:id` Endpoint needs the following JSON information:
 Takes in a valid job id in the url and assigns a washer to a job.
 
 ```#! json
@@ -864,7 +864,7 @@ Takes in a valid job id in the url and assigns a washer to a job.
 }
 ```
 
-The PUT `jobs/selectJob/:id` Endpoint returns the following JSON information:
+The PUT `/jobs/selectJob/:id` Endpoint returns the following JSON information:
 
 ```#!json
 {
@@ -897,7 +897,7 @@ The PUT `jobs/selectJob/:id` Endpoint returns the following JSON information:
 
 ---
 
-The PUT `jobs/job/:id` Endpoint any of the following in JSON information:
+The PUT `/jobs/job/:id` Endpoint any of the following in JSON information:
 Takes in a valid job id in the url.
 
 ```#!json
@@ -927,7 +927,7 @@ Takes in a valid job id in the url.
 }
 ```
 
-The PUT `jobs/job/:id` Endpoint returns following in JSON information:
+The PUT `/jobs/job/:id` Endpoint returns following in JSON information:
 
 ```#!json
 {
@@ -960,7 +960,7 @@ The PUT `jobs/job/:id` Endpoint returns following in JSON information:
 
 ---
 
-The DELETE `jobs/job/:id` Endpoint returns following in JSON information:
+The DELETE `/jobs/job/:id` Endpoint returns following in JSON information:
 Takes in a valid job id in the url.
 
 ```#! json
@@ -973,14 +973,14 @@ Takes in a valid job id in the url.
 
 ### Images Routes
 
-The POST `images/profile/:id` Endpoint needs the following Form-data information and takes a valid user id in the url:
+The POST `/images/profile/:id` Endpoint needs the following Form-data information and takes a valid user id in the url:
 
 ```#!file
 The Key needs to be `profilePicture`,
 The Value file can only have the types of .jpeg or .png
 ```
 
-The POST `images/profile/:id` Endpoint returns the following JSON information with the hosted image url:
+The POST `/images/profile/:id` Endpoint returns the following JSON information with the hosted image url:
 
 ```#!json
 {
@@ -1006,14 +1006,14 @@ The POST `images/profile/:id` Endpoint returns the following JSON information wi
 
 ---
 
-The PUT `images/profile/:id` Endpoint needs the following Form-data information and takes a valid user id in the url:
+The PUT `/images/profile/:id` Endpoint needs the following Form-data information and takes a valid user id in the url:
 
 ```#!file
 The Key needs to be `profilePicture`,
 The Value file can only have the types of .jpeg or .png
 ```
 
-The PUT `images/profile/:id` Endpoint returns the following JSON information with the hosted image url:
+The PUT `/images/profile/:id` Endpoint returns the following JSON information with the hosted image url:
 
 ```#!json
 {
@@ -1039,7 +1039,7 @@ The PUT `images/profile/:id` Endpoint returns the following JSON information wit
 
 ---
 
-The DELETE `images/profile/:id` Endpoint needs a valid user id in the url and returns the following JSON information:
+The DELETE `/images/profile/:id` Endpoint needs a valid user id in the url and returns the following JSON information:
 
 ```#!json
 {
@@ -1049,7 +1049,7 @@ The DELETE `images/profile/:id` Endpoint needs a valid user id in the url and re
 
 ---
 
-The POST `images/banner/:id` Endpoint needs the following Form-data information and takes a valid user id in the url:
+The POST `/images/banner/:id` Endpoint needs the following Form-data information and takes a valid user id in the url:
 
 ```#!file
 The Key needs to be `bannerImage`,
@@ -1082,14 +1082,14 @@ The POST `images/banner/:id` Endpoint returns the following JSON information wit
 
 ---
 
-The PUT `images/banner/:id` Endpoint needs the following Form-data information and takes a valid user id in the url:
+The PUT `/images/banner/:id` Endpoint needs the following Form-data information and takes a valid user id in the url:
 
 ```#!file
 The Key needs to be `bannerImage`,
 The Value file can only have the types of .jpeg or .png
 ```
 
-The PUT `images/banner/:id` Endpoint returns the following JSON information with the hosted image url:
+The PUT `/images/banner/:id` Endpoint returns the following JSON information with the hosted image url:
 
 ```#!json
 {
@@ -1115,7 +1115,7 @@ The PUT `images/banner/:id` Endpoint returns the following JSON information with
 
 ---
 
-The DELETE `images/banner/:id` Endpoint needs a valid user id in the url and returns the following JSON information:
+The DELETE `/images/banner/:id` Endpoint needs a valid user id in the url and returns the following JSON information:
 
 ```#!json
 {
@@ -1125,14 +1125,14 @@ The DELETE `images/banner/:id` Endpoint needs a valid user id in the url and ret
 
 ---
 
-The POST `images/job/before/:id` Endpoint needs the following Form-data information and takes a valid job id in the url:
+The POST `/images/job/before/:id` Endpoint needs the following Form-data information and takes a valid job id in the url:
 
 ```#!file
 The Key needs to be `photoBeforeJob`,
 The Value file can only have the types of .jpeg or .png
 ```
 
-The POST `images/job/before/:id` Endpoint returns the following JSON information with the hosted image url:
+The POST `/images/job/before/:id` Endpoint returns the following JSON information with the hosted image url:
 
 ```#!json
 {
@@ -1163,14 +1163,14 @@ The POST `images/job/before/:id` Endpoint returns the following JSON information
 
 ---
 
-The POST `images/job/after/:id` Endpoint needs the following Form-data information and takes a valid job id in the url:
+The POST `/images/job/after/:id` Endpoint needs the following Form-data information and takes a valid job id in the url:
 
 ```#!file
 The Key needs to be `photoAfterJob`,
 The Value file can only have the types of .jpeg or .png
 ```
 
-The POST `images/job/after/:id` Endpoint returns the following JSON information with the hosted image url:
+The POST `/images/job/after/:id` Endpoint returns the following JSON information with the hosted image url:
 
 ```#!json
 {
@@ -1201,14 +1201,14 @@ The POST `images/job/after/:id` Endpoint returns the following JSON information 
 
 ---
 
-The POST `images/car/:id` Endpoint needs the following Form-data information and takes a valid car id in the url:
+The POST `/images/car/:id` Endpoint needs the following Form-data information and takes a valid car id in the url:
 
 ```#!file
 The Key needs to be `photo`,
 The Value file can only have the types of .jpeg or .png
 ```
 
-The POST `images/car/:id` Endpoint returns the following JSON information with the hosted image url:
+The POST `/images/car/:id` Endpoint returns the following JSON information with the hosted image url:
 
 ```#!json
 {
