@@ -221,3 +221,11 @@ test("/jobs, GET ALL Jobs", async () => {
   expect(res.status).toBe(200);
   mock.mockRestore();
 });
+
+test("/jobs, GET ALL Jobs Error", async () => {
+  const mock = jest.spyOn(Jobs, "find");
+  mock.mockImplementation(() => Promise.reject({ message: "broken" }));
+  const res = await request(server).get("/");
+  expect(res.status).toBe(500);
+  mock.mockRestore();
+});
