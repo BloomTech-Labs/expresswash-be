@@ -18,9 +18,15 @@ test('testing users model delete', async () => {
   expect(res).toHaveLength(1);
 });
 
+<<<<<<< HEAD
 test('testing users model update', async () => {
   const res = await model.update(1, { name: 'tom' });
   expect(res[0]).toHaveProperty('email');
+=======
+test("testing users model update", async () => {
+  const res = await model.update(1, { name: "tom" });
+  expect(res[0]).toHaveProperty("email");
+>>>>>>> email service working. Trying to figure out how to implement it on the endpoints we have to
 });
 test('testing users model updateWasher', async () => {
   const res = await model.updateWasher(1, { name: 'jeff' });

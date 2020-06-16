@@ -17,7 +17,6 @@ const sendEMail = (to, subject, text, cb) => {
   };
 
   transporter.sendMail(mailOptions, (err, data) => {
-    console.log(data);
     if (err) {
       cb(err, null);
     } else {

@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 const axios = require('axios');
 const jobsRouter = require('express').Router();
+=======
+const axios = require("axios");
+const sendMail = require("../nodemailer/email");
+
+const jobsRouter = require("express").Router();
+>>>>>>> email service working. Trying to figure out how to implement it on the endpoints we have to
 const {
   addNewJob,
   getAvailableJobs,
@@ -10,7 +17,12 @@ const {
   getJobsByUserId,
   getJobsByWasherId,
   find,
+<<<<<<< HEAD
 } = require('./jobs-model.js');
+=======
+} = require("./jobs-model.js");
+const { request } = require("express");
+>>>>>>> email service working. Trying to figure out how to implement it on the endpoints we have to
 
 // creates a job
 jobsRouter.post('/new', [addJobLatLon], async (req, res) => {
@@ -117,7 +129,14 @@ jobsRouter.delete('/job/:id', [validateJobId], async (req, res) => {
 });
 
 //updates a job by jobId
+<<<<<<< HEAD
 jobsRouter.put('/job/:id', [validateJobId], async (req, res) => {
+=======
+jobsRouter.put("/job/:id", [validateJobId], async (req, res) => {
+  // const { email } = req.user;
+  // console.log(req.body);
+  // sendMail(email, "testing", "hello there testing");
+>>>>>>> email service working. Trying to figure out how to implement it on the endpoints we have to
   const jobId = req.params.id;
   const changes = req.body;
   editJob(jobId, changes)
