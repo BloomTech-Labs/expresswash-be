@@ -8,7 +8,6 @@ module.exports = {
   updateWasher,
   findByWasherId,
   getUserCars,
-  getAvailableWashers,
 };
 
 function find() {
@@ -41,20 +40,4 @@ async function updateWasher(washerId, changes) {
 
 function getUserCars(id) {
   return db("cars").where({ clientId: id });
-}
-
-// see available washers in the user's city
-function getAvailableWashers(id) {
-  return db("users as A")
-    .where("A.id", "=", id)
-    .join(
-      "users as B",
-      function () {
-        this.on("A.city", "=", "B.city");
-        this.andOnVal("B.accountType", "=", "washer");
-      },
-      "left"
-    )
-    .join("washers", { "B.id": "washers.userId" })
-    .where({ workStatus: true });
 }
