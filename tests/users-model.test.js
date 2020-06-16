@@ -20,7 +20,7 @@ test("testing users model delete", async () => {
 
 test("testing users model update", async () => {
   const res = await model.update(1, { name: "tom" });
-  expect(res).toHaveProperty("email");
+  expect(res[0]).toHaveProperty("email");
 });
 test("testing users model updateWasher", async () => {
   const res = await model.updateWasher(1, { name: "jeff" });

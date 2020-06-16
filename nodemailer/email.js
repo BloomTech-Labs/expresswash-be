@@ -1,24 +1,28 @@
 const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 let transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: "hotmail",
   auth: {
-    user: process.env.GMAIL_USERNAME,
-    pass: process.env.GMAIL_PASSWORD,
+    user: process.env.HOTMAIL_EMAIL,
+    pass: process.env.HOTMAIL_PASSWORD,
   },
 });
+const sendMail = (to, subject, text, cb) => {
+  let mailOptions = {
+    from: "expresswash09@hotmail.com",
+    to,
+    subject,
+    text,
+  };
 
-let mailOptions = {
-  from: "expresswash09@gmail.com",
-  to: "jeffreymartespolanco@hotmail.com",
-  subject: "testing",
-  text: "hello thereee",
+  transporter.sendMail(mailOptions, (err, data) => {
+    if (err) {
+      cb(err, null);
+    } else {
+      cb(null, data);
+    }
+  });
 };
 
-transporter.sendMail(mailOptions, (err, data) => {
-  if (err) {
-    console.log("yoooo", err);
-  } else {
-    console.log("workiiingg");
-  }
-});
+module.exports = sendMail;

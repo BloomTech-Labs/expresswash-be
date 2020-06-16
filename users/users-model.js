@@ -26,7 +26,7 @@ function update(id, changes) {
   return db("users")
     .where({ id })
     .update(changes, "*")
-    .then(([user]) => user);
+    .then((user) => user);
 }
 function findByWasherId(washerId) {
   return db("washers").where({ washerId }).first();

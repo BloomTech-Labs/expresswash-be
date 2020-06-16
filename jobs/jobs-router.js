@@ -1,4 +1,5 @@
 const axios = require("axios");
+const sendMail = require("../nodemailer/email");
 
 const jobsRouter = require("express").Router();
 const {
@@ -12,6 +13,7 @@ const {
   getJobsByWasherId,
   find,
 } = require("./jobs-model.js");
+const { request } = require("express");
 
 // creates a job
 jobsRouter.post("/new", [addJobLatLon], async (req, res) => {
@@ -110,6 +112,9 @@ jobsRouter.delete("/job/:id", [validateJobId], async (req, res) => {
 
 //updates a job by jobId
 jobsRouter.put("/job/:id", [validateJobId], async (req, res) => {
+  // const { email } = req.user;
+  // console.log(req.body);
+  // sendMail(email, "testing", "hello there testing");
   const jobId = req.params.id;
   const changes = req.body;
   editJob(jobId, changes)

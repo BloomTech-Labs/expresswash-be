@@ -180,7 +180,7 @@ usersRouter.put("/:id", checkId, (req, res) => {
     .then((user) => {
       if (user) {
         delete user[0].password;
-        res.status(200).json(user);
+        res.status(200).json(user[0]);
       } else {
         res.status(404).json({
           message: "the user could not be updated",
