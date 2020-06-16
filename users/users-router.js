@@ -1,10 +1,10 @@
-const usersRouter = require("express").Router();
-const { findWasherId } = require("../auth/auth-modal");
-const Users = require("../users/users-model.js");
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
+const usersRouter = require('express').Router();
+const { findWasherId } = require('../auth/auth-modal');
+const Users = require('../users/users-model.js');
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 // make payment for job
-usersRouter.post("/payment", (req, res) => {
+usersRouter.post('/payment', (req, res) => {
   const { product, token } = req.body;
 
   return stripe.customers
@@ -16,7 +16,7 @@ usersRouter.post("/payment", (req, res) => {
       stripe.charges.create(
         {
           amount: product.price * 100,
-          currency: "usd",
+          currency: 'usd',
           customer: customer.id,
           receipt_email: token.email,
           description: product.name,
@@ -33,7 +33,7 @@ usersRouter.post("/payment", (req, res) => {
 });
 
 // Return all users
-usersRouter.get("/", (req, res) => {
+usersRouter.get('/', (req, res) => {
   Users.find()
     .then((users) => {
       users.map((user) => {
@@ -48,7 +48,7 @@ usersRouter.get("/", (req, res) => {
 });
 
 // Return user by id - firstName, lastName, email, phoneNumber, and the cars that are linked to that user
-usersRouter.get("/:id", checkId, (req, res) => {
+usersRouter.get('/:id', checkId, (req, res) => {
   delete req.user.password;
   Users.getUserCars(req.params.id).then((cars) =>
     findWasherId(req.user.id).then((washer) => {
@@ -71,7 +71,7 @@ usersRouter.get("/:id", checkId, (req, res) => {
 });
 
 // Add rating to user profile
-usersRouter.put("/rating/:id", (req, res) => {
+usersRouter.put('/rating/:id', (req, res) => {
   const id = req.params.id;
   Users.findById(id)
     .then((user) => {
@@ -89,7 +89,7 @@ usersRouter.put("/rating/:id", (req, res) => {
           })
           .catch((err) => {
             res.status(500).json({
-              message: "error in updating the user",
+              message: 'error in updating the user',
               error: err.message,
             });
           });
@@ -101,7 +101,7 @@ usersRouter.put("/rating/:id", (req, res) => {
           })
           .catch((err) => {
             res.status(500).json({
-              message: "error updating the user rating",
+              message: 'error updating the user rating',
               error: err.message,
             });
           });
@@ -114,7 +114,7 @@ usersRouter.put("/rating/:id", (req, res) => {
     });
 });
 //Add rating to washer profile
-usersRouter.put("/washer/rating/:id", (req, res) => {
+usersRouter.put('/washer/rating/:id', (req, res) => {
   const id = req.params.id;
   Users.findByWasherId(id)
     .then((washer) => {
@@ -138,7 +138,7 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
             });
           })
           .catch((err) => {
-            res.status(500).json({ message: "error in updating the washer" });
+            res.status(500).json({ message: 'error in updating the washer' });
           });
       } else {
         // adds rating if it is the first on for the washer
@@ -149,7 +149,7 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
           .catch((err) => {
             res
               .status(500)
-              .json({ message: "error updating the washer rating" });
+              .json({ message: 'error updating the washer rating' });
           });
       }
     })
@@ -161,7 +161,7 @@ usersRouter.put("/washer/rating/:id", (req, res) => {
 });
 
 // Delete User by Id
-usersRouter.delete("/:id", checkId, (req, res) => {
+usersRouter.delete('/:id', checkId, (req, res) => {
   const { id } = req.params;
   Users.del(id)
     .then((removed) => {
@@ -175,27 +175,27 @@ usersRouter.delete("/:id", checkId, (req, res) => {
 });
 
 // Update user data by id
-usersRouter.put("/:id", checkId, (req, res) => {
+usersRouter.put('/:id', checkId, (req, res) => {
   Users.update(req.params.id, req.body)
     .then((user) => {
       if (user) {
         delete user[0].password;
-        res.status(200).json(user);
+        res.status(200).json(user[0]);
       } else {
         res.status(404).json({
-          message: "the user could not be updated",
+          message: 'the user could not be updated',
         });
       }
     })
     .catch((err) => {
       res.status(500).json({
-        message: "there was an error processing the request",
+        message: 'there was an error processing the request',
         error: err.message,
       });
     });
 });
 
-usersRouter.put("/washer/:id", (req, res) => {
+usersRouter.put('/washer/:id', (req, res) => {
   const washerId = req.params.id;
   const changes = req.body;
   Users.findByWasherId(washerId)
@@ -214,11 +214,11 @@ usersRouter.put("/washer/:id", (req, res) => {
         .catch((err) => res.status(500).json(err.message));
     })
     .catch((err) => {
-      res.status(404).json({ message: "Unable to find washer" });
+      res.status(404).json({ message: 'Unable to find washer' });
     });
 });
 
-usersRouter.get("/available/:city", async (req, res) => {
+usersRouter.get('/available/:city', async (req, res) => {
   const city = req.params.city.toLowerCase();
   Users.getAvailableWashers(city)
     .then((washers) => {
@@ -233,7 +233,7 @@ usersRouter.get("/available/:city", async (req, res) => {
         });
         res.status(200).json(returnWashers);
       } else {
-        res.status(404).json({ message: "No available washers found." });
+        res.status(404).json({ message: 'No available washers found.' });
       }
     })
     .catch((err) => res.status(500).json(err.message));
@@ -255,7 +255,7 @@ function checkId(req, res, next) {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "there was an error processing the request",
+        message: 'there was an error processing the request',
         error: err.message,
       });
     });
