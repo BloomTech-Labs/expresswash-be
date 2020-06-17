@@ -229,6 +229,9 @@ usersRouter.get('/available/:city', async (req, res) => {
             ...item,
             currentLocationLat: parseFloat(item.currentLocationLat),
             currentLocationLon: parseFloat(item.currentLocationLon),
+            rateSmall: parseFloat(edited.rateSmall),
+            rateMedium: parseFloat(edited.rateMedium),
+            rateLarge: parseFloat(edited.rateLarge),
           };
         });
         res.status(200).json(returnWashers);
