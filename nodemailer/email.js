@@ -8,9 +8,9 @@ let transporter = nodemailer.createTransport({
     pass: process.env.HOTMAIL_PASSWORD,
   },
 });
-const sendMail = (to, subject, text, cb) => {
+const sendEMail = (to, subject, text, cb) => {
   let mailOptions = {
-    from: "expresswash09@hotmail.com",
+    from: "jeffreymartespolanco@hotmail.com",
     to,
     subject,
     text,
@@ -25,4 +25,4 @@ const sendMail = (to, subject, text, cb) => {
   });
 };
 
-module.exports = sendMail;
+module.exports = sendEMail;
