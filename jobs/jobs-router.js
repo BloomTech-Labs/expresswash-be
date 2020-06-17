@@ -3,8 +3,6 @@ const axios = require('axios');
 const jobsRouter = require('express').Router();
 =======
 const axios = require("axios");
-const sendMail = require("../nodemailer/email");
-
 const jobsRouter = require("express").Router();
 >>>>>>> email service working. Trying to figure out how to implement it on the endpoints we have to
 const {
@@ -133,10 +131,13 @@ jobsRouter.delete('/job/:id', [validateJobId], async (req, res) => {
 jobsRouter.put('/job/:id', [validateJobId], async (req, res) => {
 =======
 jobsRouter.put("/job/:id", [validateJobId], async (req, res) => {
+<<<<<<< HEAD
   // const { email } = req.user;
   // console.log(req.body);
   // sendMail(email, "testing", "hello there testing");
 >>>>>>> email service working. Trying to figure out how to implement it on the endpoints we have to
+=======
+>>>>>>> email service implemented but sending email twice atm
   const jobId = req.params.id;
   const changes = req.body;
   editJob(jobId, changes)
@@ -146,6 +147,7 @@ jobsRouter.put("/job/:id", [validateJobId], async (req, res) => {
       res.status(200).json(edited);
     })
     .catch((err) => res.status(500).json(err.message));
+  console.log(req.user);
 });
 
 //returns all jobs associated with given userId

@@ -10,7 +10,11 @@ let transporter = nodemailer.createTransport({
 });
 const sendEMail = (to, subject, text, cb) => {
   let mailOptions = {
+<<<<<<< HEAD
     from: 'expresswash09@hotmail.com',
+=======
+    from: "jeffreymartespolanco@hotmail.com",
+>>>>>>> email service implemented but sending email twice atm
     to,
     subject,
     text,
