@@ -1,16 +1,16 @@
-const router = require("express").Router();
-const sendEmail = require("./email");
-const Users = require("../users/users-model");
-router.post("/send-email", checkId, (req, res) => {
+const router = require('express').Router();
+const sendEmail = require('./email');
+const Users = require('../users/users-model');
+router.post('/send-email', checkId, (req, res) => {
   const { clientId } = req.body;
-  const subject = "Expresswash Notification";
-  const text = "Your job has been completed!";
+  const subject = 'Expresswash Notification';
+  const text = 'Your job has been completed!';
   Users.findById(clientId).then((user) => {
-    sendEmail(user.email, subject, text, (err, data) => {
+    sendEmail(user.email, subject, text, user, (err, data) => {
       if (err) {
-        res.status(500).json({ message: "internal error", err });
+        res.status(500).json({ message: 'internal error', err });
       } else {
-        res.status(200).json({ message: "Succesful!" });
+        res.status(200).json({ message: 'Succesful!' });
       }
     });
   });
@@ -33,7 +33,7 @@ function checkId(req, res, next) {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "there was an error processing the request",
+        message: 'there was an error processing the request',
         error: err.message,
       });
     });
