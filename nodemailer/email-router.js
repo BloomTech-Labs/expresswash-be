@@ -1,8 +1,9 @@
-const router = require("express").Router();
-const sendEmail = require("./email");
-const Users = require("../users/users-model");
-router.post("/send-email", checkId, (req, res) => {
+const router = require('express').Router();
+const sendEmail = require('./email');
+const Users = require('../users/users-model');
+router.post('/send-email', checkId, (req, res) => {
   const { clientId } = req.body;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   const subject = "Expresswash Notification";
@@ -15,11 +16,16 @@ router.post("/send-email", checkId, (req, res) => {
   const subject = "Expresswash Notification";
   const text = "Your job has been completed!";
 >>>>>>> Email service fully functional, missing html styling
+=======
+  const subject = 'Expresswash Notification';
+  const text = 'Your job has been completed!';
+>>>>>>> Added some html with dynamic data
   Users.findById(clientId).then((user) => {
-    sendEmail(user.email, subject, text, (err, data) => {
+    sendEmail(user.email, subject, text, user, (err, data) => {
       if (err) {
-        res.status(500).json({ message: "internal error", err });
+        res.status(500).json({ message: 'internal error', err });
       } else {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         res.status(200).json({ message: "Succesful!" });
@@ -29,6 +35,9 @@ router.post("/send-email", checkId, (req, res) => {
 =======
         res.status(200).json({ message: "Succesful!" });
 >>>>>>> Email service fully functional, missing html styling
+=======
+        res.status(200).json({ message: 'Succesful!' });
+>>>>>>> Added some html with dynamic data
       }
     });
   });
@@ -58,7 +67,7 @@ function checkId(req, res, next) {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "there was an error processing the request",
+        message: 'there was an error processing the request',
         error: err.message,
       });
     });
