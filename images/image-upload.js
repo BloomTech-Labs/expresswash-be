@@ -1,21 +1,21 @@
-const router = require("express").Router();
-const upload = require("./file-upload");
-const aws = require("aws-sdk");
-const Users = require("../users/users-model");
-const Jobs = require("../jobs/jobs-model");
-const Cars = require("../cars/cars-model");
-const { validateCarId } = require("../cars/cars-middleware");
+const router = require('express').Router();
+const upload = require('./file-upload');
+const aws = require('aws-sdk');
+const Users = require('../users/users-model');
+const Jobs = require('../jobs/jobs-model');
+const Cars = require('../cars/cars-model');
+const { validateCarId } = require('../cars/cars-middleware');
 
 //Profile image endpoints
-const profileUpload = upload.single("profilePicture");
-router.post("/profile/:id", checkId, (req, res) => {
+const profileUpload = upload.single('profilePicture');
+router.post('/profile/:id', checkId, (req, res) => {
   profileUpload(req, res, (err) => {
     if (err) {
       res.status(422).json({ error: err.message });
     } else {
       Users.update(req.params.id, { profilePicture: req.file.location })
         .then((user) => {
-          delete user.password;
+          delete user[0].password;
           res.status(201).json(user);
         })
         .catch((err) => {
@@ -24,13 +24,13 @@ router.post("/profile/:id", checkId, (req, res) => {
     }
   });
 });
-router.put("/profile/:id", checkId, (req, res) => {
+router.put('/profile/:id', checkId, (req, res) => {
   const { profilePicture } = req.user;
-  const picturearray = profilePicture.split("/");
+  const picturearray = profilePicture.split('/');
   const pictureKey = picturearray[picturearray.length - 1];
   const removeBucket = new aws.S3();
   const params = {
-    Bucket: "wowo-images",
+    Bucket: 'wowo-images',
     Key: pictureKey,
   };
   removeBucket.deleteObject(params, (err, data) => {
@@ -41,7 +41,7 @@ router.put("/profile/:id", checkId, (req, res) => {
         } else {
           Users.update(req.params.id, { profilePicture: req.file.location })
             .then((user) => {
-              delete user.password;
+              delete user[0].password;
               res.status(201).json(user);
             })
             .catch((err) => {
@@ -54,20 +54,20 @@ router.put("/profile/:id", checkId, (req, res) => {
     }
   });
 });
-router.delete("/profile/:id", checkId, (req, res) => {
+router.delete('/profile/:id', checkId, (req, res) => {
   const { profilePicture } = req.user;
-  const picturearray = profilePicture.split("/");
+  const picturearray = profilePicture.split('/');
   const pictureKey = picturearray[picturearray.length - 1];
   const removeBucket = new aws.S3();
   const params = {
-    Bucket: "wowo-images",
+    Bucket: 'wowo-images',
     Key: pictureKey,
   };
   removeBucket.deleteObject(params, (err, data) => {
     if (data) {
-      Users.update(req.params.id, { profilePicture: "" })
+      Users.update(req.params.id, { profilePicture: '' })
         .then((del) => {
-          res.status(200).json({ message: "picture deleted successfully" });
+          res.status(200).json({ message: 'picture deleted successfully' });
         })
         .catch((err) => {
           res.status(500).json(err.message);
@@ -78,15 +78,15 @@ router.delete("/profile/:id", checkId, (req, res) => {
   });
 });
 // Banner image endpoints
-const bannerUpload = upload.single("bannerImage");
-router.post("/banner/:id", checkId, (req, res) => {
+const bannerUpload = upload.single('bannerImage');
+router.post('/banner/:id', checkId, (req, res) => {
   bannerUpload(req, res, (err) => {
     if (err) {
       res.status(422).json({ error: err.message });
     } else {
       Users.update(req.params.id, { bannerImage: req.file.location })
         .then((user) => {
-          delete user.password;
+          delete user[0].password;
           res.status(201).json(user);
         })
         .catch((err) => {
@@ -95,13 +95,13 @@ router.post("/banner/:id", checkId, (req, res) => {
     }
   });
 });
-router.put("/banner/:id", checkId, (req, res) => {
+router.put('/banner/:id', checkId, (req, res) => {
   const { bannerImage } = req.user;
-  const bannerarray = bannerImage.split("/");
+  const bannerarray = bannerImage.split('/');
   const bannerKey = bannerarray[bannerarray.length - 1];
   const removeBucket = new aws.S3();
   const params = {
-    Bucket: "wowo-images",
+    Bucket: 'wowo-images',
     Key: bannerKey,
   };
   removeBucket.deleteObject(params, (err, data) => {
@@ -112,7 +112,7 @@ router.put("/banner/:id", checkId, (req, res) => {
         } else {
           Users.update(req.params.id, { bannerImage: req.file.location })
             .then((user) => {
-              delete user.password;
+              delete user[0].password;
               res.status(201).json(user);
             })
             .catch((err) => {
@@ -125,20 +125,20 @@ router.put("/banner/:id", checkId, (req, res) => {
     }
   });
 });
-router.delete("/banner/:id", checkId, (req, res) => {
+router.delete('/banner/:id', checkId, (req, res) => {
   const { bannerImage } = req.user;
-  const bannerarray = bannerImage.split("/");
+  const bannerarray = bannerImage.split('/');
   const bannerKey = bannerarray[bannerarray.length - 1];
   const removeBanner = new aws.S3();
   const params = {
-    Bucket: "wowo-images",
+    Bucket: 'wowo-images',
     Key: bannerKey,
   };
   removeBanner.deleteObject(params, (err, data) => {
     if (data) {
-      Users.update(req.params.id, { bannerImage: "" })
+      Users.update(req.params.id, { bannerImage: '' })
         .then((del) => {
-          res.status(200).json({ message: "picture deleted successfully" });
+          res.status(200).json({ message: 'picture deleted successfully' });
         })
         .catch((err) => {
           res.status(500).json(err.message);
@@ -149,8 +149,8 @@ router.delete("/banner/:id", checkId, (req, res) => {
   });
 });
 //Before job image upload endpoint
-const beforeUpload = upload.single("photoBeforeJob");
-router.post("/job/before/:id", (req, res) => {
+const beforeUpload = upload.single('photoBeforeJob');
+router.post('/job/before/:id', (req, res) => {
   beforeUpload(req, res, (err) => {
     if (err) {
       res.status(422).json({ error: err.message });
@@ -166,8 +166,8 @@ router.post("/job/before/:id", (req, res) => {
   });
 });
 //After job image endpoint
-const afterUpload = upload.single("photoAfterJob");
-router.post("/job/after/:id", (req, res) => {
+const afterUpload = upload.single('photoAfterJob');
+router.post('/job/after/:id', (req, res) => {
   afterUpload(req, res, (err) => {
     if (err) {
       res.status(422).json({ error: err.message });
@@ -182,8 +182,8 @@ router.post("/job/after/:id", (req, res) => {
     }
   });
 });
-const carUpload = upload.single("photo");
-router.post("/car/:carId", validateCarId, (req, res) => {
+const carUpload = upload.single('photo');
+router.post('/car/:carId', validateCarId, (req, res) => {
   carUpload(req, res, (err) => {
     if (err) {
       res.status(422).json({ error: err.message });
@@ -214,7 +214,7 @@ function checkId(req, res, next) {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "there was an error processing the request",
+        message: 'there was an error processing the request',
         error: err.message,
       });
     });
