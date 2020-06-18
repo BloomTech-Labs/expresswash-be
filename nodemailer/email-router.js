@@ -3,14 +3,14 @@ const sendEmail = require("./email");
 const Users = require("../users/users-model");
 router.post("/send-email", checkId, (req, res) => {
   const { clientId } = req.body;
-  const subject = "Finally it is working";
-  const text = "Here is your email that I finally got working";
+  const subject = "Expresswash Notification";
+  const text = "Your job has been completed!";
   Users.findById(clientId).then((user) => {
     sendEmail(user.email, subject, text, (err, data) => {
       if (err) {
         res.status(500).json({ message: "internal error", err });
       } else {
-        res.status(200).json({ message: data });
+        res.status(200).json({ message: "Succesful!" });
       }
     });
   });
@@ -23,6 +23,7 @@ function checkId(req, res, next) {
     .then((user) => {
       if (user) {
         req.user = user;
+        delete req.user.password;
         next();
       } else {
         res.status(404).json({

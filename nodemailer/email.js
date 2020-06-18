@@ -10,13 +10,14 @@ let transporter = nodemailer.createTransport({
 });
 const sendEMail = (to, subject, text, cb) => {
   let mailOptions = {
-    from: "jeffreymartespolanco@hotmail.com",
+    from: "expresswash09@hotmail.com",
     to,
     subject,
     text,
   };
 
   transporter.sendMail(mailOptions, (err, data) => {
+    console.log(data);
     if (err) {
       cb(err, null);
     } else {
