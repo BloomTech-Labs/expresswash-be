@@ -11,7 +11,6 @@ const {
   getJobsByWasherId,
   find,
 } = require("./jobs-model.js");
-const { request } = require("express");
 
 // creates a job
 jobsRouter.post("/new", [addJobLatLon], async (req, res) => {
@@ -116,7 +115,6 @@ jobsRouter.put("/job/:id", [validateJobId], async (req, res) => {
       res.status(200).json(edited);
     })
     .catch((err) => res.status(500).json(err.message));
-  console.log(req.user);
 });
 
 //returns all jobs associated with given userId
