@@ -3,7 +3,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/d9d450333b0f06f4ceca/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/wowo-be/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/d9d450333b0f06f4ceca/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/wowo-be/test_coverage)
 
-## Backend deployed at http://serverprod.expresswash.us
+## Backend deployed at https://serverprod.expresswash.us
 
 ## 1️⃣ Getting started
 
