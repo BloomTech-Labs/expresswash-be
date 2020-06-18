@@ -1,5 +1,4 @@
 const axios = require("axios");
-
 const jobsRouter = require("express").Router();
 const {
   addNewJob,

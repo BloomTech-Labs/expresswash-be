@@ -13,7 +13,7 @@ const carsRouterPG = require("../cars/cars-routerPG.js");
 const jobsRouter = require("../jobs/jobs-router.js");
 const usersRouter = require("../users/users-router.js");
 const imageRouter = require("../images/image-upload");
-
+const emailRouter = require("../nodemailer/email-router");
 const server = express();
 
 server.use(helmet());
@@ -28,7 +28,7 @@ server.use("/cars/", carsRouterPG);
 server.use("/jobs/", jobsRouter);
 server.use("/users/", usersRouter);
 server.use("/images/", imageRouter);
-
+server.use("/emails/", emailRouter);
 server.get("/", (req, res) => {
   res.status(200).json({ message: "Backend is up and running" });
 });
