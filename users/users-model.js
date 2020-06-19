@@ -45,6 +45,7 @@ function getUserCars(id) {
 
 // see available washers in the selected city
 function getAvailableWashers(city) {
+  console.log(city);
   return db('users')
     .where(function () {
       this.where(db.raw('LOWER("city") = ?', city)) // removes case sensitivity from city
