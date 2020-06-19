@@ -229,9 +229,9 @@ usersRouter.get('/available/:city', async (req, res) => {
             ...item,
             currentLocationLat: parseFloat(item.currentLocationLat),
             currentLocationLon: parseFloat(item.currentLocationLon),
-            rateSmall: parseFloat(edited.rateSmall),
-            rateMedium: parseFloat(edited.rateMedium),
-            rateLarge: parseFloat(edited.rateLarge),
+            rateSmall: parseFloat(item.rateSmall),
+            rateMedium: parseFloat(item.rateMedium),
+            rateLarge: parseFloat(item.rateLarge),
           };
         });
         res.status(200).json(returnWashers);
@@ -239,7 +239,10 @@ usersRouter.get('/available/:city', async (req, res) => {
         res.status(404).json({ message: 'No available washers found.' });
       }
     })
-    .catch((err) => res.status(500).json(err.message));
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err.message);
+    });
 });
 
 // MIDDLEWARE TO CHECK AN ID ACTUALLY EXISTS
