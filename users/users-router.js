@@ -219,7 +219,6 @@ usersRouter.put('/washer/:id', (req, res) => {
 });
 
 usersRouter.get('/available/:city', async (req, res) => {
-  console.log(req.params.city);
   const city = req.params.city.toLowerCase();
   Users.getAvailableWashers(city)
     .then((washers) => {
