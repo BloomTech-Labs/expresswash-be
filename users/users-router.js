@@ -3,7 +3,23 @@ const { findWasherId } = require('../auth/auth-modal');
 const Users = require('../users/users-model.js');
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
-// make payment for job
+// iOS stripe endpoint with - paymentIntent
+usersRouter.post('/payment-intent', async (req, res) => {
+  const { amount, currency } = req.body;
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: amount,
+    currency: currency,
+  });
+
+  // Send publishable key and PaymentIntent details to client
+  res.send({
+    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+
+// make payment for job - using stripe checkout on frontend
 usersRouter.post('/payment', (req, res) => {
   const { product, token } = req.body;
 
