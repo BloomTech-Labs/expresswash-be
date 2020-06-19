@@ -85,11 +85,9 @@ jobsRouter.get('/jobInfo/:id', [validateJobId], async (req, res) => {
   const jobId = req.params.id;
   selectJobById(jobId)
     .then((result) => {
-      res.status(200).json({
-        ...result,
-        jobLocationLat: parseFloat(result.jobLocationLat),
-        jobLocationLon: parseFloat(result.jobLocationLon),
-      });
+      result[0].jobLocationLat = parseFloat(result[0].jobLocationLat);
+      result[0].jobLocationLon = parseFloat(result[0].jobLocationLon);
+      res.status(200).json(result);
     })
     .catch((err) => res.status(500).json(err));
 });
@@ -101,11 +99,9 @@ jobsRouter.put('/selectJob/:id', [validateJobId], async (req, res) => {
   const washerId = req.body;
   addWasherToJob(jobId, washerId)
     .then((result) => {
-      res.status(203).json({
-        ...result,
-        jobLocationLat: parseFloat(result.jobLocationLat),
-        jobLocationLon: parseFloat(result.jobLocationLon),
-      });
+      result[0].jobLocationLat = parseFloat(result[0].jobLocationLat);
+      result[0].jobLocationLon = parseFloat(result[0].jobLocationLon);
+      res.status(203).json(result);
     })
     .catch((err) => res.status(500).json(err));
 });
@@ -126,11 +122,9 @@ jobsRouter.put('/job/:id', [validateJobId], async (req, res) => {
   const changes = req.body;
   editJob(jobId, changes)
     .then((edited) => {
-      res.status(200).json({
-        ...edited,
-        jobLocationLat: parseFloat(edited.jobLocationLat),
-        jobLocationLon: parseFloat(edited.jobLocationLon),
-      });
+      edited[0].jobLocationLat = parseFloat(edited[0].jobLocationLat);
+      edited[0].jobLocationLon = parseFloat(edited[0].jobLocationLon);
+      res.status(200).json(edited);
     })
     .catch((err) => res.status(500).json(err.message));
 });
