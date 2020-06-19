@@ -49,11 +49,9 @@ jobsRouter.post('/new', [addJobLatLon], async (req, res) => {
   };
   addNewJob(newJob)
     .then((newJobRes) => {
-      res.status(201).json({
-        ...newJobRes,
-        jobLocationLat: parseFloat(newJobRes.jobLocationLat),
-        jobLocationLon: parseFloat(newJobRes.jobLocationLon),
-      });
+      newJobRes[0].jobLocationLat = parseFloat(newJobRes[0].jobLocationLat);
+      newJobRes[0].jobLocationLon = parseFloat(newJobRes[0].jobLocationLon);
+      res.status(201).json(newJobRes);
     })
     .catch((err) => res.status(500).json(err.message));
 });
@@ -67,9 +65,11 @@ jobsRouter.get('/available/:id', async (req, res) => {
       if (newJobs) {
         const returnJobs = newJobs.map((item) => {
           delete item.password;
-          parseFloat(item.jobLocationLat);
-          parseFloat(item.jobLocationLon);
-          return item;
+          return {
+            ...item,
+            jobLocationLat: parseFloat(item.jobLocationLat),
+            jobLocationLon: parseFloat(item.jobLocationLon),
+          };
         });
         res.status(200).json(returnJobs);
       } else {
@@ -142,7 +142,7 @@ jobsRouter.get('/user/:id', async (req, res) => {
     .then((jobs) => {
       if (jobs) {
         jobs.map((job) => {
-          parseFloat(job.jobLocationLat);
+          console.log(parseFloat(job.jobLocationLat));
           parseFloat(job.jobLocationLon);
           return job;
         });
@@ -163,7 +163,7 @@ jobsRouter.get('/washer/:id', async (req, res) => {
     .then((jobs) => {
       if (jobs) {
         jobs.map((job) => {
-          parseFloat(job.jobLocationLat);
+          parseFloat(job.jobLocationLat.parseFloat);
           parseFloat(job.jobLocationLon);
           return job;
         });
