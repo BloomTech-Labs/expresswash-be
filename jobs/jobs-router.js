@@ -1,5 +1,5 @@
-const axios = require("axios");
-const jobsRouter = require("express").Router();
+const axios = require('axios');
+const jobsRouter = require('express').Router();
 const {
   addNewJob,
   getAvailableJobs,
@@ -10,10 +10,10 @@ const {
   getJobsByUserId,
   getJobsByWasherId,
   find,
-} = require("./jobs-model.js");
+} = require('./jobs-model.js');
 
 // creates a job
-jobsRouter.post("/new", [addJobLatLon], async (req, res) => {
+jobsRouter.post('/new', [addJobLatLon], async (req, res) => {
   const date = new Date();
   const creationDate = date;
   const {
@@ -37,8 +37,12 @@ jobsRouter.post("/new", [addJobLatLon], async (req, res) => {
     carId,
     address,
     address2,
-    jobLocationLat: req.jobLat ? req.jobLat : jobLocationLat,
-    jobLocationLon: req.jobLon ? req.jobLon : jobLocationLon,
+    jobLocationLat: req.jobLat
+      ? parseFloat(req.jobLat)
+      : parseFloat(jobLocationLat),
+    jobLocationLon: req.jobLon
+      ? parseFloat(req.jobLon)
+      : parseFloat(jobLocationLon),
     city,
     state,
     zip,
@@ -56,7 +60,7 @@ jobsRouter.post("/new", [addJobLatLon], async (req, res) => {
 
 // returns all jobs with washerid null (new jobs)
 // takes user id from params
-jobsRouter.get("/available/:id", async (req, res) => {
+jobsRouter.get('/available/:id', async (req, res) => {
   const id = req.params.id;
   getAvailableJobs(id)
     .then((newJobs) => {
@@ -67,7 +71,7 @@ jobsRouter.get("/available/:id", async (req, res) => {
         });
         res.status(200).json(returnJobs);
       } else {
-        res.status(404).json({ message: "No available jobs found." });
+        res.status(404).json({ message: 'No available jobs found.' });
       }
     })
     .catch((err) => res.status(500).json(err.message));
@@ -75,7 +79,7 @@ jobsRouter.get("/available/:id", async (req, res) => {
 
 // returns the full job for a given jobid
 // changed to a get from a post didn't make sense before returns an array requires to send a job id in the body? shouldn't this be coming from params?
-jobsRouter.get("/jobInfo/:id", [validateJobId], async (req, res) => {
+jobsRouter.get('/jobInfo/:id', [validateJobId], async (req, res) => {
   const jobId = req.params.id;
   selectJobById(jobId)
     .then((result) => {
@@ -86,7 +90,7 @@ jobsRouter.get("/jobInfo/:id", [validateJobId], async (req, res) => {
 
 // adds the washer to new job
 //uses job id
-jobsRouter.put("/selectJob/:id", [validateJobId], async (req, res) => {
+jobsRouter.put('/selectJob/:id', [validateJobId], async (req, res) => {
   const jobId = req.params.id;
   const washerId = req.body;
   addWasherToJob(jobId, washerId)
@@ -97,7 +101,7 @@ jobsRouter.put("/selectJob/:id", [validateJobId], async (req, res) => {
 });
 
 //deletes a job by jobId
-jobsRouter.delete("/job/:id", [validateJobId], async (req, res) => {
+jobsRouter.delete('/job/:id', [validateJobId], async (req, res) => {
   const jobId = req.params.id;
   deleteJob(jobId)
     .then((removed) => {
@@ -107,7 +111,7 @@ jobsRouter.delete("/job/:id", [validateJobId], async (req, res) => {
 });
 
 //updates a job by jobId
-jobsRouter.put("/job/:id", [validateJobId], async (req, res) => {
+jobsRouter.put('/job/:id', [validateJobId], async (req, res) => {
   const jobId = req.params.id;
   const changes = req.body;
   editJob(jobId, changes)
@@ -118,7 +122,7 @@ jobsRouter.put("/job/:id", [validateJobId], async (req, res) => {
 });
 
 //returns all jobs associated with given userId
-jobsRouter.get("/user/:id", async (req, res) => {
+jobsRouter.get('/user/:id', async (req, res) => {
   const userId = req.params.id;
   getJobsByUserId(userId)
     .then((jobs) => {
@@ -127,14 +131,14 @@ jobsRouter.get("/user/:id", async (req, res) => {
       } else {
         res
           .status(400)
-          .json({ message: "Jobs for the specified ID does not exist." });
+          .json({ message: 'Jobs for the specified ID does not exist.' });
       }
     })
     .catch((err) => res.status(500).json(err.message));
 });
 
 //returns all jobs associated with given washerId
-jobsRouter.get("/washer/:id", async (req, res) => {
+jobsRouter.get('/washer/:id', async (req, res) => {
   const washerId = req.params.id;
   getJobsByWasherId(washerId)
     .then((jobs) => {
@@ -143,13 +147,13 @@ jobsRouter.get("/washer/:id", async (req, res) => {
       } else {
         res
           .status(400)
-          .json({ message: "Jobs for the specified ID does not exist." });
+          .json({ message: 'Jobs for the specified ID does not exist.' });
       }
     })
     .catch((err) => res.status(500).json(err.message));
 });
 
-jobsRouter.get("/", async (req, res) => {
+jobsRouter.get('/', async (req, res) => {
   find()
     .then((jobs) => {
       res.status(200).json(jobs);
@@ -166,7 +170,7 @@ function validateJobId(req, res, next) {
       req.job = job;
       next();
     } else {
-      res.status(400).json({ message: "invalid job id" });
+      res.status(400).json({ message: 'invalid job id' });
     }
   });
 }
@@ -176,17 +180,21 @@ async function addJobLatLon(req, res, next) {
   if (!req.body.washAddress || req.body.washAddress.length < 5)
     return res
       .status(500)
-      .json({ message: "Please provide a valid washAddress" });
+      .json({ message: 'Please provide a valid washAddress' });
   if (!req.body.jobLocationLat || !req.body.jobLocationLon) {
     const TOKEN =
-      "pk.eyJ1IjoicXVhbjAwNSIsImEiOiJjazN0a2N3a2YwM3ViM2twdzhkbGphMTZzIn0.OepqB_mymhr1YLSYwNmRSg"; // Set your mapbox token here
-    const country = "us";
+      'pk.eyJ1IjoicXVhbjAwNSIsImEiOiJjazN0a2N3a2YwM3ViM2twdzhkbGphMTZzIn0.OepqB_mymhr1YLSYwNmRSg'; // Set your mapbox token here
+    const country = 'us';
     try {
       const getLocation = await axios.get(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${req.body.washAddress}.json?country=${country}&limit=1&autocomplete=true&access_token=${TOKEN}`
       );
-      req.jobLat = getLocation.data.features[0].geometry.coordinates[1];
-      req.jobLon = getLocation.data.features[0].geometry.coordinates[0];
+      req.jobLat = parseFloat(
+        getLocation.data.features[0].geometry.coordinates[1]
+      );
+      req.jobLon = parseFloat(
+        getLocation.data.features[0].geometry.coordinates[0]
+      );
       next();
     } catch (err) {
       res.status(500).json(err.message);
