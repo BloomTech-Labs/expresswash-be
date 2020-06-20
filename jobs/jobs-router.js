@@ -37,12 +37,8 @@ jobsRouter.post('/new', [addJobLatLon], async (req, res) => {
     carId,
     address,
     address2,
-    jobLocationLat: req.jobLat
-      ? parseFloat(req.jobLat)
-      : parseFloat(jobLocationLat),
-    jobLocationLon: req.jobLon
-      ? parseFloat(req.jobLon)
-      : parseFloat(jobLocationLon),
+    jobLocationLat: req.jobLat ? req.jobLat : jobLocationLat,
+    jobLocationLon: req.jobLon ? req.jobLon : jobLocationLon,
     city,
     state,
     zip,
@@ -53,6 +49,8 @@ jobsRouter.post('/new', [addJobLatLon], async (req, res) => {
   };
   addNewJob(newJob)
     .then((newJobRes) => {
+      newJobRes[0].jobLocationLat = parseFloat(newJobRes[0].jobLocationLat);
+      newJobRes[0].jobLocationLon = parseFloat(newJobRes[0].jobLocationLon);
       res.status(201).json(newJobRes);
     })
     .catch((err) => res.status(500).json(err.message));
@@ -67,7 +65,11 @@ jobsRouter.get('/available/:id', async (req, res) => {
       if (newJobs) {
         const returnJobs = newJobs.map((item) => {
           delete item.password;
-          return item;
+          return {
+            ...item,
+            jobLocationLat: parseFloat(item.jobLocationLat),
+            jobLocationLon: parseFloat(item.jobLocationLon),
+          };
         });
         res.status(200).json(returnJobs);
       } else {
@@ -83,6 +85,8 @@ jobsRouter.get('/jobInfo/:id', [validateJobId], async (req, res) => {
   const jobId = req.params.id;
   selectJobById(jobId)
     .then((result) => {
+      result[0].jobLocationLat = parseFloat(result[0].jobLocationLat);
+      result[0].jobLocationLon = parseFloat(result[0].jobLocationLon);
       res.status(200).json(result);
     })
     .catch((err) => res.status(500).json(err));
@@ -95,6 +99,8 @@ jobsRouter.put('/selectJob/:id', [validateJobId], async (req, res) => {
   const washerId = req.body;
   addWasherToJob(jobId, washerId)
     .then((result) => {
+      result[0].jobLocationLat = parseFloat(result[0].jobLocationLat);
+      result[0].jobLocationLon = parseFloat(result[0].jobLocationLon);
       res.status(203).json(result);
     })
     .catch((err) => res.status(500).json(err));
@@ -116,6 +122,8 @@ jobsRouter.put('/job/:id', [validateJobId], async (req, res) => {
   const changes = req.body;
   editJob(jobId, changes)
     .then((edited) => {
+      edited[0].jobLocationLat = parseFloat(edited[0].jobLocationLat);
+      edited[0].jobLocationLon = parseFloat(edited[0].jobLocationLon);
       res.status(200).json(edited);
     })
     .catch((err) => res.status(500).json(err.message));
@@ -127,6 +135,11 @@ jobsRouter.get('/user/:id', async (req, res) => {
   getJobsByUserId(userId)
     .then((jobs) => {
       if (jobs) {
+        jobs.map((job) => {
+          job.jobLocationLat = parseFloat(job.jobLocationLat);
+          job.jobLocationLon = parseFloat(job.jobLocationLon);
+          return job;
+        });
         res.status(200).json(jobs);
       } else {
         res
@@ -143,6 +156,11 @@ jobsRouter.get('/washer/:id', async (req, res) => {
   getJobsByWasherId(washerId)
     .then((jobs) => {
       if (jobs) {
+        jobs.map((job) => {
+          job.jobLocationLat = parseFloat(job.jobLocationLat);
+          job.jobLocationLon = parseFloat(job.jobLocationLon);
+          return job;
+        });
         res.status(200).json(jobs);
       } else {
         res
@@ -156,6 +174,11 @@ jobsRouter.get('/washer/:id', async (req, res) => {
 jobsRouter.get('/', async (req, res) => {
   find()
     .then((jobs) => {
+      jobs.map((job) => {
+        job.jobLocationLat = parseFloat(job.jobLocationLat);
+        job.jobLocationLon = parseFloat(job.jobLocationLon);
+        return job;
+      });
       res.status(200).json(jobs);
     })
     .catch((err) => {
@@ -189,12 +212,8 @@ async function addJobLatLon(req, res, next) {
       const getLocation = await axios.get(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${req.body.washAddress}.json?country=${country}&limit=1&autocomplete=true&access_token=${TOKEN}`
       );
-      req.jobLat = parseFloat(
-        getLocation.data.features[0].geometry.coordinates[1]
-      );
-      req.jobLon = parseFloat(
-        getLocation.data.features[0].geometry.coordinates[0]
-      );
+      req.jobLat = getLocation.data.features[0].geometry.coordinates[1];
+      req.jobLon = getLocation.data.features[0].geometry.coordinates[0];
       next();
     } catch (err) {
       res.status(500).json(err.message);

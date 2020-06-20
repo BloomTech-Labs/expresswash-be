@@ -1,8 +1,8 @@
-require("dotenv").config();
+require('dotenv').config();
 
 module.exports = {
   development: {
-    client: "pg",
+    client: 'pg',
     connection: {
       host: process.env.LOCAL_DB_HOST,
       port: process.env.LOCAL_DB_PORT,
@@ -24,14 +24,14 @@ module.exports = {
     // },
     // useNullAsDefault: true,
     migrations: {
-      directory: "./database/migrationsPG",
+      directory: './database/migrationsPG',
     },
     seeds: {
-      directory: "./database/seedsPG",
+      directory: './database/seedsPG',
     },
   },
   testing: {
-    client: "pg",
+    client: 'pg',
     connection: {
       host: process.env.LOCAL_DB_HOST,
       port: process.env.LOCAL_DB_PORT,
@@ -44,14 +44,14 @@ module.exports = {
       max: 10,
     },
     migrations: {
-      directory: "./database/migrations",
+      directory: './database/migrations',
     },
     seeds: {
-      directory: "./database/seeds",
+      directory: './database/seeds',
     },
   },
   production: {
-    client: "pg",
+    client: 'pg',
     connection: {
       host: process.env.RDS_HOSTNAME,
       port: process.env.RDS_PORT,
@@ -64,14 +64,14 @@ module.exports = {
       max: 10,
     },
     migrations: {
-      directory: "./database/migrationsPG",
+      directory: './database/migrationsPG',
     },
     seeds: {
-      directory: "./database/seedsPG",
+      directory: './database/seedsPG',
     },
   },
   testDb: {
-    client: "pg",
+    client: 'pg',
     connection: {
       host: process.env.RDS_TEST_HOSTNAME,
       port: process.env.RDS_TEST_PORT,
@@ -84,10 +84,10 @@ module.exports = {
       max: 10,
     },
     migrations: {
-      directory: "./database/migrationsPG",
+      directory: './database/migrationsPG',
     },
     seeds: {
-      directory: "./database/seedsPG",
+      directory: './database/seedsPG',
     },
   },
 };

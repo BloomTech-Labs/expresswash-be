@@ -38,8 +38,8 @@ tracker.on('query', (query) => {
   query.response([
     {
       id: 1,
-      name: 'denton',
-      email: 'denton@email.com',
+      name: 'joe',
+      email: 'joe@email.com',
     },
   ]);
 });
