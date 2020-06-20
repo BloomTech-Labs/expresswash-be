@@ -157,6 +157,8 @@ router.post('/job/before/:id', (req, res) => {
     } else {
       Jobs.editJob(req.params.id, { photoBeforeJob: req.file.location })
         .then((job) => {
+          job.jobLocationLat = parseFloat(job.jobLocationLat);
+          job.jobLocationLon = parseFloat(job.jobLocationLon);
           res.status(201).json(job);
         })
         .catch((err) => {
@@ -174,6 +176,8 @@ router.post('/job/after/:id', (req, res) => {
     } else {
       Jobs.editJob(req.params.id, { photoAfterJob: req.file.location })
         .then((job) => {
+          job.jobLocationLat = parseFloat(job.jobLocationLat);
+          job.jobLocationLon = parseFloat(job.jobLocationLon);
           res.status(201).json(job);
         })
         .catch((err) => {
