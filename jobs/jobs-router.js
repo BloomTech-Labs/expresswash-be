@@ -117,6 +117,7 @@ jobsRouter.delete('/job/:id', [validateJobId], async (req, res) => {
 });
 
 //updates a job by jobId
+
 jobsRouter.put('/job/:id', [validateJobId], async (req, res) => {
   const jobId = req.params.id;
   const changes = req.body;
