@@ -10,7 +10,7 @@ let transporter = nodemailer.createTransport({
 });
 const sendEMail = (to, subject, text, data, cb) => {
   let mailOptions = {
-    from: 'expresswash09@hotmail.com',
+    from: 'expresswash09@hotmail.com "<no-reply@expresswash09@hotmail.com>"',
     to,
     subject,
     text,
