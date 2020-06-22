@@ -15,7 +15,7 @@ const {
 // creates a job
 jobsRouter.post('/new', [addJobLatLon], async (req, res) => {
   const date = new Date();
-  const creationDate = date;
+  const creationDate = date.toLocaleDateString();
   const {
     clientId,
     washAddress,
