@@ -5,7 +5,7 @@ const Users = require('../users/users-model');
 router.post('/send-email', checkId, (req, res) => {
   const { clientId } = req.body;
 
-  const subject = 'Expresswash Notification';
+  const subject = 'Express Wash Notification';
   const text = 'Your job has been completed!';
   Users.findById(clientId).then((user) => {
     sendEmail(user.email, subject, text, user, (err, data) => {

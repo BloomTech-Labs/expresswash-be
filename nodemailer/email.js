@@ -15,6 +15,13 @@ const sendEMail = (to, subject, text, data, cb) => {
     subject,
     text,
     html: Hello(data),
+    attachments: [
+      {
+        filename: 'ExpressWashLogo.png',
+        path: __dirname + '/ExpressWashLogo.png',
+        cid: 'expressWash',
+      },
+    ],
   };
 
   transporter.sendMail(mailOptions, (err, data) => {
